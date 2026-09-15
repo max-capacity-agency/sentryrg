@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/1cd1e7d71e048159076fd90b39846902?family=Open+Sauce+One" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/42acf9aa4a6dc2f2886a3f682e337ead?family=Open+Sauce+One+Bold" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:#ffffff; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    a:hover { color:#f5b301; }
+    input, select, button, textarea { font-family:'Plus Jakarta Sans', sans-serif; }
+    .pg-cta { position:relative; display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:360px; color:#10203a; background:#f5b301; overflow:hidden; cursor:pointer; isolation:isolate; box-shadow:0 8px 22px -6px rgba(245,179,1,.6); transition:transform .2s ease, box-shadow .2s ease; }
+    .pg-cta span { position:relative; z-index:1; }
+    .pg-cta::after { content:''; position:absolute; inset:0; z-index:0; background:linear-gradient(115deg, transparent 20%, rgba(255,255,255,.78) 50%, transparent 80%); transform:translateX(-120%); animation:pgShine 3.2s ease-in-out infinite; pointer-events:none; }
+    .pg-cta:hover { transform:translateY(-2px); box-shadow:0 13px 30px -6px rgba(245,179,1,.72); }
+    @keyframes pgShine { 0% { transform:translateX(-120%); } 55%,100% { transform:translateX(120%); } }
+    @media (prefers-reduced-motion: reduce) { .pg-cta::after { animation:none; } }
+  </style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',sans-serif;color:#1a2230;background:#ffffff">
+
+  <dc-import name="Site Nav" current="about" hint-size="100%,96px"></dc-import>
+
+  <header data-screen-label="About hero" style="position:relative;overflow:hidden;background:#0d1b2e;padding:184px 28px 88px">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 78% 12%,rgba(245,179,1,.16),transparent 58%)"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto">
+      <p style="margin:0 0 22px;font:600 11.5px/1.6 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f5b301">Veteran Owned · Serving San Antonio &amp; the Texas Hill Country</p>
+      <h1 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(38px,4.8vw,64px);line-height:1.08;letter-spacing:-.015em;color:#ffffff;max-width:860px">Twenty-five years of <em style="font-style:normal;font-weight:800;color:#f5b301">craft</em> on San Antonio roofs</h1>
+      <p style="margin:24px 0 0;font:400 17.5px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82);max-width:620px;text-wrap:pretty">Most roofing projects run over budget and past deadline. Yours won't: an itemized fixed proposal in writing, the owner on your roof every day, and a lifetime workmanship warranty.</p>
+    </div>
+  </header>
+
+  <section data-screen-label="Stats bar" style="background:rgba(255,255,255,.1)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px">
+      <div style="background:#0d1b2e;text-align:center;padding:42px 24px"><div style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:44px;color:#f5b301">2,400+</div><div style="margin-top:8px;font:600 11.5px/1.5 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.68)">ROOFS FIXED</div></div>
+      <div style="background:#0d1b2e;text-align:center;padding:42px 24px"><div style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:44px;color:#f5b301">5+</div><div style="margin-top:8px;font:600 11.5px/1.5 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.68)">Years of Experience</div></div>
+      <div style="background:#0d1b2e;text-align:center;padding:42px 24px"><div style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:44px;color:#f5b301">10+</div><div style="margin-top:8px;font:600 11.5px/1.5 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.68)">Certified Roofing Experts</div></div>
+    </div>
+  </section>
+
+  <section data-screen-label="Welcome" style="background:#ffffff;padding:104px 28px">
+    <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px 64px;align-items:center">
+      <div style="flex:1 1 440px;min-width:300px">
+        <img src="./assets/welcome-crew.jpg" alt="The Sentry Roofing crew on site" style="display:block;width:100%;height:auto;border-radius:16px;border:1px solid #e6e1d3">
+      </div>
+      <div style="flex:1 1 440px;min-width:300px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">Welcome to Sentry Roofing</p>
+        <h2 style="margin:0 0 22px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;letter-spacing:-.01em;color:#1a2230">Owner-run, <em style="font-style:normal;font-weight:800">not outsourced</em></h2>
+        <p style="margin:0 0 18px;font:400 16px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">JJ has spent twenty-five years in the trade, twenty of them as an insurance adjuster before he started roofing. He runs every job himself and is on the roof for it — and each one is documented daily, from tear-off to the final magnet sweep.</p>
+        <p style="margin:0 0 24px;font:400 16px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">We work slowly enough to do it once and quickly enough to keep a written schedule. Proudly serving homeowners across San Antonio, the I-35 corridor and the Texas Hill Country.</p>
+        <a href="Process.dc.html" style-hover="border-color:#f5b301;color:#f5b301" style="display:inline-block;font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#9a7500;border-bottom:1px solid #9a7500;padding-bottom:6px;cursor:pointer;transition:color .25s ease,border-color .25s ease">See Our Process →</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Service areas" style="background:#f4f0e6;padding:96px 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <p style="margin:0 0 20px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">Service Areas</p>
+      <h2 style="margin:0 0 32px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">Across San Antonio and the <em style="font-style:normal;font-weight:800">Texas Hill Country</em></h2>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{areas}}" as="a" hint-placeholder-count="15">
+          <span style-hover="border-color:#f5b301;color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#fff;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">{{a}}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Why us comparison" style="padding:104px 28px">
+    <div style="max-width:900px;margin:0 auto">
+      <div style="text-align:center;max-width:640px;margin:0 auto 44px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">Why Us</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;color:#1a2230">The difference, <em style="font-style:normal;font-weight:800">itemized</em></h2>
+      </div>
+      <div style="border:1px solid #e6e1d3;border-radius:14px;overflow:hidden;background:#fff">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:#0d1b2e;padding:20px 26px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:19px;color:#fff">Sentry Roofing</div>
+          <div style="background:#f4f0e6;padding:20px 26px;font:600 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#5a6272;display:flex;align-items:center">The Typical Roofer</div>
+        </div>
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+            <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:#9a7500;font-weight:800">✓</span><span>{{r.us}}</span></div>
+            <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>{{r.them}}</span></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:44px;justify-content:center">
+        <a href="tel:+18337368793" class="pg-cta" style="font:700 15px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px"><span>Get a Free Estimate</span></a>
+        <span style="font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272">Starts with a free inspection, not a sales call.</span>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="Site Footer" hint-size="100%,900px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  AREAS = ['San Antonio', 'New Braunfels', 'Austin', 'San Marcos', 'Boerne', 'Fredericksburg', 'Schertz', 'Cibolo', 'Selma', 'Universal City', 'Canyon Lake', 'Bulverde', 'Helotes', 'Kyle', 'Texas Hill Country'];
+
+  ROWS = [
+    { us: '25 years in the trade — 20 of them as an insurance adjuster', them: 'Salesmen who have never written a claim' },
+    { us: 'An itemized fixed-price proposal, in writing', them: 'A number on the back of a business card' },
+    { us: 'The owner on the roof, every day of the job', them: 'A rep you meet once and never see again' },
+    { us: '100+ photos per job — before, during and after', them: 'A verbal promise that it was done right' },
+    { us: 'IKO materials, written guarantee, magnet-rolled cleanup', them: 'Vague promises and nails left in your driveway' },
+    { us: 'A lifetime warranty on the work', them: 'A warranty that runs out before the roof does' },
+    { us: 'A courtesy follow-up inspection every year', them: 'Gone the day the check clears' }
+  ];
+
+  renderVals() { return { areas: this.AREAS, rows: this.ROWS }; }
+}
+</script>
+</body>
+</html>

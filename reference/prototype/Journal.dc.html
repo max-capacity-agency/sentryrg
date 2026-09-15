@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/1cd1e7d71e048159076fd90b39846902?family=Open+Sauce+One" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/42acf9aa4a6dc2f2886a3f682e337ead?family=Open+Sauce+One+Bold" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:#ffffff; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    a:hover { color:#f5b301; }
+    input, select, button, textarea { font-family:'Plus Jakarta Sans', sans-serif; }
+    .jr-card img { transition:transform .6s cubic-bezier(.22,.61,.36,1); }
+    .jr-card:hover img { transform:scale(1.05); }
+  </style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',sans-serif;color:#1a2230;background:#ffffff">
+
+  <dc-import name="Site Nav" current="journal" hint-size="100%,96px"></dc-import>
+
+  <header data-screen-label="Journal hero" style="position:relative;overflow:hidden;background:#0d1b2e;padding:184px 28px 88px">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 78% 12%,rgba(245,179,1,.16),transparent 58%)"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto">
+      <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f5b301">Most Popular</p>
+      <h1 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(38px,4.8vw,64px);line-height:1.08;letter-spacing:-.015em;color:#ffffff;max-width:860px">Reads homeowners keep <em style="font-style:normal;font-weight:800;color:#f5b301">coming back to</em></h1>
+      <p style="margin:24px 0 0;font:400 17.5px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82);max-width:620px;text-wrap:pretty">Pricing benchmarks, seasonal maintenance, and how storm claims actually work — written by the people who do the work.</p>
+    </div>
+  </header>
+
+  <section data-screen-label="Journal grid" style="background:#ffffff;padding:96px 28px">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px 32px">
+      <sc-for list="{{posts}}" as="p" hint-placeholder-count="3">
+        <article class="jr-card">
+          <div style="overflow:hidden;border-radius:12px;border:1px solid #e6e1d3"><img src="{{p.img}}" alt="{{p.alt}}" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover"></div>
+          <div style="display:flex;gap:14px;margin:16px 0 8px;font:700 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#9a7500"><span>{{p.cat}}</span><span style="color:#98a0ad">{{p.read}}</span></div>
+          <h2 style="margin:0 0 10px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:21px;line-height:1.3;color:#1a2230">{{p.title}}</h2>
+          <p style="margin:0 0 14px;font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{p.dek}}</p>
+          <span style-hover="color:#1a2230" style="font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#9a7500;cursor:pointer;transition:color .25s ease">Read More →</span>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <dc-import name="Site Footer" hint-size="100%,900px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  POSTS = [
+    { img: './assets/journal-1.jpg', alt: 'Worn clay tiles', cat: 'Pricing', read: '6 min read', title: 'What a New Roof Really Costs in San Antonio in 2026', dek: 'A line-by-line look at where the money goes — and the benchmarks we hold every quote to.' },
+    { img: './assets/journal-2.jpg', alt: 'Two tile materials side by side', cat: 'Maintenance', read: '5 min read', title: "7 Warning Signs Your Roof Won't Survive Another Hail Season", dek: 'The small tells most homeowners miss — until the first hard freeze makes them obvious.' },
+    { img: './assets/journal-3.jpg', alt: 'Roof battens mid-installation', cat: 'Insurance', read: '8 min read', title: "Storm Claims: A Homeowner's Playbook", dek: 'How to document damage, meet the adjuster, and get the scope your policy actually owes you.' }
+  ];
+
+  renderVals() { return { posts: this.POSTS }; }
+}
+</script>
+</body>
+</html>
