@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/1cd1e7d71e048159076fd90b39846902?family=Open+Sauce+One" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/42acf9aa4a6dc2f2886a3f682e337ead?family=Open+Sauce+One+Bold" rel="stylesheet">
+  <style>
+    .sf-cta { position:relative; display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:360px; color:#10203a; background:#f5b301; overflow:hidden; cursor:pointer; isolation:isolate; box-shadow:0 8px 22px -6px rgba(245,179,1,.6); transition:transform .2s ease, box-shadow .2s ease; }
+    .sf-cta span { position:relative; z-index:1; }
+    .sf-cta::after { content:''; position:absolute; inset:0; z-index:0; background:linear-gradient(115deg, transparent 20%, rgba(255,255,255,.78) 50%, transparent 80%); transform:translateX(-120%); animation:sfShine 3.2s ease-in-out infinite; pointer-events:none; }
+    .sf-cta:hover { transform:translateY(-2px); box-shadow:0 13px 30px -6px rgba(245,179,1,.72); }
+    @keyframes sfShine { 0% { transform:translateX(-120%); } 55%,100% { transform:translateX(120%); } }
+    @media (prefers-reduced-motion: reduce) { .sf-cta::after { animation:none; } }
+  </style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',sans-serif">
+
+  <section style="position:relative;overflow:hidden;background:#0d1b2e;padding:96px 28px">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(245,179,1,.16),transparent 60%)"></div>
+    <sc-if value="{{showForm}}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative;max-width:840px;margin:0 auto">
+      <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f5b301;text-align:center">Start Your Project</p>
+      <h2 style="margin:0 0 16px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);line-height:1.15;color:#fff;text-align:center">Tell us about your <em style="font-style:normal;font-weight:800;color:#f5b301">roof</em></h2>
+      <p style="margin:0 auto 34px;font:400 16px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.75);max-width:540px;text-align:center;text-wrap:pretty">A few details and we will come out for a free inspection. Prefer to talk it through? Call <a href="tel:+18337368793" style="color:#f5b301;font-weight:700">(833) 736-8793</a>.</p>
+      <sc-if value="{{ctNotSent}}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Name</span>
+            <input ref="{{ctName}}" placeholder="First and last name" style-focus="border-color:#f5b301" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Phone</span>
+            <input ref="{{ctPhone}}" type="tel" placeholder="(210) 000-0000" style-focus="border-color:#f5b301" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Email</span>
+            <input ref="{{ctEmail}}" type="email" placeholder="you@email.com" style-focus="border-color:#f5b301" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Property address</span>
+            <input ref="{{ctAddress}}" placeholder="Street and city" style-focus="border-color:#f5b301" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">What do you need?</span>
+            <select ref="{{ctService}}" style-focus="border-color:#f5b301" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(13,27,46,.85);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+              <option>Roof replacement</option>
+              <option>Roof repair</option>
+              <option>Free roof inspection</option>
+              <option>Storm or hail damage</option>
+              <option>Gutter installation</option>
+              <option>Emergency tarping</option>
+              <option>Commercial or multi-family</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Insurance claim?</span>
+            <select ref="{{ctClaim}}" style-focus="border-color:#f5b301" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(13,27,46,.85);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+              <option>Not sure yet</option>
+              <option>Yes, filing a claim</option>
+              <option>No, paying out of pocket</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;grid-column:1/-1">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Anything we should know?</span>
+            <textarea ref="{{ctNotes}}" rows="3" placeholder="Age of the roof, active leaks, storm date — whatever is useful" style-focus="border-color:#f5b301" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none;line-height:1.6;resize:vertical"></textarea>
+          </label>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:24px">
+          <span onClick="{{ctSubmit}}" class="sf-cta" style="font:700 14.5px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px"><span>Send to Sentry Roofing</span></span>
+          <span style="font:400 13.5px/1.6 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.62)">Goes straight to JJ. No call center, no spam.</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ctSent}}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:18px 0 6px">
+          <p style="margin:0 0 10px;font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#f5b301">✓ Your email is ready to send</p>
+          <p style="margin:0 auto;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.78);max-width:460px">Hit send in the window that just opened and it lands with JJ. If nothing opened, call <a href="tel:+18337368793" style="color:#f5b301;font-weight:700">(833) 736-8793</a>.</p>
+        </div>
+      </sc-if>
+    </div>
+    </sc-if>
+    <div style="position:relative;max-width:840px;margin:0 auto">
+      <div style="display:flex;gap:14px;justify-content:center;margin-top:36px">
+        <a href="https://instagram.com" target="_blank" rel="noopener" title="Instagram" style-hover="background:#f5b301;color:#10203a;border-color:#f5b301" style="width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.04em;text-decoration:none;transition:background .25s ease,color .25s ease,border-color .25s ease">IG</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener" title="Facebook" style-hover="background:#f5b301;color:#10203a;border-color:#f5b301" style="width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font:700 17px/1 Georgia,serif;text-decoration:none;transition:background .25s ease,color .25s ease,border-color .25s ease">f</a>
+        <a href="https://google.com/maps" target="_blank" rel="noopener" title="Google reviews" style-hover="background:#f5b301;color:#10203a;border-color:#f5b301" style="width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font:700 16px/1 Georgia,serif;text-decoration:none;transition:background .25s ease,color .25s ease,border-color .25s ease">G</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="position:relative;overflow:hidden;background:#0a1524;padding:80px 28px 40px">
+    <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;gap:48px 64px">
+        <div style="flex:1 1 280px;min-width:240px">
+          <img src="./assets/logo-light.png" alt="Sentry Roofing" style="height:40px;display:block;margin-bottom:18px;border-radius:5px">
+          <p style="margin:0;font:400 14.5px/1.7 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.62);max-width:300px">Veteran owned, fully insured and IKO ROOFPRO Craftsman Premier certified. Fixed written proposals and a lifetime workmanship warranty.</p>
+        </div>
+        <div style="flex:1 1 160px">
+          <p style="margin:0 0 16px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Services</p>
+          <div style="display:flex;flex-direction:column;gap:11px;font:500 14px/1.4 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82)">
+            <sc-for list="{{svcLinks}}" as="s" hint-placeholder-count="10">
+              <a href="{{s.href}}" style-hover="color:#f5b301" style="color:rgba(255,255,255,.82);text-decoration:none;transition:color .25s ease">{{s.t}}</a>
+            </sc-for>
+          </div>
+        </div>
+        <div style="flex:1 1 140px">
+          <p style="margin:0 0 16px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Company</p>
+          <div style="display:flex;flex-direction:column;gap:11px;font:500 14px/1.4 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82)">
+            <a href="About.dc.html" style-hover="color:#f5b301" style="color:rgba(255,255,255,.82);text-decoration:none;transition:color .25s ease">About</a>
+            <a href="Our Work.dc.html" style-hover="color:#f5b301" style="color:rgba(255,255,255,.82);text-decoration:none;transition:color .25s ease">Our Work</a>
+            <a href="Process.dc.html" style-hover="color:#f5b301" style="color:rgba(255,255,255,.82);text-decoration:none;transition:color .25s ease">Process</a>
+            <a href="Journal.dc.html" style-hover="color:#f5b301" style="color:rgba(255,255,255,.82);text-decoration:none;transition:color .25s ease">Journal</a>
+            <a href="Homepage.dc.html#materials" style-hover="color:#f5b301" style="color:rgba(255,255,255,.82);text-decoration:none;transition:color .25s ease">What We Install</a>
+            <a href="Contact.dc.html" style-hover="color:#f5b301" style="color:rgba(255,255,255,.82);text-decoration:none;transition:color .25s ease">Contact</a>
+          </div>
+        </div>
+        <div style="flex:1 1 220px">
+          <p style="margin:0 0 16px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Contact</p>
+          <div style="display:flex;flex-direction:column;gap:11px;font:500 14px/1.5 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82)">
+            <a href="tel:+18337368793" style="color:#f5b301;font-weight:700;text-decoration:none">(833) 736-8793</a>
+            <a href="mailto:jj@sentryrg.com" style="color:rgba(255,255,255,.82);text-decoration:none">jj@sentryrg.com</a>
+            <span>Serving San Antonio, the I-35 corridor<br>and the Texas Hill Country</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);font:400 12.5px/1.6 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.48)">
+        <span>Veteran Owned &amp; Operated · Fully Insured</span>
+        <span>Website design &amp; build by <a href="https://maxcapacityagency.com" target="_blank" rel="noopener" style="color:rgba(255,255,255,.7);text-decoration:underline">Max Capacity Agency</a></span>
+        <span>© 2026 Sentry Roofing</span>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{isMobile}}" hint-placeholder-val="{{ false }}">
+    <div style="height:56px"></div>
+    <a href="tel:+18337368793" style="position:fixed;bottom:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:center;gap:10px;background:#0d1b2e;border-top:1px solid rgba(255,255,255,.16);padding:16px;font:700 13.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;color:#ffffff;text-decoration:none">
+      <span style="color:#f5b301;font-size:17px">✆</span> Call Now · Complimentary Inspection
+    </a>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  SVC = [
+    'Roof Replacement & Re-Roofing', 'Roof Repair', 'Roof Inspections',
+    'Storm & Insurance Claims', 'Gutter Installation',
+    'New Construction Roofing', 'Roof Maintenance Programs', 'Temporary Emergency Services',
+    'Skylight Installation & Repair', 'Commercial & Flat Roofing'
+  ];
+
+  state = { news: false, isMobile: false };
+
+  componentDidMount() {
+    this._r = () => {
+      const m = window.innerWidth < 840;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m });
+    };
+    window.addEventListener('resize', this._r);
+    this._r();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._r); }
+
+  ctRefs = {
+    name: React.createRef(), phone: React.createRef(), email: React.createRef(),
+    address: React.createRef(), service: React.createRef(), claim: React.createRef(), notes: React.createRef()
+  };
+  ctSubmit = () => {
+    const v = (k) => (this.ctRefs[k].current ? this.ctRefs[k].current.value.trim() : '');
+    const lines = [
+      'Name: ' + v('name'),
+      'Phone: ' + v('phone'),
+      'Email: ' + v('email'),
+      'Property address: ' + v('address'),
+      'Service needed: ' + v('service'),
+      'Insurance claim: ' + v('claim'),
+      '',
+      'Details:',
+      v('notes')
+    ];
+    const subject = 'Website enquiry — ' + (v('service') || 'Roofing project') + (v('address') ? ' — ' + v('address') : '');
+    window.location.href = 'mailto:jj@sentryrg.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+    this.setState({ ctSent: true });
+  };
+
+  renderVals() {
+    return {
+      done: this.state.news,
+      notDone: !this.state.news,
+      isMobile: this.state.isMobile,
+      showForm: this.props.hideForm !== true && this.props.hideForm !== 'true',
+      ctSent: !!this.state.ctSent,
+      ctNotSent: !this.state.ctSent,
+      ctSubmit: this.ctSubmit,
+      ctName: this.ctRefs.name, ctPhone: this.ctRefs.phone, ctEmail: this.ctRefs.email,
+      ctAddress: this.ctRefs.address, ctService: this.ctRefs.service,
+      ctClaim: this.ctRefs.claim, ctNotes: this.ctRefs.notes,
+      svcLinks: this.SVC.map((t, i) => ({ t, href: 'Service.dc.html?s=' + i }))
+    };
+  }
+}
+</script>
+</body>
+</html>

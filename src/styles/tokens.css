@@ -1,0 +1,68 @@
+/*
+ * Sentry Roofing design tokens.
+ * Values are lifted verbatim from the Claude Design prototype
+ * (see reference/REBUILD.md). Where you see a value here, that value
+ * is the spec: do not "tidy" it.
+ */
+
+:root {
+  /* ---- Color: grounds ---- */
+  --navy: #0d1b2e;        /* nav bar, dark sections, footer top */
+  --navy-deep: #0a1524;   /* hero base, footer */
+  --cream: #f4f0e6;       /* alternating light section ground */
+  --white: #ffffff;
+
+  /* ---- Color: accent ---- */
+  --hx: #f5b301;          /* gold: CTAs, kickers, stat numbers, rules */
+  --hxd: #9a7500;         /* gold deep: kicker text on light grounds */
+
+  /* ---- Color: text on light ---- */
+  --ink: #1a2230;         /* headings on light */
+  --body: #5a6272;        /* paragraphs on light */
+
+  /* ---- Color: hairlines on light ---- */
+  --hairline: #e6e1d3;
+  --hairline-alt: #eee9dc;
+
+  /* ---- Color: on dark ---- */
+  --on-dark: #ffffff;
+  --on-dark-body: rgba(255, 255, 255, 0.82);
+  --on-dark-muted: rgba(255, 255, 255, 0.72);
+  --border-dark: rgba(255, 255, 255, 0.14);
+
+  /* ---- Type families ---- */
+  --font-head: var(--font-open-sauce), system-ui, sans-serif;
+  --font-body: var(--font-jakarta), system-ui, sans-serif;
+
+  /* ---- Type scale ---- */
+  --h1-size: clamp(42px, 5.4vw, 74px);
+  --h1-lh: 1.06;
+  --h1-ls: -0.015em;
+  --h2-size: clamp(30px, 3.4vw, 42px);
+  --h2-lh: 1.14;
+  --kicker-size: 11.5px;
+  --kicker-ls: 0.28em;
+  --lead-size: 17.5px;
+  --lead-lh: 1.65;
+  --nav-link-size: 12px;
+  --nav-link-ls: 0.12em;
+  --btn-size: 13px;
+  --stat-size: 44px;
+
+  /* ---- Layout ---- */
+  --maxw: 1180px;
+  --gutter: 28px;
+  --section-y: clamp(60px, 9vw, 104px);
+  --nav-h: 96px;
+
+  /* ---- Radii ---- */
+  --r-card: 14px;
+  --r-dropdown: 12px;
+  --r-logo: 6px;
+}
+
+/*
+ * Nav switches to the hamburger sheet below 1120px.
+ * The prototype did this with a JS resize listener; the brief calls for
+ * a media query instead, so this breakpoint is the single source of truth.
+ */
