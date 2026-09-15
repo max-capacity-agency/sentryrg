@@ -1,0 +1,13 @@
+<?xml version="1.0"?><svg viewBox="0 0 260 150" width="260" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Halstead and Roe reversed logo">
+  
+  <path d="M102 44 L130 16 L158 44" fill="none" stroke="#f3efe6" stroke-width="2"></path>
+  <path d="M114 44 L130 28 L146 44" fill="none" stroke="#a86b3c" stroke-width="1.5"></path>
+  <circle cx="130" cy="11" r="2.2" fill="#a86b3c"></circle>
+  
+  <text x="130" y="88" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="400" font-size="28" fill="#f3efe6">Halstead <tspan font-style="italic" fill="#a86b3c">&amp;</tspan> Roe</text>
+  
+  <line x1="34" y1="109" x2="86" y2="109" stroke="rgba(243,239,230,0.2)" stroke-width="1"></line>
+  <line x1="174" y1="109" x2="226" y2="109" stroke="rgba(243,239,230,0.2)" stroke-width="1"></line>
+  
+  <text x="130" y="113" text-anchor="middle" font-family="Arial, sans-serif" font-weight="600" font-size="9" letter-spacing="4" fill="#9b9587">ARCHITECTURAL ROOFING</text>
+</svg>
