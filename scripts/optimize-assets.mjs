@@ -12,6 +12,7 @@
 import sharp from 'sharp'
 import { readdir, mkdir, copyFile, stat, readFile, rm } from 'node:fs/promises'
 import { join, extname, basename } from 'node:path'
+import { execFileSync } from 'node:child_process'
 
 const SRC = 'reference/assets-src'
 const OUT = 'public/assets'
@@ -22,8 +23,23 @@ const USED = 'reference/assets-used.txt'
 const MAX_EDGE = 1920
 const WEBP_QUALITY = 82
 
-// Passed through untouched: vector needs no raster pass, video is not sharp's job.
-const PASSTHROUGH = new Set(['.svg', '.mp4'])
+// Vector needs no raster pass.
+const PASSTHROUGH = new Set(['.svg'])
+
+/*
+ * Video is transcoded, not copied. The client's hero is HEVC/H.265, which
+ * does not play in Chrome or Firefox, so shipping it as-is leaves the hero
+ * blank for most visitors. It is also ~7.4Mbps for 720p (roughly 5x over)
+ * and carries an audio track a muted autoplay loop never uses, and its moov
+ * atom sits after mdat so playback cannot begin until the whole file lands.
+ *
+ * We emit H.264 for universal support and VP9/WebM as a smaller alternative,
+ * both without audio and with the MP4 faststarted.
+ *
+ * Requires ffmpeg. This is a local asset step, not part of `npm run build`;
+ * the outputs are committed.
+ */
+const VIDEO = new Set(['.mp4', '.mov', '.webm'])
 
 const fmt = (b) => `${(b / 1024 / 1024).toFixed(2)}MB`
 
@@ -51,6 +67,27 @@ for (const file of files) {
   const srcPath = join(SRC, file)
   const srcSize = (await stat(srcPath)).size
   srcTotal += srcSize
+
+  if (VIDEO.has(ext)) {
+    const stem = basename(file, ext)
+    const mp4 = join(OUT, `${stem}.mp4`)
+    const webm = join(OUT, `${stem}.webm`)
+    execFileSync('ffmpeg', [
+      '-y', '-loglevel', 'error', '-i', srcPath,
+      '-an', '-c:v', 'libx264', '-profile:v', 'high', '-level', '4.0',
+      '-pix_fmt', 'yuv420p', '-crf', '24', '-preset', 'slow', '-g', '60',
+      '-movflags', '+faststart', mp4,
+    ])
+    execFileSync('ffmpeg', [
+      '-y', '-loglevel', 'error', '-i', srcPath,
+      '-an', '-c:v', 'libvpx-vp9', '-crf', '34', '-b:v', '0',
+      '-row-mt', '1', '-deadline', 'good', '-cpu-used', '2', '-g', '60', webm,
+    ])
+    const outSize = (await stat(mp4)).size + (await stat(webm)).size
+    outTotal += outSize
+    rows.push([`${stem}.mp4 + .webm`, srcSize, outSize, 'h264 + vp9, no audio'])
+    continue
+  }
 
   if (PASSTHROUGH.has(ext)) {
     await copyFile(srcPath, join(OUT, file))
