@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Homepage" description="Full conversion homepage — video hero, before/after sliders, instant estimate, blog, FAQ" -->
+<helmet>
+  <script src="./ds-base.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/1cd1e7d71e048159076fd90b39846902?family=Open+Sauce+One" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/42acf9aa4a6dc2f2886a3f682e337ead?family=Open+Sauce+One+Bold" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #ffffff; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--hx, #f5b301); }
+    input, select, button, textarea { font-family: 'Plus Jakarta Sans', sans-serif; }
+    @keyframes hxKen { from { transform: scale(1.02); } to { transform: scale(1.1); } }
+    @property --gradient-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+    @property --gradient-angle-offset { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+    @property --gradient-percent { syntax: "<percentage>"; initial-value: 5%; inherits: false; }
+    @property --gradient-shine { syntax: "<color>"; initial-value: white; inherits: false; }
+    .shiny-cta {
+      --shiny-cta-bg: #0d1b2e;
+      --shiny-cta-bg-subtle: #1e3050;
+      --shiny-cta-fg: #ffffff;
+      --shiny-cta-highlight: var(--hx, #f5b301);
+      --shiny-cta-highlight-subtle: color-mix(in srgb, var(--hx, #f5b301) 55%, white);
+      --animation: gradient-angle linear infinite;
+      --duration: 3s;
+      --shadow-size: 2px;
+      --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+      isolation: isolate;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      outline-offset: 4px;
+      display: inline-block;
+      font: 700 15px/1.2 'Plus Jakarta Sans', sans-serif;
+      border: 1px solid transparent;
+      border-radius: 360px;
+      color: var(--shiny-cta-fg);
+      background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+        conic-gradient(from calc(var(--gradient-angle) - var(--gradient-angle-offset)), transparent, var(--shiny-cta-highlight) var(--gradient-percent), var(--gradient-shine) calc(var(--gradient-percent) * 2), var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3), transparent calc(var(--gradient-percent) * 4)) border-box;
+      box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+      transition: var(--transition);
+      transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
+    }
+    .shiny-cta::before, .shiny-cta::after, .shiny-cta span::before { content: ""; pointer-events: none; position: absolute; inset-inline-start: 50%; inset-block-start: 50%; translate: -50% -50%; z-index: -1; }
+    .shiny-cta:active { translate: 0 1px; }
+    .shiny-cta::before { --size: calc(100% - var(--shadow-size) * 3); --position: 2px; --space: calc(var(--position) * 2); width: var(--size); height: var(--size); background: radial-gradient(circle at var(--position) var(--position), white calc(var(--position) / 4), transparent 0) padding-box; background-size: var(--space) var(--space); background-repeat: space; mask-image: conic-gradient(from calc(var(--gradient-angle) + 45deg), black, transparent 10% 90%, black); border-radius: inherit; opacity: 0.4; z-index: -1; }
+    .shiny-cta::after { --animation: shimmer linear infinite; width: 100%; aspect-ratio: 1; background: linear-gradient(-50deg, transparent, var(--shiny-cta-highlight), transparent); mask-image: radial-gradient(circle at bottom, transparent 40%, black); opacity: 0.6; }
+    .shiny-cta span { z-index: 1; }
+    .shiny-cta span::before { --size: calc(100% + 1rem); width: var(--size); height: var(--size); box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight); opacity: 0; transition: opacity var(--transition); animation: calc(var(--duration) * 1.5) breathe linear infinite; }
+    .shiny-cta, .shiny-cta::before, .shiny-cta::after { animation: var(--animation) var(--duration), var(--animation) calc(var(--duration) / 0.4) reverse paused; animation-composition: add; }
+    .shiny-cta:is(:hover, :focus-visible) { --gradient-percent: 20%; --gradient-angle-offset: 95deg; --gradient-shine: var(--shiny-cta-highlight-subtle); }
+    .shiny-cta:is(:hover, :focus-visible), .shiny-cta:is(:hover, :focus-visible)::before, .shiny-cta:is(:hover, :focus-visible)::after { animation-play-state: running; }
+    .shiny-cta:is(:hover, :focus-visible) span::before { opacity: 1; }
+    .yellow-cta { position: relative; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 360px; color: var(--hxi, #10203a); background: var(--hx, #f5b301); overflow: hidden; cursor: pointer; isolation: isolate; box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--hx,#f5b301) 60%, transparent); transition: transform .2s ease, box-shadow .2s ease; }
+    .yellow-cta span { position: relative; z-index: 1; }
+    .yellow-cta::after { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,.78) 50%, transparent 80%); transform: translateX(-120%); animation: hxShine 3.2s ease-in-out infinite; pointer-events: none; }
+    .yellow-cta:hover { transform: translateY(-2px); box-shadow: 0 13px 30px -6px color-mix(in srgb, var(--hx,#f5b301) 72%, transparent); }
+    .yellow-cta:active { transform: translateY(0); }
+    @keyframes hxShine { 0% { transform: translateX(-120%); } 55%, 100% { transform: translateX(120%); } }
+    @keyframes gradient-angle { to { --gradient-angle: 360deg; } }
+    @keyframes shimmer { to { rotate: 360deg; } }
+    @keyframes breathe { from, to { scale: 1; } 50% { scale: 1.2; } }
+    @keyframes hxSlideL { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes hxSlideR { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes hxScaleIn { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+    .hx-glass { position:relative; display:flex; align-items:center; gap:13px; padding:15px 20px; border-radius:14px; overflow:hidden; background:linear-gradient(135deg, rgba(255,255,255,.20), rgba(255,255,255,.07)); backdrop-filter:blur(20px) saturate(1.6); -webkit-backdrop-filter:blur(20px) saturate(1.6); border:1px solid rgba(255,255,255,.34); box-shadow:0 12px 34px rgba(6,14,26,.34), inset 0 1px 0 rgba(255,255,255,.5); }
+    .hx-glass::after { content:''; position:absolute; inset:0; background:linear-gradient(115deg, transparent 32%, rgba(255,255,255,.42) 50%, transparent 68%); transform:translateX(-130%); animation:hxGlassSheen 5.5s ease-in-out infinite; pointer-events:none; }
+    .hx-glass-icon { position:relative; z-index:1; display:flex; align-items:center; justify-content:center; width:34px; height:34px; flex:0 0 auto; border-radius:10px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.28); color:#f5b301; }
+    .hx-glass-label { position:relative; z-index:1; font:700 14px/1.3 'Plus Jakarta Sans', sans-serif; letter-spacing:.01em; color:#ffffff; text-shadow:0 1px 8px rgba(6,14,26,.5); }
+    .hx-num-card { width:152px; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; gap:12px; padding:20px 18px 18px; border-radius:18px; background:linear-gradient(150deg, rgba(255,255,255,.16), rgba(255,255,255,.05)); backdrop-filter:blur(22px) saturate(1.6); -webkit-backdrop-filter:blur(22px) saturate(1.6); border:1px solid rgba(255,255,255,.26); box-shadow:0 14px 38px rgba(6,14,26,.32), inset 0 1px 0 rgba(255,255,255,.42); }
+    .hx-num-figure { display:flex; align-items:baseline; gap:2px; font:800 40px/.9 'Open Sauce One', -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing:-.03em; color:#ffffff; font-variant-numeric:tabular-nums lining-nums; }
+    .hx-num-sup { font:700 15px/1 'Plus Jakarta Sans', sans-serif; letter-spacing:-.01em; color:var(--hx,#f5b301); }
+    .hx-num-rule { width:26px; height:1px; background:rgba(255,255,255,.42); }
+    .hx-num-label { font:600 10.5px/1.45 'Plus Jakarta Sans', sans-serif; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.72); }
+    .hx-news-card { padding:52px clamp(24px,5vw,58px); border-radius:26px; overflow:hidden; background:linear-gradient(150deg, rgba(255,255,255,.17), rgba(255,255,255,.06)); backdrop-filter:blur(26px) saturate(1.6); -webkit-backdrop-filter:blur(26px) saturate(1.6); border:1px solid rgba(255,255,255,.28); box-shadow:0 30px 70px -24px rgba(4,10,20,.7), inset 0 1px 0 rgba(255,255,255,.4); }
+    .hx-sticky-cta { animation:hxStickyIn .35s cubic-bezier(.22,.61,.36,1) both; transition:transform .2s ease, box-shadow .2s ease; }
+    .hx-sticky-cta:hover { transform:translateY(-2px); box-shadow:0 18px 40px -8px rgba(6,14,26,.6); }
+    @keyframes hxStickyIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 840px) { .hx-sticky-cta { display:none !important; } }
+    @keyframes hxGlassSheen { 0% { transform:translateX(-130%); } 55%,100% { transform:translateX(130%); } }
+    @keyframes hxHolo { 0% { transform: rotate(0deg); } 50% { transform: rotate(10deg); } 100% { transform: rotate(0deg); } }
+    @keyframes hxFade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes hxGrowV { from { height: 0%; } to { height: 100%; } }
+    @keyframes hxPanY { from { opacity: 0; transform: translateY(10%); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes hxTstScroll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+    @keyframes hxRingSpin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+    @keyframes hxSlideX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .hx-glow-nav { display:flex; align-items:center; gap:4px; padding:5px; border-radius:99px; position:relative; background:linear-gradient(to bottom, rgba(13,27,46,.55), rgba(13,27,46,.28)); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.18); box-shadow:0 8px 24px rgba(0,0,0,.25); }
+    .hx-glow-item { position:relative; padding:9px 18px; border-radius:99px; cursor:pointer; perspective:600px; }
+    .hx-glow-item .glow { position:absolute; inset:-2px; border-radius:99px; z-index:0; pointer-events:none; opacity:0; transform:scale(.8); background:radial-gradient(circle, color-mix(in srgb, var(--hx,#f5b301) 42%, transparent) 0%, color-mix(in srgb, var(--hx,#f5b301) 12%, transparent) 45%, transparent 72%); transition:opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1); }
+    .hx-glow-item:hover .glow, .hx-glow-item.active .glow { opacity:1; transform:scale(1.5); }
+    .hx-glow-item .face { display:flex; align-items:center; justify-content:center; font:600 12px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; color:rgba(255,255,255,.72); position:relative; z-index:1; transform-style:preserve-3d; transition:transform .5s cubic-bezier(.4,0,.2,1), opacity .5s cubic-bezier(.4,0,.2,1), color .3s ease; }
+    .hx-glow-item .front { transform-origin:center bottom; }
+    .hx-glow-item .back { position:absolute; inset:0; transform:rotateX(90deg); transform-origin:center top; opacity:0; }
+    .hx-glow-item:hover .front { transform:rotateX(-90deg); opacity:0; }
+    .hx-glow-item:hover .back { transform:rotateX(0deg); opacity:1; }
+    .hx-glow-item:hover .face, .hx-glow-item.active .face { color:#fff; }
+    .hx-nav-link { position:relative; }
+    .hx-nav-link::after { content:''; position:absolute; left:0; right:0; bottom:-7px; height:2px; border-radius:2px; background:var(--hx,#f5b301); transform:scaleX(0); transform-origin:left center; transition:transform .28s cubic-bezier(.4,0,.2,1); }
+    .hx-nav-link:hover::after { transform:scaleX(1); }
+    .hx-nav-link.hx-active { color:var(--hx,#f5b301); }
+    nav.hx-nav a.hx-nav-link { color:rgba(255,255,255,.85); white-space:nowrap; }
+    nav.hx-nav a.hx-nav-link.hx-active { color:var(--hx,#f5b301); }
+    nav.hx-nav a.hx-nav-link:hover { color:var(--hx,#f5b301); }
+    nav.hx-nav { background:transparent; border-bottom:1px solid transparent; }
+    nav.hx-nav.hx-solid { background:#0d1b2e; border-bottom-color:rgba(255,255,255,.12); }
+    .hx-mnav { color:rgba(255,255,255,.85); }
+    .hx-mnav.hx-active { color:var(--hx,#f5b301); }
+    .hx-tube-pill { color:rgba(255,255,255,.75); background:transparent; transition:color .3s ease,background .3s ease; }
+    .hx-tube-pill.is-active { color:#ffffff; background:rgba(255,255,255,.14); }
+    .hx-tube-lamp { opacity:0; transition:opacity .3s ease; }
+    .hx-tube-pill.is-active .hx-tube-lamp { opacity:1; }
+    .hx-proc-pill { background:#f1eee6; color:#5a6272; transform:scale(.92); opacity:.75; transition:all .3s ease; }
+    .hx-proc-pill.is-current { background:var(--hx,#f5b301); color:var(--hxi,#10203a); transform:scale(1); opacity:1; }
+    .hx-proc-dot { background:#e3ded1; color:#5a6272; transition:all .3s ease; }
+    .hx-proc-pill.is-current .hx-proc-dot { background:rgba(255,255,255,.4); color:var(--hxi,#10203a); }
+    .hx-proc-pill.is-done .hx-proc-dot { background:var(--hxd,#9a7500); color:#ffffff; }
+    .hx-proc-title { color:#b3b9c4; transition:color .5s ease; }
+    .hx-proc-title.is-active { color:#1a2230; }
+    .hx-svc-ov { opacity:0; transform:translateY(10px); pointer-events:none; transition:opacity .35s ease,transform .35s ease; }
+    .hx-svc-ov.is-show { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .hx-svc-acc { width:48px; transition:width .7s cubic-bezier(.22,.61,.36,1); }
+    .hx-svc-acc.is-open { width:300px; }
+    .hx-svc-lbl { bottom:50%; transform:translateX(-50%) rotate(90deg); transition:all .3s ease; }
+    .hx-svc-lbl.is-open { bottom:22px; transform:translateX(-50%) rotate(0deg); }
+    .hx-faq-plus { transition:transform .3s ease; }
+    .hx-faq-plus.is-open { transform:rotate(45deg); }
+    .hx-faq-body { max-height:0; opacity:0; overflow:hidden; transition:max-height .4s ease,opacity .35s ease; }
+    .hx-faq-body.is-open { max-height:340px; opacity:1; }
+    .hx-work-tab { font:700 12px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#5a6272; background:#fff; border:1px solid #e6e1d3; padding:12px 20px; border-radius:99px; cursor:pointer; transition:background .25s ease,color .25s ease,border-color .25s ease; }
+    .hx-work-tab:hover { border-color:var(--hx,#f5b301); color:#1a2230; }
+    .hx-work-tab.active { background:#0d1b2e; color:#fff; border-color:#0d1b2e; }
+    #hx-blog-track { scrollbar-width: none; -ms-overflow-style: none; }
+    #hx-blog-track::-webkit-scrollbar { display: none; }
+    body[data-hx-va="off"] iframe[src*="videoask.com"]:not(.hx-inline-va), body[data-hx-va="off"] [class*="videoask"], body[data-hx-va="off"] [id*="videoask"] { display: none !important; }
+    @media (prefers-reduced-motion: reduce) { [data-ken], [data-anim], [data-tst-scroll], [data-ring-spin], .yellow-cta::after, .shiny-cta, .shiny-cta::before, .shiny-cta::after, .shiny-cta span::before { animation: none !important; } }
+  </style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',sans-serif;color:#1a2230;background:#ffffff">
+
+  <!-- ═══ 1 · NAVBAR ═══ -->
+  <nav data-screen-label="Navbar" class="hx-nav {{navSolidCls}}" style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 28px;transition:background .3s ease,border-bottom .3s ease">
+    <div onClick="{{navGo}}" data-target="top" style="cursor:pointer;flex:0 0 auto">
+      <img src="./assets/logo-light.png" alt="Sentry Roofing" style="height:68px;display:block;border-radius:6px">
+    </div>
+    <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{navClassic}}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;gap:22px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85)">
+        <span onClick="{{navGo}}" data-target="top" class="hx-nav-link {{navHomeCls}}" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer">Home</span>
+        <div onMouseEnter="{{svcMenuEnter}}" onMouseLeave="{{svcMenuLeave}}" style="position:relative;padding:10px 0;cursor:pointer">
+          <a href="Services.dc.html" class="hx-nav-link {{navServicesCls}}" style-hover="color:var(--hx,#f5b301)">Services ▾</a>
+          <sc-if value="{{svcMenu}}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:-18px;background:#0d1b2e;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 0;min-width:290px;box-shadow:0 18px 40px rgba(0,0,0,.4)">
+              <sc-for list="{{svcNavLinks}}" as="sl" hint-placeholder-count="10">
+                <a href="{{sl.href}}" style-hover="background:rgba(255,255,255,.07)" style="display:block;padding:11px 20px;letter-spacing:.1em;color:rgba(255,255,255,.9);cursor:pointer">{{sl.t}}</a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div onMouseEnter="{{areaMenuEnter}}" onMouseLeave="{{areaMenuLeave}}" style="position:relative;padding:10px 0;cursor:pointer">
+          <a href="Service Area.dc.html?area=san-antonio" class="hx-nav-link" style-hover="color:var(--hx,#f5b301)">Service Areas ▾</a>
+          <sc-if value="{{areaMenu}}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:-18px;background:#0d1b2e;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 0;min-width:230px;box-shadow:0 18px 40px rgba(0,0,0,.4)">
+              <sc-for list="{{areaLinks}}" as="al" hint-placeholder-count="8">
+                <a href="{{al.href}}" style-hover="background:rgba(255,255,255,.07)" style="display:block;padding:11px 20px;letter-spacing:.1em;color:rgba(255,255,255,.9);cursor:pointer">{{al.t}}</a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <span onClick="{{navGo}}" data-target="why" class="hx-nav-link" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer">Why Choose Us</span>
+        <div onMouseEnter="{{abtMenuEnter}}" onMouseLeave="{{abtMenuLeave}}" style="position:relative;padding:10px 0;cursor:pointer">
+          <a href="About.dc.html" class="hx-nav-link {{navAboutCls}}" style-hover="color:var(--hx,#f5b301)">About ▾</a>
+          <sc-if value="{{abtMenu}}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:-18px;background:#0d1b2e;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 0;min-width:200px;box-shadow:0 18px 40px rgba(0,0,0,.4)">
+              <a href="About.dc.html" style-hover="background:rgba(255,255,255,.07)" style="display:block;padding:11px 20px;letter-spacing:.1em;color:rgba(255,255,255,.9);cursor:pointer">About Us</a>
+              <a href="Process.dc.html" style-hover="background:rgba(255,255,255,.07)" style="display:block;padding:11px 20px;letter-spacing:.1em;color:rgba(255,255,255,.9);cursor:pointer">Our Process</a>
+            </div>
+          </sc-if>
+        </div>
+        <a href="Contact.dc.html" class="hx-nav-link {{navContactCls}}" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer">Contact</a>
+      </div>
+      </sc-if>
+      <sc-if value="{{navTube}}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:4px;background:rgba(13,27,46,.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.18);padding:4px;border-radius:99px;box-shadow:0 8px 24px rgba(0,0,0,.25)">
+          <sc-for list="{{navTubeItems}}" as="ni" hint-placeholder-count="6">
+            <span onClick="{{navGo}}" data-target="{{ni.target}}" class="hx-tube-pill {{ni.cls2}}" style="position:relative;padding:9px 18px;border-radius:99px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap">{{ni.label}}<span class="hx-tube-lamp" style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:30px;height:4px;border-radius:4px 4px 0 0;background:var(--hx,#f5b301);box-shadow:0 0 16px 4px color-mix(in srgb,var(--hx,#f5b301) 45%,transparent)"></span></span>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{navGlow}}" hint-placeholder-val="{{ false }}">
+        <div class="hx-glow-nav">
+          <sc-for list="{{navTubeItems}}" as="ni" hint-placeholder-count="6">
+            <span onClick="{{navGo}}" data-target="{{ni.target}}" class="{{ni.cls}}">
+              <span class="glow"></span>
+              <span class="face front">{{ni.label}}</span>
+              <span class="face back">{{ni.label}}</span>
+            </span>
+          </sc-for>
+        </div>
+      </sc-if>
+      <div style="display:flex;align-items:center;gap:20px;flex:0 0 auto">
+        <a href="tel:+18337368793" style="display:inline-flex;align-items:center;gap:8px;font:700 14px/1 'Plus Jakarta Sans',sans-serif;color:#ffffff;letter-spacing:.02em"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><span>(833) 736-8793</span></a>
+        <a href="tel:+18337368793" class="{{ctaClass}}" style="font:700 13px/1.2 'Plus Jakarta Sans',sans-serif;padding:12px 22px;text-decoration:none"><span>Get a Free Estimate</span></a>
+      </div>
+    </sc-if>
+    <sc-if value="{{isMobile}}" hint-placeholder-val="{{ false }}">
+      <span onClick="{{menuToggle}}" style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;color:#fff;border:1px solid rgba(255,255,255,.4);padding:11px 16px;border-radius:99px;cursor:pointer">{{menuLabel}}</span>
+    </sc-if>
+  </nav>
+  <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:62px;left:0;right:0;z-index:59;background:#0d1b2e;border-bottom:1px solid rgba(255,255,255,.14);padding:18px 28px 26px;display:flex;flex-direction:column;gap:4px">
+      <span onClick="{{navGo}}" data-target="top" class="hx-mnav {{navHomeCls}}" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.08)">Home</span>
+      <span onClick="{{navGo}}" data-target="services" class="hx-mnav {{navServicesCls}}" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.08)">Services</span>
+      <a href="Service Area.dc.html?area=san-antonio" class="hx-mnav" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08)">Service Areas</a>
+      <sc-for list="{{areaLinks}}" as="al" hint-placeholder-count="8">
+        <a href="{{al.href}}" class="hx-mnav" style="padding:12px 0 12px 18px;font:600 13px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08)">{{al.t}}</a>
+      </sc-for>
+      <span onClick="{{navGo}}" data-target="why" class="hx-mnav" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08)">Why Choose Us</span>
+      <span onClick="{{navGo}}" data-target="about" class="hx-mnav {{navAboutCls}}" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.08)">About</span>
+      <span onClick="{{navGo}}" data-target="process" class="hx-mnav {{navProcessCls}}" style="padding:13px 0 13px 18px;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);cursor:pointer;border-bottom:1px solid rgba(255,255,255,.08)">Our Process</span>
+      <span onClick="{{navGo}}" data-target="contact" class="hx-mnav {{navContactCls}}" style="padding:13px 0 18px;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer">Contact</span>
+      <a href="tel:+18337368793" class="{{ctaClass}}" style="font:700 14px/1.2 'Plus Jakarta Sans',sans-serif;padding:15px 24px;text-align:center;text-decoration:none"><span>Get a Free Estimate</span></a>
+    </span></div>
+  </sc-if>
+
+  <!-- ═══ 2 · VIDEO HERO ═══ -->
+  <sc-if value="{{heroVideo}}" hint-placeholder-val="{{ true }}">
+  <header id="top" data-screen-label="Video hero" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:#0a1524">
+    <video id="hx-hero-video" autoplay="" muted="" loop="" playsinline="" poster="./assets/hero-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src="./assets/hero-video-2.mp4" type="video/mp4"></video>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,21,36,.62) 0%,rgba(10,21,36,.38) 45%,rgba(13,27,46,.55) 72%,rgba(13,27,46,.92) 90%,#0d1b2e 100%)"></div>
+    <div style="position:relative;max-width:1180px;width:100%;margin:0 auto;padding:150px 28px 72px;box-sizing:border-box">
+      <div style="display:inline-flex;align-items:center;gap:12px;margin:0 0 26px;background:#ffffff;border-radius:99px;padding:8px 18px 8px 14px;box-shadow:0 6px 22px rgba(0,0,0,.22)">
+        <span style="font:700 15px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.01em"><span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span></span>
+        <span style="width:1px;height:16px;background:#e3ded2"></span>
+        <span style="font:700 13.5px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230">4.9</span>
+        <span style="font-size:12.5px;letter-spacing:2px;color:#f5b301">★★★★★</span>
+        <span style="font:500 12.5px/1 'Plus Jakarta Sans',sans-serif;color:#5a6272">187 reviews</span>
+      </div>
+      <p style="margin:0 0 22px;font:600 11.5px/1.6 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hx,#f5b301)">PREMIUM ROOFING · SERVING SAN ANTONIO &amp; SURROUNDING AREAS</p>
+      <h1 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(42px,5.4vw,74px);line-height:1.06;letter-spacing:-.015em;color:#ffffff;max-width:840px">San Antonio's <em style="font-style:normal;font-weight:800;color:var(--hx,#f5b301);display:inline-block;transition:opacity .32s ease,transform .32s ease;opacity:{{heroWordOpacity}}">{{heroWord}}</em> Roofing Company</h1>
+      <p style="margin:24px 0 0;font:400 17.5px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82);max-width:600px;text-wrap:pretty">Most roofing projects run over budget and past deadline. Yours won't: a written fixed proposal within 48 hours, employed craftsmen, and a 25-year workmanship guarantee.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:36px">
+        <a href="tel:+18337368793" class="{{ctaClass}}" style="font:700 15px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px;text-decoration:none"><span>Get a Free Estimate</span></a>
+        <span onClick="{{navGo}}" data-target="work" style-hover="background:rgba(255,255,255,.14)" style="font:600 15px/1 'Plus Jakarta Sans',sans-serif;color:#fff;border:1px solid rgba(255,255,255,.45);padding:16px 30px;border-radius:99px;cursor:pointer;transition:background .25s ease">See Our Work</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 30px;margin-top:58px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22);font:600 11.5px/1.4 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.78)">
+        <span><span style="color:#3fae5f">✓</span> Fully Insured</span>
+        <span><span style="color:#3fae5f">✓</span> Veteran Owned &amp; Operated</span>
+        <span><span style="color:#3fae5f">✓</span> Free Inspections</span>
+        <span><span style="color:#3fae5f">✓</span> 25 Years in the Trade</span>
+      </div>
+    </div>
+  </header>
+  </sc-if>
+  <sc-if value="{{heroSplit}}" hint-placeholder-val="{{ false }}">
+  <header id="top" data-screen-label="Hero (split)" style="position:relative;overflow:hidden;background:#0a1524;min-height:calc(100vh - 138px);display:flex;align-items:center">
+    <video id="hx-hero-video-split" autoplay="" muted="" loop="" playsinline="" poster="./assets/hero-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src="./assets/hero-video-2.mp4" type="video/mp4"></video>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,21,36,.62) 0%,rgba(10,21,36,.38) 45%,rgba(13,27,46,.55) 72%,rgba(13,27,46,.92) 90%,#0d1b2e 100%)"></div>
+    <div style="position:relative;width:100%;max-width:1180px;margin:0 auto;padding:128px 28px 52px;box-sizing:border-box">
+      <span style="display:inline-flex;align-items:center;gap:9px;margin:0 0 22px;padding:9px 18px;border-radius:99px;background:rgba(255,255,255,.13);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.3);font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#ffffff">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--hx,#f5b301)"></span>Top Roofing Company in San Antonio
+      </span>
+      <h1 style="margin:0;font:800 clamp(40px,5vw,64px)/1.06 'Plus Jakarta Sans',sans-serif;letter-spacing:-.025em;color:#ffffff;max-width:560px">San Antonio's <em style="font-style:normal;font-weight:800;color:var(--hx,#f5b301);display:inline-block;transition:opacity .32s ease;opacity:{{heroWordOpacity}}">{{heroWord}}</em> Roofing Company</h1>
+      <p style="margin:22px 0 30px;font:500 17px/1.6 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.72);max-width:440px;text-wrap:pretty">A written fixed proposal within 48 hours, the owner on your roof every day, and a lifetime workmanship warranty.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:48px">
+        <a href="tel:+18337368793" class="{{ctaClass}}" style="font:700 15px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px;text-decoration:none"><span>Get a Free Estimate</span></a>
+        <span onClick="{{navGo}}" data-target="work" style-hover="background:rgba(255,255,255,.14)" style="font:600 15px/1 'Plus Jakarta Sans',sans-serif;color:#fff;border:1px solid rgba(255,255,255,.45);padding:16px 30px;border-radius:99px;cursor:pointer;transition:background .25s ease">See Our Work</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;margin:0 0 44px;font:600 11px/1.4 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.78)">
+        <span><span style="color:#3fae5f">✓</span> Veteran Owned &amp; Operated</span>
+        <span><span style="color:#3fae5f">✓</span> Fully Insured</span>
+        <span><span style="color:#3fae5f">✓</span> Free Inspections</span>
+      </div>
+      <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{cardsGlass}}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;right:28px;top:128px;display:flex;gap:16px">
+          <div class="hx-num-card">
+            <div class="hx-num-figure">24<span class="hx-num-sup">hr</span></div>
+            <div class="hx-num-rule"></div>
+            <div class="hx-num-label">Fixed Quote in 24 Hours</div>
+          </div>
+          <div class="hx-num-card">
+            <div class="hx-num-figure">4.9<span class="hx-num-sup">★</span></div>
+            <div class="hx-num-rule"></div>
+            <div class="hx-num-label">Star Reviews</div>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{cardsBadges}}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;right:28px;top:128px;display:flex;flex-direction:column;gap:14px">
+          <div onMouseMove="{{badgeMove}}" onMouseLeave="{{badgeLeave}}" data-badge="b1t" style="width:250px">
+            <div class="hx-glass" style="transform:{{b1t}};transform-origin:center center;transition:transform 200ms ease-out">
+              <span class="hx-glass-icon" aria-hidden="true"><svg viewBox="0 0 26 32" width="17" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="22" height="30" rx="3"></rect><polyline points="4.5,8 6,9.6 8.8,6.4" stroke-width="1.8"></polyline><line x1="11" y1="8" x2="19" y2="8"></line><polyline points="4.5,16 6,17.6 8.8,14.4" stroke-width="1.8"></polyline><line x1="11" y1="16" x2="19" y2="16"></line><polyline points="4.5,24 6,25.6 8.8,22.4" stroke-width="1.8"></polyline><line x1="11" y1="24" x2="19" y2="24"></line></svg></span>
+              <span class="hx-glass-label">Fixed Quote in 24 Hours</span>
+            </div>
+          </div>
+          <div onMouseMove="{{badgeMove}}" onMouseLeave="{{badgeLeave}}" data-badge="b2t" style="width:250px">
+            <div class="hx-glass" style="transform:{{b2t}};transform-origin:center center;transition:transform 200ms ease-out">
+              <span class="hx-glass-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M12 2.6l2.76 5.6 6.18.9-4.47 4.36 1.05 6.15L12 16.7l-5.52 2.9 1.05-6.15L3.06 9.1l6.18-.9z"></path></svg></span>
+              <span class="hx-glass-label">4.9 ★ Star Reviews</span>
+            </div>
+          </div>
+        
+      
+    </div>
+  </sc-if></sc-if></div></header>
+  </sc-if>
+
+
+
+  <!-- ═══ 11 · WHY US COMPARISON ═══ -->
+  <section id="why" data-screen-label="Why us comparison" style="padding:88px 28px 104px">
+    <div style="max-width:900px;margin:0 auto">
+      <div style="text-align:center;max-width:640px;margin:0 auto 44px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">Why Us</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;color:#1a2230">The difference, <em style="font-style:normal;font-weight:800">itemized</em></h2>
+      </div>
+      <div style="border:1px solid #e6e1d3;border-radius:14px;overflow:hidden;background:#fff">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:#0d1b2e;padding:20px 26px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:19px;color:#fff">Sentry Roofing</div>
+          <div style="background:#f4f0e6;padding:20px 26px;font:600 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#5a6272;display:flex;align-items:center">The Typical Roofer</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:var(--hxd,#9a7500);font-weight:800">✓</span><span>25 years in the trade — 20 of them as an insurance adjuster</span></div>
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>Salesmen who have never written a claim</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:var(--hxd,#9a7500);font-weight:800">✓</span><span>An itemized fixed-price proposal, in writing</span></div>
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>A number on the back of a business card</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:var(--hxd,#9a7500);font-weight:800">✓</span><span>The owner on the roof, every day of the job</span></div>
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>A rep you meet once and never see again</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:var(--hxd,#9a7500);font-weight:800">✓</span><span>100+ photos per job — before, during and after</span></div>
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>A verbal promise that it was done right</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:var(--hxd,#9a7500);font-weight:800">✓</span><span>IKO materials, written guarantee, magnet-rolled cleanup</span></div>
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>Vague promises and nails left in your driveway</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:var(--hxd,#9a7500);font-weight:800">✓</span><span>A lifetime warranty on the work</span></div>
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>A warranty that runs out before the roof does</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:var(--hxd,#9a7500);font-weight:800">✓</span><span>A courtesy follow-up inspection every year</span></div>
+          <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>Gone the day the check clears</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · STATS BAR ═══ -->
+  <section data-screen-label="Stats bar" style="background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 100%)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px">
+      <div style="background:#0d1b2e;text-align:center;padding:30px 24px"><div style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:44px;color:var(--hx,#f5b301)">1,000+</div><div style="margin-top:8px;font:600 11.5px/1.5 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.68)">ROOFS FIXED</div></div>
+      <div style="background:#0d1b2e;text-align:center;padding:30px 24px"><div style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:44px;color:var(--hx,#f5b301)">30+</div><div style="margin-top:8px;font:600 11.5px/1.5 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.68)">Years Combined Experience</div></div>
+      <div style="background:#0d1b2e;text-align:center;padding:30px 24px"><div style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:44px;color:var(--hx,#f5b301)">10+</div><div style="margin-top:8px;font:600 11.5px/1.5 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.68)">Certified Roofing Experts</div></div>
+    </div>
+  </section>
+
+  <!-- ═══ 3A · MATERIALS BAND ═══ -->
+  <section data-screen-label="Materials band" style="background:#ffffff;border-bottom:1px solid #eee9dc;padding:28px">
+    <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:20px 40px">
+      <div style="display:flex;align-items:center;gap:18px;flex:0 0 auto">
+        <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#98a0ad">We build with</span>
+        <a href="https://www.iko.com/na/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center">
+          <img src="./assets/iko-roofpro-badge.png" alt="IKO ROOFPRO Craftsman Premier" style="display:block;height:56px;width:auto">
+        </a>
+      </div>
+      <div style="flex:1 1 420px;display:flex;flex-wrap:wrap;gap:10px 32px;font:500 13.5px/1.5 'Plus Jakarta Sans',sans-serif;color:#3c4454">
+        <span>IKO ROOFPRO Craftsman Premier certified</span>
+        <span>Written workmanship guarantee</span>
+        <span>Free inspection and documentation</span>
+      </div>
+      <span onClick="{{navGo}}" data-target="materials" style-hover="color:var(--hx,#f5b301)" style="flex:0 0 auto;font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--hxd,#9a7500);cursor:pointer;transition:color .25s ease">What we install →</span>
+    </div>
+  </section>
+
+  <!-- ═══ 3B · ABOUT / WELCOME ═══ -->
+  <section id="about" data-screen-label="Welcome" style="background:#ffffff;padding:104px 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;gap:44px 60px;align-items:stretch">
+        <div style="flex:1 1 440px;min-width:300px">
+          <img src="./assets/welcome-jobsite.png" alt="A Sentry Roofing crew mid tear-off on a two-storey home, dump trailer in the driveway" style="width:100%;height:600px;object-fit:cover;border:none;border-radius:24px;display:block;box-shadow:0 25px 50px -18px rgba(0,0,0,.28)">
+        </div>
+        <div style="flex:1 1 440px;min-width:300px;display:flex;flex-direction:column;justify-content:center">
+          <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">WELCOME TO SENTRY ROOFING</p>
+          <h2 style="margin:0 0 22px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;letter-spacing:-.01em;color:#1a2230">Twenty-five years of <em style="font-style:normal;font-weight:800">craft</em> on San Antonio roofs</h2>
+          <p style="margin:0 0 18px;font:400 16px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">JJ has spent twenty-five years in the trade, twenty of them as an insurance adjuster before he started roofing. He runs every job himself and is on the roof for it — and each one is documented daily, from tear-off to the final magnet sweep.</p>
+          <p style="margin:0 0 24px;font:400 16px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">We work slowly enough to do it once and quickly enough to keep a written schedule. Proudly serving homeowners across San Antonio and the surrounding county.</p>
+          <span onClick="{{navGo}}" data-target="process" style-hover="border-color:var(--hx,#f5b301);color:var(--hx,#f5b301)" style="align-self:flex-start;font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--hxd,#9a7500);border-bottom:1px solid var(--hxd,#9a7500);padding-bottom:6px;cursor:pointer;transition:color .25s ease,border-color .25s ease">More About Us →</span>
+          <div style="margin:36px 0 0">
+            <p style="margin:0 0 20px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">Service Areas</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <a href="Service Area.dc.html?area=san-antonio" style-hover="border-color:var(--hx,#f5b301);color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#f4f0e6;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">San Antonio</a>
+              <a href="Service Area.dc.html?area=new-braunfels" style-hover="border-color:var(--hx,#f5b301);color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#f4f0e6;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">New Braunfels</a>
+              <a href="Service Area.dc.html?area=austin" style-hover="border-color:var(--hx,#f5b301);color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#f4f0e6;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">Austin</a>
+              <a href="Service Area.dc.html?area=san-marcos" style-hover="border-color:var(--hx,#f5b301);color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#f4f0e6;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">San Marcos</a>
+              <a href="Service Area.dc.html?area=boerne" style-hover="border-color:var(--hx,#f5b301);color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#f4f0e6;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">Boerne</a>
+              <a href="Service Area.dc.html?area=fredericksburg" style-hover="border-color:var(--hx,#f5b301);color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#f4f0e6;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">Fredericksburg</a>
+              <a href="Service Area.dc.html?area=schertz" style-hover="border-color:var(--hx,#f5b301);color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#f4f0e6;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">Schertz</a>
+              <a href="Service Area.dc.html?area=hill-country" style-hover="border-color:var(--hx,#f5b301);color:#1a2230;background:#faf7f0" style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#3c4454;background:#f4f0e6;border:1px solid #e6e1d3;padding:9px 16px;border-radius:99px;transition:border-color .25s ease,color .25s ease,background .25s ease">Texas Hill Country</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · OUR WORK ═══ -->
+  <section id="work" data-screen-label="Our work" style="background:#ffffff;padding:104px 28px 96px">
+    <div data-screen-label="Featured transformation" style="position:relative;width:100%;height:clamp(547px,80.6vh,950px);overflow:hidden;user-select:none;-webkit-user-select:none;background:#ffffff;border-radius:20px">
+      <img src="./assets/welcome-after.png" alt="Owner viewing the finished roof" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none">
+      <div style="position:absolute;inset:0;clip-path:inset(0 {{welcomeClip}}% 0 0)">
+        <img src="./assets/welcome-before.png" alt="Owner viewing the worn roof, before" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none">
+      </div>
+      <span style="position:absolute;top:20px;left:clamp(16px,4vw,48px);font:700 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(10,21,36,.66);padding:8px 14px;border-radius:99px">Before</span>
+      <span style="position:absolute;top:20px;right:clamp(16px,4vw,48px);font:700 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(10,21,36,.66);padding:8px 14px;border-radius:99px">After</span>
+      <div onPointerDown="{{sliderDown}}" data-slider="welcome" style="position:absolute;top:0;bottom:0;left:calc({{welcomePct}}% - 3px);width:6px;background:rgba(255,255,255,.8);cursor:ew-resize;touch-action:none;display:flex;align-items:center;justify-content:center">
+        <div style="flex:0 0 auto;width:48px;height:48px;border-radius:50%;background:#ffffff;color:#374151;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.28);transform:scale({{welcomeScale}});transition:transform .2s ease">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="15" y1="18" x2="9" y2="12"></line><line x1="9" y1="6" x2="15" y2="12"></line></svg>
+        </div>
+      </div>
+      <div style="position:absolute;left:0;right:0;top:0;padding:56px 24px 72px;background:linear-gradient(to bottom,rgba(10,21,36,.82),rgba(10,21,36,0));pointer-events:none;text-align:center">
+        <p style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(24px,3vw,38px);line-height:1.15;color:#ffffff;text-shadow:0 2px 14px rgba(0,0,0,.55)">This experience could be <em style="font-style:normal;font-weight:800;color:var(--hx,#f5b301)">yours</em></p>
+      </div>
+      <div style="position:absolute;right:clamp(16px,4vw,48px);bottom:clamp(16px,4vw,44px);max-width:340px;background:rgba(255,255,255,.13);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.3);border-radius:18px;box-shadow:0 16px 44px rgba(0,0,0,.32);padding:20px 22px 18px;pointer-events:none">
+        <div style="font-size:14px;letter-spacing:3px;color:var(--hx,#f5b301);margin-bottom:10px">★★★★★</div>
+        <p style="margin:0 0 14px;font:500 14px/1.55 'Plus Jakarta Sans',sans-serif;color:#ffffff;text-wrap:pretty">"From the first walkthrough to the final cleanup, they were a genuine pleasure to work with — tidy, punctual, and proud of the result."</p>
+        <div style="display:flex;align-items:center;gap:11px">
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font:700 14px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">M</div>
+          <div>
+            <div style="font:700 13px/1.3 'Plus Jakarta Sans',sans-serif;color:#ffffff">Margaret C.</div>
+            <div style="font:600 10.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)">FULL REPLACEMENT · SAN ANTONIO</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;padding:56px 28px 0;display:flex;flex-wrap:wrap;gap:34px 44px;align-items:flex-start">
+      <div style="flex:1 1 230px;max-width:270px;min-width:220px">
+        <p style="margin:0 0 14px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">Before &amp; After</p>
+        <h3 style="margin:0 0 14px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(26px,2.6vw,34px);line-height:1.12;letter-spacing:-.02em;color:#1a2230">Drag to compare</h3>
+        <p style="margin:0 0 26px;font:400 15px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Pick a project and pull the handle across. Same roofline, same angle, before and after.</p>
+        <div role="tablist" style="display:flex;flex-direction:column;align-items:flex-start;gap:10px">
+          <sc-for list="{{workTabs}}" as="wt" hint-placeholder-count="3">
+            <span onClick="{{workSet}}" data-idx="{{wt.idx}}" class="{{wt.cls}}">{{wt.label}}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:1 1 620px;min-width:300px">
+      <sc-if value="{{work1}}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:16px;user-select:none;-webkit-user-select:none;background:#0d1b2e;border:1px solid #e6e1d3">
+          <img src="./assets/proj1-after.png" alt="Finished designer tile roof" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+          <div style="position:absolute;inset:0;clip-path:inset(0 {{p1Clip}}% 0 0)"><img src="./assets/proj1-before.png" alt="Before" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none"></div>
+          <span style="position:absolute;top:16px;left:16px;font:700 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(10,21,36,.66);padding:7px 12px;border-radius:99px">Before</span>
+          <span style="position:absolute;top:16px;right:16px;font:700 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(10,21,36,.66);padding:7px 12px;border-radius:99px">After</span>
+          <div onPointerDown="{{sliderDown}}" data-slider="p1" style="position:absolute;top:0;bottom:0;left:calc({{p1Pct}}% - 3px);width:6px;background:rgba(255,255,255,.8);cursor:ew-resize;touch-action:none;display:flex;align-items:center;justify-content:center"><div style="flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:#fff;color:#374151;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.28);transform:scale({{p1Scale}});transition:transform .2s ease"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="15" y1="18" x2="9" y2="12"></line><line x1="9" y1="6" x2="15" y2="12"></line></svg></div></div>
+        </div>
+        <div style="margin-top:18px"><p style="margin:0 0 6px;font:700 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--hxd,#9a7500)">Full Replacement · San Antonio, TX</p><h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:23px;line-height:1.3;color:#1a2230">Worn tile to solar-ready designer tile</h3></div>
+      </sc-if>
+      <sc-if value="{{work2}}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:16px;user-select:none;-webkit-user-select:none;background:#0d1b2e;border:1px solid #e6e1d3">
+          <img src="./assets/proj2-after.png" alt="Finished standing seam roof" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+          <div style="position:absolute;inset:0;clip-path:inset(0 {{p2Clip}}% 0 0)"><img src="./assets/proj2-before.png" alt="Before" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none"></div>
+          <span style="position:absolute;top:16px;left:16px;font:700 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(10,21,36,.66);padding:7px 12px;border-radius:99px">Before</span>
+          <span style="position:absolute;top:16px;right:16px;font:700 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(10,21,36,.66);padding:7px 12px;border-radius:99px">After</span>
+          <div onPointerDown="{{sliderDown}}" data-slider="p2" style="position:absolute;top:0;bottom:0;left:calc({{p2Pct}}% - 3px);width:6px;background:rgba(255,255,255,.8);cursor:ew-resize;touch-action:none;display:flex;align-items:center;justify-content:center"><div style="flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:#fff;color:#374151;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.28);transform:scale({{p2Scale}});transition:transform .2s ease"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="15" y1="18" x2="9" y2="12"></line><line x1="9" y1="6" x2="15" y2="12"></line></svg></div></div>
+        </div>
+        <div style="margin-top:18px"><p style="margin:0 0 6px;font:700 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--hxd,#9a7500)">Full Replacement · New Braunfels, TX</p><h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:23px;line-height:1.3;color:#1a2230">Weathered panels to coated standing seam</h3></div>
+      </sc-if>
+      <sc-if value="{{work3}}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:16px;user-select:none;-webkit-user-select:none;background:#0d1b2e;border:1px solid #e6e1d3">
+          <img src="./assets/proj3-after.png" alt="Finished charcoal standing seam roof" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+          <div style="position:absolute;inset:0;clip-path:inset(0 {{p3Clip}}% 0 0)"><img src="./assets/proj3-before.png" alt="Before" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none"></div>
+          <span style="position:absolute;top:16px;left:16px;font:700 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(10,21,36,.66);padding:7px 12px;border-radius:99px">Before</span>
+          <span style="position:absolute;top:16px;right:16px;font:700 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(10,21,36,.66);padding:7px 12px;border-radius:99px">After</span>
+          <div onPointerDown="{{sliderDown}}" data-slider="p3" style="position:absolute;top:0;bottom:0;left:calc({{p3Pct}}% - 3px);width:6px;background:rgba(255,255,255,.8);cursor:ew-resize;touch-action:none;display:flex;align-items:center;justify-content:center"><div style="flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:#fff;color:#374151;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.28);transform:scale({{p3Scale}});transition:transform .2s ease"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="15" y1="18" x2="9" y2="12"></line><line x1="9" y1="6" x2="15" y2="12"></line></svg></div></div>
+        </div>
+        <div style="margin-top:18px"><p style="margin:0 0 6px;font:700 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--hxd,#9a7500)">Storm Restoration · Boerne, TX</p><h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:23px;line-height:1.3;color:#1a2230">Rusted metal to charcoal standing seam</h3></div>
+      </sc-if>
+      </div>
+    </div>
+    </section></div>
+  
+
+
+  <!-- ═══ 7 · SERVICES ═══ -->
+  <section id="services" data-screen-label="Services" style="background:#f4f0e6;padding:104px 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="max-width:640px;margin-bottom:48px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">Services</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;color:#1a2230">Everything above the <em style="font-style:normal;font-weight:800">gutters</em></h2>
+      </div>
+      <sc-if value="{{svcStandard}}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px">
+        <sc-for list="{{services}}" as="svc" hint-placeholder-count="10">
+          <a href="{{svc.href}}" onMouseEnter="{{svcEnter}}" onMouseLeave="{{svcLeave}}" data-idx="{{$index}}" style="position:relative;display:block;color:#1a2230;background:#fff;border:1px solid #e6e1d3;border-radius:14px;overflow:hidden;cursor:pointer">
+            <img src="./assets/svc-replacement-photo.png" data-src="{{svc.img}}" alt="{{svc.t}}" style="display:block;width:100%;height:190px;object-fit:cover">
+            <div style="padding:22px 24px 26px">
+              <h3 style="margin:0 0 8px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:22px;line-height:1.25;color:#1a2230">{{svc.t}}</h3>
+              <p style="margin:0;font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272">{{svc.line}}</p>
+            </div>
+            <div class="hx-svc-ov {{svc.ovCls}}" style="position:absolute;inset:0;background:rgba(13,27,46,.94);padding:28px;display:flex;flex-direction:column;justify-content:flex-end;gap:12px">
+              <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:22px;line-height:1.25;color:#fff">{{svc.t}}</h3>
+              <p style="margin:0;font:400 14px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.8)">{{svc.d}}</p>
+              <span style="font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--hx,#f5b301)">Learn More →</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+      </sc-if>
+      <sc-if value="{{svcAccordion}}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;overflow-x:auto;padding:8px 0">
+          <sc-for list="{{services}}" as="svc" hint-placeholder-count="10">
+            <div onMouseEnter="{{svcAccEnter}}" onClick="{{svcAccEnter}}" data-idx="{{$index}}" class="hx-svc-acc {{svc.accCls}}" style="position:relative;height:440px;flex:0 0 auto;border-radius:16px;overflow:hidden;cursor:pointer;background:#0d1b2e">
+              <img src="./assets/svc-replacement-photo.png" data-src="{{svc.img}}" alt="{{svc.t}}" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+              <div style="position:absolute;inset:0;background:rgba(10,21,36,.4)"></div>
+              <span class="hx-svc-lbl {{svc.accCls}}" style="position:absolute;left:50%;white-space:nowrap;font:600 15px/1 'Plus Jakarta Sans',sans-serif;color:#ffffff">{{svc.t}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{svcExpand}}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+          <sc-for list="{{services}}" as="svc" hint-placeholder-count="10">
+            <div onClick="{{svcOpenCard}}" data-idx="{{$index}}" style-hover="box-shadow:0 12px 30px rgba(23,24,26,.1)" style="background:#ffffff;border:1px solid #e6e1d3;border-radius:16px;padding:12px;cursor:pointer;transition:box-shadow .3s ease">
+              <img src="./assets/svc-replacement-photo.png" data-src="{{svc.img}}" alt="{{svc.t}}" draggable="false" style="width:100%;height:200px;object-fit:cover;border-radius:10px;display:block">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 6px 6px">
+                <div>
+                  <p style="margin:0;font:500 12.5px/1.4 'Plus Jakarta Sans',sans-serif;color:#98a0ad">{{svc.line}}</p>
+                  <h3 style="margin:2px 0 0;font:700 16px/1.3 'Plus Jakarta Sans',sans-serif;color:#1a2230">{{svc.t}}</h3>
+                </div>
+                <span style="flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:1px solid #e6e1d3;background:#ffffff;display:flex;align-items:center;justify-content:center;color:#5a6272;font:400 18px/1 'Plus Jakarta Sans',sans-serif">+</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{svcModalOpen}}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{svcClose}}" data-anim="1" style="position:fixed;inset:0;z-index:90;background:rgba(255,255,255,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:hxFade .25s ease both"></div>
+        <div style="position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:24px;pointer-events:none">
+          <div data-anim="1" style="pointer-events:auto;width:min(850px,100%);max-height:86vh;overflow:auto;background:#ffffff;border:1px solid #e6e1d3;border-radius:24px;box-shadow:0 30px 80px rgba(10,21,36,.25);animation:hxScaleIn .3s ease both">
+            <img src="./assets/svc-replacement-photo.png" data-src="{{svcModal.img}}" alt="{{svcModal.t}}" style="width:100%;height:300px;object-fit:cover;display:block">
+            <div style="padding:28px 32px 8px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px">
+              <div>
+                <p style="margin:0;font:500 16px/1.5 'Plus Jakarta Sans',sans-serif;color:#98a0ad">{{svcModal.line}}</p>
+                <h3 style="margin:4px 0 0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:clamp(26px,4vw,34px);line-height:1.15;color:#1a2230">{{svcModal.t}}</h3>
+              </div>
+              <button onClick="{{svcClose}}" aria-label="Close" style="flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid #e6e1d3;background:#ffffff;color:#5a6272;font:400 22px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer;transform:rotate(45deg)">+</button>
+            </div>
+            <div style="padding:18px 32px 36px;display:flex;flex-direction:column;align-items:flex-start;gap:16px">
+              <p style="margin:0;font:400 15.5px/1.75 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{svcModal.d}}</p>
+              <p style="margin:0;font:400 15.5px/1.75 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Every engagement begins the same way: a complimentary inspection, written findings within 48 hours, and a fixed proposal — never a number on a business card.</p>
+              <span onClick="{{svcModalCta}}" style-hover="background:var(--hxd,#9a7500)" style="font:700 14px/1 'Plus Jakarta Sans',sans-serif;background:var(--hx,#f5b301);color:var(--hxi,#10203a);padding:14px 26px;border-radius:99px;cursor:pointer;transition:background .25s ease">Get a Free Estimate</span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ═══ 7B · GALLERY ═══ -->
+  <section data-screen-label="Gallery" style="background:#ffffff;padding:96px 0">
+    <div style="max-width:1180px;margin:0 auto;padding:66px 28px 0">
+      <div style="max-width:720px;margin-bottom:8px">
+        <p style="margin:0;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">The Gallery</p>
+      </div>
+      <sc-if value="{{galCoverflow}}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Gallery carousel" style="position:relative;margin-top:44px;height:470px;overflow:hidden">
+        <div style="position:relative;width:100%;height:100%;perspective:1000px">
+          <sc-for list="{{gallery}}" as="g" hint-placeholder-count="7">
+            <div style="position:absolute;left:12.5%;top:50%;width:75%;height:440px;margin-top:-220px;transform:{{g.tr}};z-index:{{g.z}};opacity:{{g.op}};filter:{{g.fl}};visibility:{{g.vis}};transition:all .5s ease-in-out">
+              <img src="./assets/proj1-after.png" data-src="{{g.src}}" alt="Finished roofing project" draggable="false" style="width:100%;height:100%;object-fit:cover;border-radius:24px;border:2px solid rgba(26,34,48,.1);box-shadow:0 25px 50px -12px rgba(0,0,0,.25);display:block">
+            </div>
+          </sc-for>
+        </div>
+        <div onClick="{{galPrev}}" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);z-index:20;width:42px;height:42px;border-radius:50%;background:rgba(251,249,244,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;cursor:pointer;font:600 22px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230">‹</div>
+        <div onClick="{{galNext}}" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);z-index:20;width:42px;height:42px;border-radius:50%;background:rgba(251,249,244,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;cursor:pointer;font:600 22px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230">›</div>
+      </div>
+      </sc-if>
+      <sc-if value="{{galCircular}}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Gallery turntable" style="position:relative;margin-top:44px;height:480px;perspective:1600px;perspective-origin:50% 42%">
+        <div data-ring-spin="1" style-hover="animation-play-state:paused" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:hxRingSpin 46s linear infinite">
+          <div style="position:absolute;left:50%;top:50%;width:220px;height:330px;margin-left:-110px;margin-top:-165px;transform:rotateY(0deg) translateZ(430px);border-radius:16px;overflow:hidden;border:1px solid rgba(26,34,48,.14);box-shadow:0 30px 60px -22px rgba(0,0,0,.45);background:#0d1b2e">
+            <img src="./assets/owner-after.png" alt="Full slate re-roof, finished" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 16px 15px;background:linear-gradient(to top,rgba(13,27,46,.92),rgba(13,27,46,0))">
+              <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:17px;line-height:1.15;color:#fff">Full Slate Re-Roof</h3>
+              <p style="margin:6px 0 0;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--hx,#f5b301)">Alamo Heights</p>
+            </div>
+          </div>
+          <div style="position:absolute;left:50%;top:50%;width:220px;height:330px;margin-left:-110px;margin-top:-165px;transform:rotateY(51.4deg) translateZ(430px);border-radius:16px;overflow:hidden;border:1px solid rgba(26,34,48,.14);box-shadow:0 30px 60px -22px rgba(0,0,0,.45);background:#0d1b2e">
+            <img src="./assets/proj1-after.png" alt="Storm restoration, finished" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 16px 15px;background:linear-gradient(to top,rgba(13,27,46,.92),rgba(13,27,46,0))">
+              <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:17px;line-height:1.15;color:#fff">Storm Restoration</h3>
+              <p style="margin:6px 0 0;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--hx,#f5b301)">Stone Oak</p>
+            </div>
+          </div>
+          <div style="position:absolute;left:50%;top:50%;width:220px;height:330px;margin-left:-110px;margin-top:-165px;transform:rotateY(102.9deg) translateZ(430px);border-radius:16px;overflow:hidden;border:1px solid rgba(26,34,48,.14);box-shadow:0 30px 60px -22px rgba(0,0,0,.45);background:#0d1b2e">
+            <img src="./assets/proj2-after.png" alt="Standing-seam metal roof, finished" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 16px 15px;background:linear-gradient(to top,rgba(13,27,46,.92),rgba(13,27,46,0))">
+              <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:17px;line-height:1.15;color:#fff">Standing-Seam Metal</h3>
+              <p style="margin:6px 0 0;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--hx,#f5b301)">Terrell Hills</p>
+            </div>
+          </div>
+          <div style="position:absolute;left:50%;top:50%;width:220px;height:330px;margin-left:-110px;margin-top:-165px;transform:rotateY(154.3deg) translateZ(430px);border-radius:16px;overflow:hidden;border:1px solid rgba(26,34,48,.14);box-shadow:0 30px 60px -22px rgba(0,0,0,.45);background:#0d1b2e">
+            <img src="./assets/proj3-after.png" alt="Designer tile roof, finished" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 16px 15px;background:linear-gradient(to top,rgba(13,27,46,.92),rgba(13,27,46,0))">
+              <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:17px;line-height:1.15;color:#fff">Designer Tile</h3>
+              <p style="margin:6px 0 0;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--hx,#f5b301)">Helotes</p>
+            </div>
+          </div>
+          <div style="position:absolute;left:50%;top:50%;width:220px;height:330px;margin-left:-110px;margin-top:-165px;transform:rotateY(205.7deg) translateZ(430px);border-radius:16px;overflow:hidden;border:1px solid rgba(26,34,48,.14);box-shadow:0 30px 60px -22px rgba(0,0,0,.45);background:#0d1b2e">
+            <img src="./assets/svc-skylight.jpg" alt="Skylight integration" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 16px 15px;background:linear-gradient(to top,rgba(13,27,46,.92),rgba(13,27,46,0))">
+              <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:17px;line-height:1.15;color:#fff">Skylight Integration</h3>
+              <p style="margin:6px 0 0;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--hx,#f5b301)">Schertz</p>
+            </div>
+          </div>
+          <div style="position:absolute;left:50%;top:50%;width:220px;height:330px;margin-left:-110px;margin-top:-165px;transform:rotateY(257.1deg) translateZ(430px);border-radius:16px;overflow:hidden;border:1px solid rgba(26,34,48,.14);box-shadow:0 30px 60px -22px rgba(0,0,0,.45);background:#0d1b2e">
+            <img src="./assets/svc-commercial.jpg" alt="Commercial flat roof" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 16px 15px;background:linear-gradient(to top,rgba(13,27,46,.92),rgba(13,27,46,0))">
+              <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:17px;line-height:1.15;color:#fff">Commercial Flat Roof</h3>
+              <p style="margin:6px 0 0;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--hx,#f5b301)">Shavano Park</p>
+            </div>
+          </div>
+          <div style="position:absolute;left:50%;top:50%;width:220px;height:330px;margin-left:-110px;margin-top:-165px;transform:rotateY(308.6deg) translateZ(430px);border-radius:16px;overflow:hidden;border:1px solid rgba(26,34,48,.14);box-shadow:0 30px 60px -22px rgba(0,0,0,.45);background:#0d1b2e">
+            <img src="./assets/welcome-after.png" alt="Copper and slate estate roof" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 16px 15px;background:linear-gradient(to top,rgba(13,27,46,.92),rgba(13,27,46,0))">
+              <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:17px;line-height:1.15;color:#fff">Standing-Seam Metal Re-Roof</h3>
+              <p style="margin:6px 0 0;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--hx,#f5b301)">Boerne</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{galSlider}}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Gallery auto-slider" style="position:relative;margin-top:44px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)">
+        <div data-tst-scroll="1" style-hover="animation-play-state:paused" style="display:flex;width:max-content;animation:hxSlideX 40s linear infinite">
+          <sc-for list="{{galSlide}}" as="gi" hint-placeholder-count="14">
+            <div style-hover="transform:scale(1.04);filter:brightness(1.06)" style="flex:0 0 auto;width:300px;height:300px;margin-right:22px;border-radius:16px;overflow:hidden;border:1px solid #e6e1d3;box-shadow:0 20px 40px rgba(23,24,26,.14);transition:transform .3s ease,filter .3s ease">
+              <img src="./assets/proj1-after.png" data-src="{{gi}}" alt="Finished roofing project" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none">
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+  </div></section>
+
+  <!-- ═══ 9 · TESTIMONIALS ═══ -->
+  <section data-screen-label="Testimonials" style="position:relative;padding:104px 28px;background-image:url('./assets/testimonial-bg.png');background-size:cover;background-position:center 30%;background-attachment:fixed;background-repeat:no-repeat">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,23,34,.6) 0%,rgba(15,23,34,.5) 45%,rgba(15,23,34,.68) 100%);pointer-events:none"></div>
+    <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:48px">
+        <div style="max-width:640px">
+          <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hx,#f5b301)">Client Stories</p>
+          <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;color:#ffffff">What your <em style="font-style:normal;font-weight:800">neighbors</em> say</h2>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:14px;background:rgba(255,255,255,.94);box-shadow:0 12px 30px rgba(0,0,0,.28);backdrop-filter:blur(4px)">
+          <svg width="30" height="30" viewBox="0 0 48 48" aria-hidden="true" style="flex:0 0 auto"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"></path><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"></path><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"></path><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"></path></svg>
+          <div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font:700 17px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230">4.9</span>
+              <span style="font-size:13px;letter-spacing:2px;color:#f5b301">★★★★★</span>
+            </div>
+            <p style="margin:3px 0 0;font:500 12px/1.3 'Plus Jakarta Sans',sans-serif;color:#5a6272">Based on 312 Google reviews</p>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{tstGrid}}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px">
+        <div style-hover="box-shadow:0 14px 36px rgba(23,24,26,.1)" style="position:relative;overflow:hidden;border-radius:16px;border:1px solid #e6e1d3;background:#ffffff;padding:32px;transition:box-shadow .3s ease">
+          <div style="position:absolute;right:24px;top:12px;font-family:Georgia,serif;font-size:64px;line-height:1;color:rgba(26,34,48,.12)">"</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="font-size:15px;letter-spacing:3px;color:var(--hx,#f5b301)">★★★★★</div>
+            <p style="margin:0;font:400 15px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">The proposal was itemized to the nail. They finished a day early and the yard was cleaner than they found it.</p>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:40px;height:40px;border-radius:50%;background:#f1eee6;display:flex;align-items:center;justify-content:center;font:700 15px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">M</div>
+              <div>
+                <h3 style="margin:0;font:700 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#1a2230">Margaret C.</h3>
+                <p style="margin:0;font:400 13px/1.5 'Plus Jakarta Sans',sans-serif;color:#98a0ad">Full Replacement · Alamo Heights</p>
+                <p style="margin:2px 0 0;font:600 11.5px/1.4 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:var(--hxd,#9a7500)">✓</span> Verified Google review</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style-hover="box-shadow:0 14px 36px rgba(23,24,26,.1)" style="position:relative;overflow:hidden;border-radius:16px;border:1px solid #e6e1d3;background:#ffffff;padding:32px;transition:box-shadow .3s ease">
+          <div style="position:absolute;right:24px;top:12px;font-family:Georgia,serif;font-size:64px;line-height:1;color:rgba(26,34,48,.12)">"</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="font-size:15px;letter-spacing:3px;color:var(--hx,#f5b301)">★★★★★</div>
+            <p style="margin:0;font:400 15px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Daily photos to my phone meant I never once wondered what was happening on my own roof.</p>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:40px;height:40px;border-radius:50%;background:#f1eee6;display:flex;align-items:center;justify-content:center;font:700 15px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">D</div>
+              <div>
+                <h3 style="margin:0;font:700 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#1a2230">David &amp; Priya R.</h3>
+                <p style="margin:0;font:400 13px/1.5 'Plus Jakarta Sans',sans-serif;color:#98a0ad">Storm Restoration · Stone Oak</p>
+                <p style="margin:2px 0 0;font:600 11.5px/1.4 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:var(--hxd,#9a7500)">✓</span> Verified Google review</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style-hover="box-shadow:0 14px 36px rgba(23,24,26,.1)" style="position:relative;overflow:hidden;border-radius:16px;border:1px solid #e6e1d3;background:#ffffff;padding:32px;transition:box-shadow .3s ease">
+          <div style="position:absolute;right:24px;top:12px;font-family:Georgia,serif;font-size:64px;line-height:1;color:rgba(26,34,48,.12)">"</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="font-size:15px;letter-spacing:3px;color:var(--hx,#f5b301)">★★★★★</div>
+            <p style="margin:0;font:400 15px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Three roofers quoted us a number on a business card. Sentry Roofing wrote us a proposal.</p>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:40px;height:40px;border-radius:50%;background:#f1eee6;display:flex;align-items:center;justify-content:center;font:700 15px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">T</div>
+              <div>
+                <h3 style="margin:0;font:700 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#1a2230">Tom B.</h3>
+                <p style="margin:0;font:400 13px/1.5 'Plus Jakarta Sans',sans-serif;color:#98a0ad">Slate &amp; Copper · Terrell Hills</p>
+                <p style="margin:2px 0 0;font:600 11.5px/1.4 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:var(--hxd,#9a7500)">✓</span> Verified Google review</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{tstScroll}}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative;display:flex;justify-content:center;gap:22px;max-height:680px;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 88%,transparent)">
+        <div style="flex:1 1 0;max-width:340px">
+          <div data-tst-scroll="1" style="display:flex;flex-direction:column;gap:22px;padding-bottom:22px;animation:hxTstScroll 34s linear infinite">
+            <sc-for list="{{tstColA}}" as="t" hint-placeholder-count="6">
+              <div style="position:relative;border-radius:16px;border:1px solid #e6e1d3;background:#fff;padding:26px;box-shadow:0 6px 20px rgba(23,24,26,.05)">
+                <div style="font-size:13px;letter-spacing:3px;color:var(--hx,#f5b301);margin-bottom:12px">★★★★★</div>
+                <p style="margin:0 0 18px;font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{t.text}}</p>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:36px;height:36px;border-radius:50%;background:#f1eee6;display:flex;align-items:center;justify-content:center;font:700 14px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">{{t.i}}</div>
+                  <div>
+                    <h3 style="margin:0;font:700 14px/1.4 'Plus Jakarta Sans',sans-serif;color:#1a2230">{{t.name}}</h3>
+                    <p style="margin:0;font:400 12.5px/1.5 'Plus Jakarta Sans',sans-serif;color:#98a0ad">{{t.role}}</p>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1 1 0;max-width:340px">
+          <div data-tst-scroll="1" style="display:flex;flex-direction:column;gap:22px;padding-bottom:22px;animation:hxTstScroll 44s linear infinite">
+            <sc-for list="{{tstColB}}" as="t" hint-placeholder-count="6">
+              <div style="position:relative;border-radius:16px;border:1px solid #e6e1d3;background:#fff;padding:26px;box-shadow:0 6px 20px rgba(23,24,26,.05)">
+                <div style="font-size:13px;letter-spacing:3px;color:var(--hx,#f5b301);margin-bottom:12px">★★★★★</div>
+                <p style="margin:0 0 18px;font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{t.text}}</p>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:36px;height:36px;border-radius:50%;background:#f1eee6;display:flex;align-items:center;justify-content:center;font:700 14px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">{{t.i}}</div>
+                  <div>
+                    <h3 style="margin:0;font:700 14px/1.4 'Plus Jakarta Sans',sans-serif;color:#1a2230">{{t.name}}</h3>
+                    <p style="margin:0;font:400 12.5px/1.5 'Plus Jakarta Sans',sans-serif;color:#98a0ad">{{t.role}}</p>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1 1 0;max-width:340px">
+          <div data-tst-scroll="1" style="display:flex;flex-direction:column;gap:22px;padding-bottom:22px;animation:hxTstScroll 39s linear infinite">
+            <sc-for list="{{tstColC}}" as="t" hint-placeholder-count="6">
+              <div style="position:relative;border-radius:16px;border:1px solid #e6e1d3;background:#fff;padding:26px;box-shadow:0 6px 20px rgba(23,24,26,.05)">
+                <div style="font-size:13px;letter-spacing:3px;color:var(--hx,#f5b301);margin-bottom:12px">★★★★★</div>
+                <p style="margin:0 0 18px;font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{t.text}}</p>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:36px;height:36px;border-radius:50%;background:#f1eee6;display:flex;align-items:center;justify-content:center;font:700 14px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">{{t.i}}</div>
+                  <div>
+                    <h3 style="margin:0;font:700 14px/1.4 'Plus Jakarta Sans',sans-serif;color:#1a2230">{{t.name}}</h3>
+                    <p style="margin:0;font:400 12.5px/1.5 'Plus Jakarta Sans',sans-serif;color:#98a0ad">{{t.role}}</p>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+      <div style="text-align:center;margin-top:40px">
+        <a href="https://google.com/maps" target="_blank" rel="noopener" style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--hxd,#9a7500);border-bottom:1px solid var(--hxd,#9a7500);padding-bottom:6px">Read All Reviews on Google →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 10 · PROCESS ═══ -->
+  <section id="process" data-screen-label="Process" style="padding:104px 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="max-width:640px;margin-bottom:48px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">The Process</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;color:#1a2230">From inspection to <em style="font-style:normal;font-weight:800">done</em></h2>
+      </div>
+      <sc-if value="{{procCarousel}}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:920px;margin:0 auto;background:#fff;border:1px solid #e6e1d3;border-radius:24px;padding:clamp(24px,4vw,44px);box-shadow:0 12px 40px rgba(23,24,26,.06)">
+        <div style="position:relative;min-height:400px;display:flex;align-items:center">
+          <sc-if value="{{procIs1}}" hint-placeholder-val="{{ true }}">
+            <div style="max-width:440px;display:flex;flex-direction:column;gap:14px">
+              <p data-anim="1" style="margin:0;font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--hxd,#9a7500);animation:hxSlideL .35s ease both .05s">Step 1</p>
+              <h3 data-anim="1" style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:28px;line-height:1.2;color:#1a2230;animation:hxSlideL .35s ease both .1s">Free Inspection</h3>
+              <p data-anim="1" style="margin:0;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;animation:hxSlideL .35s ease both .15s">We walk the roof, photograph everything, and hand you written findings. No cost and no obligation.</p>
+            </div>
+            <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+              <img data-anim="1" src="./assets/proc-1.png" alt="Material options" style="position:absolute;left:53%;top:4%;width:31%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;border:1px solid #e6e1d3;box-shadow:0 20px 40px rgba(23,24,26,.18);animation:hxSlideL .4s ease both">
+            </sc-if>
+          </sc-if>
+          <sc-if value="{{procIs2}}" hint-placeholder-val="{{ false }}">
+            <div style="max-width:440px;display:flex;flex-direction:column;gap:14px">
+              <p data-anim="1" style="margin:0;font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--hxd,#9a7500);animation:hxSlideL .35s ease both .05s">Step 2</p>
+              <h3 data-anim="1" style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:28px;line-height:1.2;color:#1a2230;animation:hxSlideL .35s ease both .1s">Written Fixed Proposal</h3>
+              <p data-anim="1" style="margin:0;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;animation:hxSlideL .35s ease both .15s">An itemized, fixed-price proposal in writing. On an insurance claim we build the scope to match what your policy owes you.</p>
+            </div>
+            <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+              <img data-anim="1" src="./assets/proc-2.png" alt="Consultation walk-through" style="position:absolute;left:53%;top:4%;width:31%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;border:1px solid #e6e1d3;box-shadow:0 20px 40px rgba(23,24,26,.18);animation:hxScaleIn .4s ease both">
+            </sc-if>
+          </sc-if>
+          <sc-if value="{{procIs3}}" hint-placeholder-val="{{ false }}">
+            <div style="max-width:440px;display:flex;flex-direction:column;gap:14px">
+              <p data-anim="1" style="margin:0;font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--hxd,#9a7500);animation:hxSlideL .35s ease both .05s">Step 3</p>
+              <h3 data-anim="1" style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:28px;line-height:1.2;color:#1a2230;animation:hxSlideL .35s ease both .1s">Schedule the Work</h3>
+              <p data-anim="1" style="margin:0;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;animation:hxSlideL .35s ease both .15s">Pick a window that suits your household. Your foreman confirms the schedule in writing before the first pallet arrives.</p>
+            </div>
+            <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+              <img data-anim="1" src="./assets/proc-3.png" alt="Roof prepared for delivery" style="position:absolute;left:55%;top:6%;width:36%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;border:1px solid #e6e1d3;box-shadow:0 20px 40px rgba(23,24,26,.18);animation:hxScaleIn .4s ease both">
+            </sc-if>
+          </sc-if>
+          <sc-if value="{{procIs4}}" hint-placeholder-val="{{ false }}">
+            <div style="max-width:440px;display:flex;flex-direction:column;gap:14px">
+              <p data-anim="1" style="margin:0;font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--hxd,#9a7500);animation:hxSlideL .35s ease both .05s">Step 4</p>
+              <h3 data-anim="1" style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:28px;line-height:1.2;color:#1a2230;animation:hxSlideL .35s ease both .1s">Perform the Work</h3>
+              <p data-anim="1" style="margin:0;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;animation:hxSlideL .35s ease both .15s">The crew arrives and the roof goes on — a dedicated foreman, photos to your phone every day, and a magnet-rolled yard before we leave.</p>
+            </div>
+            <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+              <img data-anim="1" src="./assets/proc-4.png" alt="Crew delivering the new roof" style="position:absolute;left:55%;top:6%;width:36%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;border:1px solid #e6e1d3;box-shadow:0 20px 40px rgba(23,24,26,.18);animation:hxScaleIn .4s ease both">
+            </sc-if>
+          </sc-if>
+          <sc-if value="{{procIs5}}" hint-placeholder-val="{{ false }}">
+            <div style="max-width:440px;display:flex;flex-direction:column;gap:14px">
+              <p data-anim="1" style="margin:0;font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--hxd,#9a7500);animation:hxSlideL .35s ease both .05s">Step 5 · Optional</p>
+              <h3 data-anim="1" style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:28px;line-height:1.2;color:#1a2230;animation:hxSlideL .35s ease both .1s">Maintenance &amp; Care</h3>
+              <p data-anim="1" style="margin:0;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;animation:hxSlideL .35s ease both .15s">Optional, and worth it: annual tune-ups, moss and debris removal, and priority scheduling after storms.</p>
+            </div>
+            <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+              <img data-anim="1" src="./assets/proc-5.png" alt="Seasonal maintenance" style="position:absolute;left:55%;top:6%;width:36%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;border:1px solid #e6e1d3;box-shadow:0 20px 40px rgba(23,24,26,.18);animation:hxScaleIn .4s ease both">
+            </sc-if>
+          </sc-if>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:30px;border-top:1px solid #eee9dc;padding-top:24px">
+          <sc-for list="{{procSteps}}" as="ps" hint-placeholder-count="5">
+            <button onClick="{{procSet}}" data-idx="{{$index}}" class="hx-proc-pill {{ps.cls}}" style="display:flex;align-items:center;gap:9px;border:none;border-radius:99px;padding:7px 15px 7px 7px;cursor:pointer;font:600 13px/1 'Plus Jakarta Sans',sans-serif">
+              <span class="hx-proc-dot" style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font:700 11px/1 'Plus Jakarta Sans',sans-serif">{{ps.sym}}</span>
+              <span>{{ps.label}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{procTabs}}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start;max-width:1180px;margin:0 auto">
+          <div style="flex:1 1 380px;min-width:300px;display:flex;flex-direction:column">
+            <button onClick="{{procSet}}" data-idx="0" style="position:relative;display:flex;align-items:flex-start;gap:16px;padding:26px 0 26px 22px;text-align:left;background:none;border:none;border-top:1px solid transparent;cursor:pointer;width:100%">
+              <span style="position:absolute;left:0;top:0;bottom:0;width:2px;background:#eee9dc">
+                <sc-if value="{{procIs1}}" hint-placeholder-val="{{ true }}"><span data-anim="1" style="position:absolute;top:0;left:0;width:100%;display:block;background:var(--hxd,#9a7500);animation:hxGrowV 5s linear both"></span></sc-if>
+              </span>
+              <span style="font:500 10px/1 'Plus Jakarta Sans',sans-serif;color:#98a0ad;margin-top:10px">/01</span>
+              <span style="display:flex;flex-direction:column;gap:8px;flex:1">
+                <span style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.15" class="hx-proc-title {{procCls1}}">Free Inspection</span>
+                <sc-if value="{{procIs1}}" hint-placeholder-val="{{ true }}"><span data-anim="1" style="font:400 14.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;animation:hxFade .35s ease both">We walk the roof, photograph everything, and hand you written findings. No cost and no obligation.</span></sc-if>
+              </span>
+            </button>
+            <button onClick="{{procSet}}" data-idx="1" style="position:relative;display:flex;align-items:flex-start;gap:16px;padding:26px 0 26px 22px;text-align:left;background:none;border:none;border-top:1px solid #eee9dc;cursor:pointer;width:100%">
+              <span style="position:absolute;left:0;top:0;bottom:0;width:2px;background:#eee9dc">
+                <sc-if value="{{procIs2}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="position:absolute;top:0;left:0;width:100%;display:block;background:var(--hxd,#9a7500);animation:hxGrowV 5s linear both"></span></sc-if>
+              </span>
+              <span style="font:500 10px/1 'Plus Jakarta Sans',sans-serif;color:#98a0ad;margin-top:10px">/02</span>
+              <span style="display:flex;flex-direction:column;gap:8px;flex:1">
+                <span style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.15" class="hx-proc-title {{procCls2}}">Written Fixed Proposal</span>
+                <sc-if value="{{procIs2}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="font:400 14.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;animation:hxFade .35s ease both">An itemized, fixed-price proposal in writing. On an insurance claim we build the scope to match what your policy owes you.</span></sc-if>
+              </span>
+            </button>
+            <button onClick="{{procSet}}" data-idx="2" style="position:relative;display:flex;align-items:flex-start;gap:16px;padding:26px 0 26px 22px;text-align:left;background:none;border:none;border-top:1px solid #eee9dc;cursor:pointer;width:100%">
+              <span style="position:absolute;left:0;top:0;bottom:0;width:2px;background:#eee9dc">
+                <sc-if value="{{procIs3}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="position:absolute;top:0;left:0;width:100%;display:block;background:var(--hxd,#9a7500);animation:hxGrowV 5s linear both"></span></sc-if>
+              </span>
+              <span style="font:500 10px/1 'Plus Jakarta Sans',sans-serif;color:#98a0ad;margin-top:10px">/03</span>
+              <span style="display:flex;flex-direction:column;gap:8px;flex:1">
+                <span style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.15" class="hx-proc-title {{procCls3}}">Schedule the Work</span>
+                <sc-if value="{{procIs3}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="font:400 14.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;animation:hxFade .35s ease both">Pick a window that suits your household. Your foreman confirms the schedule in writing before the first pallet arrives.</span></sc-if>
+              </span>
+            </button>
+            <button onClick="{{procSet}}" data-idx="3" style="position:relative;display:flex;align-items:flex-start;gap:16px;padding:26px 0 26px 22px;text-align:left;background:none;border:none;border-top:1px solid #eee9dc;cursor:pointer;width:100%">
+              <span style="position:absolute;left:0;top:0;bottom:0;width:2px;background:#eee9dc">
+                <sc-if value="{{procIs4}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="position:absolute;top:0;left:0;width:100%;display:block;background:var(--hxd,#9a7500);animation:hxGrowV 5s linear both"></span></sc-if>
+              </span>
+              <span style="font:500 10px/1 'Plus Jakarta Sans',sans-serif;color:#98a0ad;margin-top:10px">/04</span>
+              <span style="display:flex;flex-direction:column;gap:8px;flex:1">
+                <span style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.15" class="hx-proc-title {{procCls4}}">Perform the Work</span>
+                <sc-if value="{{procIs4}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="font:400 14.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;animation:hxFade .35s ease both">The crew arrives and the roof goes on — a dedicated foreman, photos to your phone every day, and a magnet-rolled yard before we leave.</span></sc-if>
+              </span>
+            </button>
+            <button onClick="{{procSet}}" data-idx="4" style="position:relative;display:flex;align-items:flex-start;gap:16px;padding:26px 0 26px 22px;text-align:left;background:none;border:none;border-top:1px solid #eee9dc;cursor:pointer;width:100%">
+              <span style="position:absolute;left:0;top:0;bottom:0;width:2px;background:#eee9dc">
+                <sc-if value="{{procIs5}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="position:absolute;top:0;left:0;width:100%;display:block;background:var(--hxd,#9a7500);animation:hxGrowV 5s linear both"></span></sc-if>
+              </span>
+              <span style="font:500 10px/1 'Plus Jakarta Sans',sans-serif;color:#98a0ad;margin-top:10px">/05</span>
+              <span style="display:flex;flex-direction:column;gap:8px;flex:1">
+                <span style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.15" class="hx-proc-title {{procCls5}}">Maintenance &amp; Care</span>
+                <sc-if value="{{procIs5}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="font:400 14.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;animation:hxFade .35s ease both">Optional, and worth it: annual tune-ups, moss and debris removal, and priority scheduling after storms.</span></sc-if>
+              </span>
+            </button>
+          </div>
+          <div style="flex:1 1 480px;min-width:300px">
+            <div onMouseEnter="{{procPause}}" onMouseLeave="{{procResume}}" style="position:relative;aspect-ratio:16/11;border-radius:32px;overflow:hidden;border:1px solid #e6e1d3;background:#f4f0e6">
+              <sc-if value="{{procIs1}}" hint-placeholder-val="{{ true }}"><img data-anim="1" onClick="{{procNextBtn}}" src="./assets/proc-1.png" alt="Material options" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer;animation:hxPanY .5s ease both"></sc-if>
+              <sc-if value="{{procIs2}}" hint-placeholder-val="{{ false }}"><img data-anim="1" onClick="{{procNextBtn}}" src="./assets/proc-2.png" alt="Consultation walk-through" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer;animation:hxPanY .5s ease both"></sc-if>
+              <sc-if value="{{procIs3}}" hint-placeholder-val="{{ false }}"><img data-anim="1" onClick="{{procNextBtn}}" src="./assets/proc-3.png" alt="Roof prepared for delivery" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer;animation:hxPanY .5s ease both"></sc-if>
+              <sc-if value="{{procIs4}}" hint-placeholder-val="{{ false }}"><img data-anim="1" onClick="{{procNextBtn}}" src="./assets/proc-4.png" alt="Crew delivering the new roof" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer;animation:hxPanY .5s ease both"></sc-if>
+              <sc-if value="{{procIs5}}" hint-placeholder-val="{{ false }}"><img data-anim="1" onClick="{{procNextBtn}}" src="./assets/proc-5.png" alt="Seasonal maintenance" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer;animation:hxPanY .5s ease both"></sc-if>
+              <div style="position:absolute;left:0;right:0;bottom:0;height:33%;background:linear-gradient(to top,rgba(0,0,0,.2),transparent);pointer-events:none"></div>
+              <div style="position:absolute;bottom:24px;right:24px;display:flex;gap:10px;z-index:20">
+                <button onClick="{{procPrevBtn}}" aria-label="Previous step" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;color:#1a2230;font:600 20px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer">‹</button>
+                <button onClick="{{procNextBtn}}" aria-label="Next step" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;color:#1a2230;font:600 20px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:52px">
+        <a href="tel:+18337368793" class="{{ctaClass}}" style="font:700 15px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px;text-decoration:none"><span>Get Started</span></a>
+        <span style="font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272">Starts with a free inspection, not a sales call.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8 · WHAT WE INSTALL ═══ -->
+  <section id="materials" data-screen-label="What we install" style="background:#f4f0e6;padding:104px 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="max-width:660px;margin:0 auto 48px;text-align:center">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">Materials</p>
+        <h2 style="margin:0 0 14px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;color:#1a2230">What we <em style="font-style:normal;font-weight:800">install</em></h2>
+        <p style="margin:0;font:400 15.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Most insurance claims replace like for like, so what you have is usually what you get. We fit both, and we will tell you which one your policy actually owes you.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px">
+        <div style="background:#fff;border:1px solid #e6e1d3;border-radius:20px;overflow:hidden;display:flex;flex-direction:column">
+          <img src="./assets/svc-replacement-photo.png" alt="Architectural shingle roof" style="display:block;width:100%;height:240px;object-fit:cover">
+          <div style="padding:28px 30px 30px;display:flex;flex-direction:column;gap:14px;flex:1">
+            <p style="margin:0;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--hxd,#9a7500)">Asphalt shingle</p>
+            <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:24px;line-height:1.2;color:#1a2230">IKO architectural shingle</h3>
+            <p style="margin:0;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Our shingle of choice: family-owned, manufactured in North America, and specified for Texas wind and hail. Nine out of ten homes we re-roof are shingle, and the profile and color are matched to what came off.</p>
+            <div style="display:flex;align-items:center;gap:14px;margin-top:auto">
+              <img src="./assets/iko-roofpro-badge.png" alt="IKO ROOFPRO Craftsman Premier" style="display:block;height:44px;width:auto">
+              <a href="https://www.iko.com/na/" target="_blank" rel="noopener" style-hover="color:var(--hx,#f5b301)" style="font:700 12.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--hxd,#9a7500);text-decoration:none;transition:color .25s ease">Explore IKO shingles ↗</a>
+            </div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e1d3;border-radius:20px;overflow:hidden;display:flex;flex-direction:column">
+          <img src="./assets/svc-commercial-photo.png" alt="Standing-seam metal roof" style="display:block;width:100%;height:240px;object-fit:cover">
+          <div style="padding:28px 30px 30px;display:flex;flex-direction:column;gap:14px;flex:1">
+            <p style="margin:0;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--hxd,#9a7500)">Metal</p>
+            <h3 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:24px;line-height:1.2;color:#1a2230">Standing seam and metal panel</h3>
+            <p style="margin:0;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Concealed-fastener standing seam and exposed-fastener panel, formed to your roofline. It costs more up front and lasts a great deal longer, which is why so much of the Hill Country is under it.</p>
+            <span onClick="{{navGo}}" data-target="contact" style-hover="color:var(--hx,#f5b301)" style="margin-top:auto;font:700 12.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--hxd,#9a7500);cursor:pointer;transition:color .25s ease">Ask about metal →</span>
+          </div>
+        </div>
+      </div>
+      <p style="margin:26px 0 0;text-align:center;font:500 14px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272">Manufacturer literature and warranty terms are attached to every written proposal.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 10B · FAQ ═══ -->
+  <section data-screen-label="FAQ" style="background:#f4f0e6;padding:104px 28px">
+    <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px 64px;align-items:flex-start">
+      <div style="flex:1 1 360px;min-width:280px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hxd,#9a7500)">FAQ</p>
+        <h2 style="margin:0 0 18px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;color:#1a2230">Common Questions</h2>
+        <p style="margin:0;font:400 15.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;text-wrap:pretty">Still wondering about something? Ask us directly — a real person, not a call center, replies within one business day.</p>
+        <img src="./assets/faq-photo.png" alt="A Sentry Roofing estimator talking with a homeowner at the front door" style="margin-top:32px;width:100%;height:auto;display:block;border-radius:14px;border:1px solid #e6e1d3">
+      </div>
+      <div style="flex:1 1 480px;min-width:300px">
+        <div style="border-bottom:1px solid #ddd6c4">
+          <sc-for list="{{faqs}}" as="faq" hint-placeholder-count="8">
+            <div style="border-top:1px solid #ddd6c4">
+              <div onClick="{{faqToggle}}" data-idx="{{$index}}" style="display:flex;align-items:center;justify-content:space-between;gap:22px;padding:21px 2px;cursor:pointer">
+                <span style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:18.5px;line-height:1.4;color:#1a2230">{{faq.q}}</span>
+                <span style="font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-size:26px;line-height:1;color:var(--hxd,#9a7500);flex:0 0 auto" class="hx-faq-plus {{faq.cls}}">+</span>
+              </div>
+              <div class="hx-faq-body {{faq.cls}}" style="overflow:hidden">
+                <p style="margin:0;padding:0 40px 22px 2px;font:400 15px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:680px;text-wrap:pretty">{{faq.a}}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 11B · SECONDARY CTA ═══ -->
+  <section data-screen-label="Stay in touch" style="position:relative;overflow:hidden;background:#0d1b2e;padding:120px 28px">
+    <img src="./assets/welcome-after.png" alt="A finished roof at dusk" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,21,36,.72),rgba(10,21,36,.58) 45%,rgba(10,21,36,.8))"></div>
+    <div class="hx-news-card" style="position:relative;max-width:840px;margin:0 auto">
+      <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--hx,#f5b301);text-align:center">Start Your Project</p>
+      <h2 style="margin:0 0 16px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);line-height:1.15;color:#fff;text-align:center">Tell us about your <em style="font-style:normal;font-weight:800;color:var(--hx,#f5b301)">roof</em></h2>
+      <p style="margin:0 auto 34px;font:400 16px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.75);max-width:540px;text-align:center;text-wrap:pretty">A few details and we will come out for a free inspection. Prefer to talk it through? Call <a href="tel:+18337368793" style="color:var(--hx,#f5b301);font-weight:700">(833) 736-8793</a>.</p>
+      <sc-if value="{{ctNotSent}}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Name</span>
+            <input ref="{{ctName}}" placeholder="First and last name" style-focus="border-color:var(--hx,#f5b301)" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Phone</span>
+            <input ref="{{ctPhone}}" type="tel" placeholder="(210) 000-0000" style-focus="border-color:var(--hx,#f5b301)" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Email</span>
+            <input ref="{{ctEmail}}" type="email" placeholder="you@email.com" style-focus="border-color:var(--hx,#f5b301)" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Property address</span>
+            <input ref="{{ctAddress}}" placeholder="Street and city" style-focus="border-color:var(--hx,#f5b301)" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">What do you need?</span>
+            <select ref="{{ctService}}" style-focus="border-color:var(--hx,#f5b301)" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(13,27,46,.85);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+              <option>Roof replacement</option>
+              <option>Roof repair</option>
+              <option>Free roof inspection</option>
+              <option>Storm or hail damage</option>
+              <option>Gutter installation</option>
+              <option>Emergency tarping</option>
+              <option>Commercial or multi-family</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Insurance claim?</span>
+            <select ref="{{ctClaim}}" style-focus="border-color:var(--hx,#f5b301)" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(13,27,46,.85);font:500 14.5px/1 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none">
+              <option>Not sure yet</option>
+              <option>Yes, filing a claim</option>
+              <option>No, paying out of pocket</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;grid-column:1/-1">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66)">Anything we should know?</span>
+            <textarea ref="{{ctNotes}}" rows="3" placeholder="Age of the roof, active leaks, storm date — whatever is useful" style-focus="border-color:var(--hx,#f5b301)" style="padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font:500 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#fff;outline:none;resize:vertical"></textarea>
+          </label>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:24px">
+          <span onClick="{{ctSubmit}}" class="{{ctaClass}}" style="font:700 14.5px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px"><span>Send to Sentry Roofing</span></span>
+          <span style="font:400 13.5px/1.6 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.62)">Goes straight to JJ. No call center, no spam.</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ctSent}}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:18px 0 6px">
+          <p style="margin:0 0 10px;font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--hx,#f5b301)">✓ Your email is ready to send</p>
+          <p style="margin:0;font:400 15.5px/1.7 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.78);max-width:460px;margin-left:auto;margin-right:auto">Hit send in the window that just opened and it lands with JJ. If nothing opened, call <a href="tel:+18337368793" style="color:var(--hx,#f5b301);font-weight:700">(833) 736-8793</a>.</p>
+        </div>
+      </sc-if>
+      <div style="display:flex;gap:14px;justify-content:center;margin-top:36px">
+        <a href="https://instagram.com" target="_blank" rel="noopener" title="Instagram" style-hover="background:var(--hx,#f5b301);color:var(--hxi,#10203a);border-color:var(--hx,#f5b301)" style="width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.04em;transition:background .25s ease,color .25s ease,border-color .25s ease">IG</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener" title="Facebook" style-hover="background:var(--hx,#f5b301);color:var(--hxi,#10203a);border-color:var(--hx,#f5b301)" style="width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font:700 17px/1 Georgia,serif;transition:background .25s ease,color .25s ease,border-color .25s ease">f</a>
+        <a href="https://google.com/maps" target="_blank" rel="noopener" title="Google reviews" style-hover="background:var(--hx,#f5b301);color:var(--hxi,#10203a);border-color:var(--hx,#f5b301)" style="width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font:700 16px/1 Georgia,serif;transition:background .25s ease,color .25s ease,border-color .25s ease">G</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 17 · FOOTER ═══ -->
+  <footer id="contact" data-screen-label="Footer" style="position:relative;overflow:hidden;background:#0a1524;padding:80px 28px 40px">
+    <sc-if value="{{footerModern}}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(125% 120% at 50% 4%, rgba(10,21,36,0) 42%, color-mix(in srgb, var(--hx,#f5b301) 22%, transparent) 100%)"></div>
+    </sc-if>
+    <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto">
+      <sc-if value="{{footerClassic}}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-wrap:wrap;gap:48px 64px">
+        <div style="flex:1 1 280px;min-width:240px">
+          <img src="./assets/logo-light.png" alt="Sentry Roofing" style="height:40px;display:block;margin-bottom:18px;border-radius:5px">
+          <p style="margin:0;font:400 14.5px/1.7 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.62);max-width:300px">Veteran owned, fully insured and IKO ROOFPRO Craftsman Premier certified. Fixed written proposals and a lifetime workmanship warranty.</p>
+        </div>
+        <div style="flex:1 1 160px">
+          <p style="margin:0 0 16px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Services</p>
+          <div style="display:flex;flex-direction:column;gap:11px;font:500 14px/1.4 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82)">
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Roof Replacement &amp; Re-Roofing</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Roof Repair</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Roof Inspections</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Storm &amp; Insurance Claims</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Gutter Installation</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">New Construction Roofing</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Roof Maintenance Programs</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Temporary Emergency Services</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Skylight Installation &amp; Repair</span>
+            <span onClick="{{navGo}}" data-target="services" style="cursor:pointer">Commercial &amp; Flat Roofing</span>
+          </div>
+        </div>
+        <div style="flex:1 1 140px">
+          <p style="margin:0 0 16px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Company</p>
+          <div style="display:flex;flex-direction:column;gap:11px;font:500 14px/1.4 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82)">
+            <span onClick="{{navGo}}" data-target="about" style="cursor:pointer">About</span>
+            <span onClick="{{navGo}}" data-target="work" style="cursor:pointer">Our Work</span>
+            <span onClick="{{navGo}}" data-target="process" style="cursor:pointer">Process</span>
+            <span onClick="{{navGo}}" data-target="materials" style="cursor:pointer">What We Install</span>
+            <span onClick="{{navGo}}" data-target="contact" style="cursor:pointer">Contact</span>
+          </div>
+        </div>
+        <div style="flex:1 1 220px">
+          <p style="margin:0 0 16px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Contact</p>
+          <div style="display:flex;flex-direction:column;gap:11px;font:500 14px/1.5 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82)">
+            <a href="tel:+18337368793" style="color:var(--hx,#f5b301);font-weight:700">(833) 736-8793</a>
+            <a href="mailto:jj@sentryrg.com" style="color:rgba(255,255,255,.82)">jj@sentryrg.com</a>
+            <span>Serving San Antonio, the I-35 corridor<br>and the Texas Hill Country</span>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{footerModern}}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:44px 48px">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <img src="./assets/logo-light.png" alt="Sentry Roofing" style="height:38px;display:block;border-radius:5px">
+          </div>
+          <p style="margin:0;font:400 14.5px/1.7 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.62);max-width:280px;text-wrap:pretty">Veteran owned, fully insured and IKO ROOFPRO Craftsman Premier certified. Fixed written proposals and a lifetime workmanship warranty.</p>
+          <a href="tel:+18337368793" style="font:700 18px/1 'Plus Jakarta Sans',sans-serif;color:var(--hx,#f5b301)">(833) 736-8793</a>
+        </div>
+        <div>
+          <h3 style="margin:0 0 18px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Useful Links</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;font:500 14px/1.4 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82)">
+            <span onClick="{{navGo}}" data-target="about" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer;transition:color .25s ease">About</span>
+            <span onClick="{{navGo}}" data-target="work" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer;transition:color .25s ease">Our Work</span>
+            <span onClick="{{navGo}}" data-target="services" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer;transition:color .25s ease">Services</span>
+            <span onClick="{{navGo}}" data-target="process" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer;transition:color .25s ease">Process</span>
+            <span onClick="{{navGo}}" data-target="materials" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer;transition:color .25s ease">What We Install</span>
+            <span onClick="{{navGo}}" data-target="contact" style-hover="color:var(--hx,#f5b301)" style="cursor:pointer;transition:color .25s ease">Contact</span>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin:0 0 18px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Follow Us</h3>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <a href="https://instagram.com" target="_blank" rel="noopener" style-hover="color:var(--hx,#f5b301)" style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.82);font:500 14px/1 'Plus Jakarta Sans',sans-serif;transition:color .25s ease"><span style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font:700 11px/1 'Plus Jakarta Sans',sans-serif;flex:0 0 auto">IG</span>Instagram</a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" style-hover="color:var(--hx,#f5b301)" style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.82);font:500 14px/1 'Plus Jakarta Sans',sans-serif;transition:color .25s ease"><span style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font:700 15px/1 Georgia,serif;flex:0 0 auto">f</span>Facebook</a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" style-hover="color:var(--hx,#f5b301)" style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.82);font:500 14px/1 'Plus Jakarta Sans',sans-serif;transition:color .25s ease"><span style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font:700 15px/1 'Plus Jakarta Sans',sans-serif;flex:0 0 auto">▶</span>YouTube</a>
+            <a href="https://google.com/maps" target="_blank" rel="noopener" style-hover="color:var(--hx,#f5b301)" style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.82);font:500 14px/1 'Plus Jakarta Sans',sans-serif;transition:color .25s ease"><span style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font:700 15px/1 Georgia,serif;flex:0 0 auto">G</span>Google</a>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin:0 0 12px;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45)">Start Your Project</h3>
+          <p style="margin:0 0 18px;font:400 13.5px/1.6 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.6);text-wrap:pretty">Free inspection, written findings, and a fixed price before anything is ordered.</p>
+          <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+            <a href="tel:+18337368793" class="{{ctaClass}}" style="font:700 13px/1.2 'Plus Jakarta Sans',sans-serif;padding:14px 26px;text-decoration:none"><span>Get a Free Estimate</span></a>
+            <a href="mailto:jj@sentryrg.com" style-hover="color:var(--hx,#f5b301)" style="font:500 13.5px/1.6 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.72);transition:color .25s ease">jj@sentryrg.com</a>
+          </div>
+        </div>
+      </div>
+      <div onMouseMove="{{footerMove}}" onMouseLeave="{{footerLeave}}" style="margin-top:44px;cursor:pointer">
+        <svg width="100%" height="auto" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg" style="display:block;user-select:none">
+          <defs>
+            <radialGradient id="hxFootReveal" gradientUnits="userSpaceOnUse" r="26%" cx="{{footCx}}" cy="{{footCy}}">
+              <stop offset="0%" stop-color="white"></stop>
+              <stop offset="100%" stop-color="black"></stop>
+            </radialGradient>
+            <linearGradient id="hxFootGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="300" y2="0">
+              <stop offset="0%" stop-color="var(--hx,#f5b301)"></stop>
+              <stop offset="50%" stop-color="#ffffff"></stop>
+              <stop offset="100%" stop-color="var(--hx,#f5b301)"></stop>
+            </linearGradient>
+            <mask id="hxFootMask"><rect x="0" y="0" width="100%" height="100%" fill="url(#hxFootReveal)"></rect></mask>
+          </defs>
+          <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle" fill="transparent" stroke="rgba(255,255,255,.14)" stroke-width="0.4" font-family="'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif" font-size="46" font-weight="600" letter-spacing="1">YOUR ROOFING INC</text>
+          <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle" fill="transparent" stroke="url(#hxFootGrad)" stroke-width="0.5" mask="url(#hxFootMask)" font-family="'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif" font-size="46" font-weight="600" letter-spacing="1">YOUR ROOFING INC</text>
+        </svg>
+      </div>
+      </sc-if>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);font:400 12.5px/1.6 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.48)">
+        <span>Veteran Owned &amp; Operated · Fully Insured</span>
+        <span>Website design &amp; build by <a href="https://maxcapacityagency.com" target="_blank" rel="noopener" style="color:rgba(255,255,255,.7);text-decoration:underline">Max Capacity Agency</a></span>
+        <span>© 2026 Sentry Roofing</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ 18 · MOBILE STICKY BAR ═══ -->
+  <sc-if value="{{isMobile}}" hint-placeholder-val="{{ false }}">
+    <div style="height:56px"></div>
+    <a href="tel:+18337368793" style="position:fixed;bottom:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:center;gap:10px;background:#0d1b2e;border-top:1px solid rgba(255,255,255,.16);padding:16px;font:700 13.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;color:#ffffff">
+      <span style="color:var(--hx,#f5b301);font-size:17px">✆</span> Call Now · Complimentary Inspection
+    </a>
+  </sc-if>
+
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Amber&quot;,&quot;Copper&quot;,&quot;Signal Red&quot;,&quot;Blue&quot;,&quot;Green&quot;],&quot;default&quot;:&quot;Amber&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;navStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Classic Bar&quot;,&quot;Tubelight Pill&quot;,&quot;Glow Menu&quot;],&quot;default&quot;:&quot;Classic Bar&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Navbar&quot;},&quot;heroStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Full-Bleed Video&quot;,&quot;Split with Proof Cards&quot;],&quot;default&quot;:&quot;Split with Proof Cards&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;proofCards&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Glass Cards&quot;,&quot;Award Badges&quot;],&quot;default&quot;:&quot;Award Badges&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;videoWidget&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Video Widget&quot;},&quot;galleryStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Coverflow&quot;,&quot;Circular 3D&quot;,&quot;Auto Slider&quot;],&quot;default&quot;:&quot;Coverflow&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Gallery&quot;},&quot;servicesLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Standard Cards&quot;,&quot;Image Accordion&quot;,&quot;Expandable Cards&quot;],&quot;default&quot;:&quot;Standard Cards&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Services&quot;},&quot;processLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Feature Carousel&quot;,&quot;Vertical Tabs&quot;],&quot;default&quot;:&quot;Vertical Tabs&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Process&quot;},&quot;testimonialStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Editorial Grid&quot;,&quot;Scrolling Columns&quot;],&quot;default&quot;:&quot;Scrolling Columns&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Testimonials&quot;},&quot;ctaStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Animated (Interactive)&quot;,&quot;Yellow Shimmer&quot;],&quot;default&quot;:&quot;Yellow Shimmer&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;CTA Button&quot;},&quot;footerStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Classic Columns&quot;,&quot;Modern&quot;],&quot;default&quot;:&quot;Classic Columns&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Footer&quot;}}">
+class Component extends DCLogic {
+  AREAS = [['San Antonio','san-antonio'],['New Braunfels','new-braunfels'],['Austin','austin'],['San Marcos','san-marcos'],['Boerne','boerne'],['Fredericksburg','fredericksburg'],['Schertz','schertz'],['Texas Hill Country','hill-country']];
+  SVC = [
+    { img: './assets/svc-replacement-photo.png', t: 'Roof Replacement & Re-Roofing', line: 'Complete tear-off and rebuild, documented daily.', d: 'IKO architectural shingle or standing-seam metal — a fixed written proposal, a dedicated foreman, and a 25-year workmanship guarantee.' },
+    { img: './assets/svc-repair-photo.png', t: 'Roof Repair', line: 'Leaks, flashing, and missing shingles — fixed for good.', d: 'We repair the cause, not the symptom, and photograph every step so you can see exactly what was done.' },
+    { img: './assets/svc-inspection-photo.png', t: 'Roof Inspections', line: 'Complimentary, with written findings in 48 hours.', d: 'A trained eye on your roof before you buy, sell, or file a claim — and no pressure to act on what we find.' },
+    { img: './assets/svc-storm-photo.png', t: 'Storm Damage & Insurance Claims', line: 'We document; you recover.', d: 'Full photographic documentation, a meeting with your adjuster on site, and a scope that matches what your policy owes you.' },
+    { img: './assets/svc-gutters-photo.png', t: 'Gutter Installation', line: 'Seamless gutters hung by the same crew.', d: 'Formed on site and hung while the crew is already on your roofline — one firm, one proposal, one guarantee for the roof and the gutters.' },
+    { img: './assets/svc-newbuild-photo.png', t: 'New Construction Roofing', line: 'From bare deck to ridge on new builds.', d: 'Coordinated with the builder, inspected at every stage, and finished to the same standard as our restorations.' },
+    { img: './assets/svc-maintenance-photo.png', t: 'Roof Maintenance & Care Plans', line: 'Annual tune-ups, moss and debris removal.', d: 'A seasonal program that catches small problems early — documented visits with photos, and priority scheduling when weather hits.' },
+    { img: './assets/proj2-mid.png', t: 'Temporary Emergency Services', line: 'Roof tarps and waterproofing, fast.', d: 'When a storm opens up your roof, we tarp and waterproof it the same day to protect the inside of your home — documented for your carrier, which in most policies reimburses emergency mitigation.' },
+    { img: './assets/svc-skylight-photo.png', t: 'Skylight Installation & Repair', line: 'Installed or replaced during your re-roof.', d: 'Curb and deck-mounted skylights, flashed and sealed by the crew that owns the warranty on the roof around them.' },
+    { img: './assets/svc-commercial-photo.png', t: 'Commercial & Flat Roofing', line: 'TPO, EPDM, and metal for working buildings.', d: 'Low-slope systems scheduled around your operations, with maintenance plans that keep small issues from becoming closures.' }
+  ];
+
+  TST = [
+    [
+      { i: 'M', name: 'Margaret C.', role: 'Full Replacement · Alamo Heights', text: 'The proposal was itemized to the nail. They finished a day early and the yard was cleaner than they found it.' },
+      { i: 'D', name: 'David & Priya R.', role: 'Storm Restoration · Stone Oak', text: 'Daily photos to my phone meant I never once wondered what was happening on my own roof.' },
+      { i: 'T', name: 'Tom B.', role: 'Metal Re-Roof · Terrell Hills', text: 'Three roofers quoted us a number on a business card. Sentry Roofing wrote us a proposal.' }
+    ],
+    [
+      { i: 'S', name: 'Sarah & Michael L.', role: 'Insurance Claim · Helotes', text: 'They met our adjuster on the roof and documented everything. The claim was approved without a single follow-up call.' },
+      { i: 'J', name: 'James O.', role: 'Metal Re-Roof · Schertz', text: 'The foreman was on site every single day. Same face, same standard, start to finish.' },
+      { i: 'E', name: 'Eleanor W.', role: 'Shingle Re-Roof · Shavano Park', text: 'They matched the profile and color on a 1920s home better than I thought possible. Craftsmen, not installers.' }
+    ],
+    [
+      { i: 'R', name: 'Raj & Anita P.', role: 'Gutters & Roof · Boerne', text: 'One firm, one proposal, one guarantee for the roof and the gutters. No finger-pointing between trades.' },
+      { i: 'C', name: 'Caroline H.', role: 'Roof Repair · Leon Valley', text: 'A small leak fixed properly the first time. They photographed the cause, not just the patch.' },
+      { i: 'G', name: 'Greg & Dana M.', role: 'New Construction · Converse', text: 'Coordinated with our builder without us lifting a finger — inspected at every stage and finished ahead of schedule.' }
+    ]
+  ];
+
+  FAQ = [
+    { q: 'What does a new roof cost in San Antonio?', a: 'Most full replacements here land between $14,000 and $34,000 depending on size, pitch, and material — slate and copper run higher. Your free inspection comes with a written, itemized proposal that is fixed to the dollar.' },
+    { q: 'Do you handle insurance and storm claims?', a: 'Yes. We photograph and document the damage, meet your adjuster on site, and prepare a scope that matches what your policy owes you. You deal with one foreman, not a claims maze.' },
+    { q: 'How long does a replacement take?', a: 'Most homes take two to four days on the roof. Your proposal includes a written schedule, and your foreman confirms timing before the first pallet arrives.' },
+    { q: 'How disruptive is the work?', a: 'It is a construction site for a few days — we will not pretend otherwise. But work runs daytime hours only, landscaping is protected, and the crew performs a full cleanup every evening, not just at the end.' },
+    { q: 'Do you offer financing?', a: '[PENDING — JJ to confirm whether financing is offered and through whom.]' },
+    { q: 'What does the workmanship warranty cover?', a: 'Every seam, flashing and fastener we touch, for the lifetime of the work, in writing. We also come back for a courtesy inspection every year.' },
+    { q: 'Do you use subcontractors?', a: 'Your job is run by our own foreman and JJ is on the roof himself every day of it — you always know who is on your property and who is accountable for the work.' },
+    { q: 'What does the complimentary inspection involve?', a: 'We walk the roof, photograph everything, and hand you written findings within 48 hours — whether or not any work is needed. No pressure, no sales script.' }
+  ];
+
+  SVC_NAV = [
+    'Roof Replacement & Re-Roofing', 'Roof Repair', 'Roof Inspections',
+    'Storm Damage & Insurance Claims', 'Gutter Installation',
+    'New Construction Roofing', 'Roof Maintenance & Care Plans', 'Temporary Emergency Services',
+    'Skylight Installation & Repair', 'Commercial & Flat Roofing'
+  ];
+
+  GAL = [
+    './assets/owner-after.png',
+    './assets/proj1-after.png',
+    './assets/proj2-after.png',
+    './assets/proj3-after.png',
+    './assets/svc-skylight.jpg',
+    './assets/svc-commercial.jpg',
+    './assets/welcome-after.png'
+  ];
+
+  state = {
+    scrolled: false, isMobile: false, menuOpen: false, svcMenu: false, areaMenu: false, abtMenu: false, active: 'top', galIndex: 3, procStep: 0, workTab: 0,
+    b1t: 'perspective(700px)', b2t: 'perspective(700px)', footCx: '50%', footCy: '50%',
+    hoverSvc: -1, svcActive: 0, svcOpen: -1, faqOpen: -1, news: false, dragging: null,
+    sliders: { owner: 50, p1: 50, p2: 50, p3: 50, welcome: 50 },
+    calc: { step: 1, type: null, size: null, material: null, timeline: null, done: false },
+    form: { step: 1, need: null, zip: '', timeline: '', name: '', contact: '', done: false }
+  };
+
+  componentDidMount() {
+    this._onResize = () => {
+      const m = window.innerWidth < 1120;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m });
+    };
+    this._onScroll = () => {
+      const sc = window.scrollY > 40;
+      const y = window.scrollY + 90;
+      let active = 'top';
+      ['top', 'about', 'work', 'services', 'process', 'contact'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) active = id;
+      });
+      if (sc !== this.state.scrolled || active !== this.state.active) this.setState({ scrolled: sc, active });
+      this.scrollDriveProcess();
+    };
+    window.addEventListener('resize', this._onResize);
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this.syncImgs();
+    this._galTimer = setInterval(this.galNext, 4000);
+    this._rotTimer = setInterval(() => {
+      this.setState({ rotOn: false });
+      this._rotFade = setTimeout(() => this.setState((s) => ({ rotIdx: ((s.rotIdx ?? 0) + 1) % 3, rotOn: true })), 340);
+    }, 2800);
+    this.startProcTimer();
+    this._onKeyDown = (e) => {
+      if (e.key === 'Escape') this.setState({ svcOpen: -1, menuOpen: false });
+    };
+    window.addEventListener('keydown', this._onKeyDown);
+    this._onResize();
+    this._onScroll();
+    this.applyAccent();
+    ['hx-hero-video', 'hx-hero-video-split'].forEach((id) => {
+      const v = document.getElementById(id);
+      if (v) {
+        v.muted = true;
+        v.loop = true;
+        v.playsInline = true;
+        const p = v.play();
+        if (p && p.catch) p.catch(() => {});
+      }
+    });
+    this.syncVA();
+  }
+
+  componentDidUpdate() { this.applyAccent(); this.syncVA(); }
+
+  syncVA() {
+    const on = this.props.videoWidget !== false;
+    if (document.body) document.body.setAttribute('data-hx-va', on ? 'on' : 'off');
+    if (on && !window.__hxVAloaded) {
+      window.__hxVAloaded = true;
+      window.VIDEOASK_EMBED_CONFIG = { kind: 'widget', url: 'https://www.videoask.com/frqd2d9jn', options: { widgetType: 'VideoThumbnailSmall', text: 'Intro video', backgroundColor: '#FFFFFF', position: 'bottom-right', dismissible: true, videoPosition: 'center center' } };
+      const s = document.createElement('script');
+      s.src = 'https://www.videoask.com/embed/embed.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+  }
+
+  syncImgs = () => {
+    const root = this._root || document;
+    root.querySelectorAll('img[data-src]').forEach(el => {
+      const want = el.getAttribute('data-src');
+      if (!want || want.indexOf('{{') !== -1) return;
+      if (el.getAttribute('src') !== want) el.setAttribute('src', want);
+    });
+  };
+  componentDidUpdate() { this.syncImgs(); }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._galTimer) clearInterval(this._galTimer);
+    if (this._rotTimer) clearInterval(this._rotTimer);
+    if (this._rotFade) clearTimeout(this._rotFade);
+    if (this._procTimer) clearInterval(this._procTimer);
+    if (this._onKeyDown) window.removeEventListener('keydown', this._onKeyDown);
+  }
+
+  applyAccent() {
+    const P = {
+      'Amber': { a: '#f5b301', d: '#9a7500', s: '#fdf3d6', i: '#10203a' },
+      'Copper': { a: '#c07c42', d: '#8a5426', s: '#f3e6da', i: '#fbf9f4' },
+      'Signal Red': { a: '#e02b35', d: '#b91f28', s: '#fbe3e4', i: '#ffffff' },
+      'Blue': { a: '#4a90e2', d: '#2d63a8', s: '#e5eefb', i: '#0d1b2e' },
+      'Green': { a: '#43a866', d: '#2b7247', s: '#e3f3e9', i: '#0d1b2e' }
+    };
+    const t = P[this.props.accent] || P['Amber'];
+    const st = document.body.style;
+    st.setProperty('--hx', t.a);
+    st.setProperty('--hxd', t.d);
+    st.setProperty('--hxs', t.s);
+    st.setProperty('--hxi', t.i);
+  }
+
+  PAGES = {
+    services: 'Services.dc.html',
+    work: 'Our Work.dc.html',
+    process: 'Process.dc.html',
+    about: 'About.dc.html',
+    contact: 'Contact.dc.html'
+  };
+
+  navGo = (e) => {
+    const id = e.currentTarget.dataset.target;
+    this.setState({ menuOpen: false, svcMenu: false });
+    if (this.PAGES[id]) { window.location.href = this.PAGES[id]; return; }
+    const el = document.getElementById(id);
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  };
+
+  menuToggle = () => this.setState(s => ({ menuOpen: !s.menuOpen }));
+  svcMenuEnter = () => this.setState({ svcMenu: true });
+  svcMenuLeave = () => this.setState({ svcMenu: false });
+  areaMenuEnter = () => this.setState({ areaMenu: true });
+  areaMenuLeave = () => this.setState({ areaMenu: false });
+  abtMenuEnter = () => this.setState({ abtMenu: true });
+  abtMenuLeave = () => this.setState({ abtMenu: false });
+
+  sliderDown = (e) => {
+    e.preventDefault();
+    const key = e.currentTarget.dataset.slider;
+    const rect = e.currentTarget.parentElement.getBoundingClientRect();
+    this.setState({ dragging: key });
+    const upd = (cx) => {
+      let p = ((cx - rect.left) / rect.width) * 100;
+      p = Math.max(0, Math.min(100, p));
+      this.setState(s => ({ sliders: { ...s.sliders, [key]: p } }));
+    };
+    upd(e.clientX);
+    const mv = (ev) => upd(ev.clientX);
+    const up = () => {
+      this.setState({ dragging: null });
+      window.removeEventListener('pointermove', mv);
+      window.removeEventListener('pointerup', up);
+      window.removeEventListener('pointercancel', up);
+    };
+    window.addEventListener('pointermove', mv);
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', up);
+  };
+
+  svcEnter = (e) => this.setState({ hoverSvc: Number(e.currentTarget.dataset.idx) });
+  svcLeave = () => this.setState({ hoverSvc: -1 });
+  svcAccEnter = (e) => this.setState({ svcActive: Number(e.currentTarget.dataset.idx) });
+  svcOpenCard = (e) => this.setState({ svcOpen: Number(e.currentTarget.dataset.idx) });
+  svcClose = () => this.setState({ svcOpen: -1 });
+  svcModalCta = () => {
+    this.setState({ svcOpen: -1 });
+    window.location.href = 'tel:+18337368793';
+  };
+  footerMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    this.setState({
+      footCx: (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%',
+      footCy: (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%'
+    });
+  };
+  footerLeave = () => this.setState({ footCx: '50%', footCy: '50%' });
+  badgeMove = (e) => {
+    const key = e.currentTarget.dataset.badge;
+    const r = e.currentTarget.getBoundingClientRect();
+    const dx = (e.clientX - r.left) / r.width - 0.5;
+    const dy = (e.clientY - r.top) / r.height - 0.5;
+    this.setState({ [key]: 'perspective(700px) rotateX(' + (-dy * 16).toFixed(2) + 'deg) rotateY(' + (dx * 16).toFixed(2) + 'deg) scale(1.03)' });
+  };
+  badgeLeave = (e) => {
+    const key = e.currentTarget.dataset.badge;
+    this.setState({ [key]: 'perspective(700px)' });
+  };
+  workSet = (e) => this.setState({ workTab: Number(e.currentTarget.dataset.idx) });
+  blogNav = (e) => {
+    const el = document.getElementById('hx-blog-track');
+    if (!el) return;
+    const d = e.currentTarget.dataset.dir;
+    el.scrollBy({ left: d === 'next' ? el.clientWidth * 0.9 : -el.clientWidth * 0.9, behavior: 'smooth' });
+  };
+  galNext = () => this.setState(s => ({ galIndex: (s.galIndex + 1) % this.GAL.length }));
+  galPrev = () => this.setState(s => ({ galIndex: (s.galIndex - 1 + this.GAL.length) % this.GAL.length }));
+  scrollDriveProcess = () => {
+    const el = document.getElementById('process');
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight || 1;
+    if (r.bottom < 0 || r.top > vh) return;
+    const span = Math.max(1, r.height - vh * 0.35);
+    const p = Math.min(0.999, Math.max(0, (vh * 0.65 - r.top) / span));
+    const i = Math.min(4, Math.floor(p * 5));
+    if (i !== this.state.procStep) {
+      if (this._procTimer) { clearInterval(this._procTimer); this._procTimer = null; }
+      this.setState({ procStep: i });
+    }
+  };
+
+  procNext = () => this.setState(s => ({ procStep: (s.procStep + 1) % 5 }));
+  procSet = (e) => {
+    this.setState({ procStep: Number(e.currentTarget.dataset.idx) });
+    this.startProcTimer();
+  };
+  startProcTimer = () => {
+    if (this._procTimer) clearInterval(this._procTimer);
+    this._procTimer = setInterval(this.procNext, 5000);
+  };
+  procNextBtn = () => {
+    this.setState(s => ({ procStep: (s.procStep + 1) % 5 }));
+    this.startProcTimer();
+  };
+  procPrevBtn = () => {
+    this.setState(s => ({ procStep: (s.procStep - 1 + 5) % 5 }));
+    this.startProcTimer();
+  };
+  procPause = () => {
+    if (this._procTimer) clearInterval(this._procTimer);
+    this._procTimer = null;
+  };
+  procResume = () => this.startProcTimer();
+  faqToggle = (e) => {
+    const i = Number(e.currentTarget.dataset.idx);
+    this.setState(s => ({ faqOpen: s.faqOpen === i ? -1 : i }));
+  };
+
+  calcPick = (e) => {
+    const { field, value } = e.currentTarget.dataset;
+    this.setState(s => {
+      const c = { ...s.calc, [field]: value };
+      if (field === 'timeline') c.done = true;
+      else c.step = Math.min(4, s.calc.step + 1);
+      return { calc: c };
+    });
+  };
+  calcBack = () => this.setState(s => ({ calc: { ...s.calc, step: Math.max(1, s.calc.step - 1) } }));
+  calcRestart = () => this.setState({ calc: { step: 1, type: null, size: null, material: null, timeline: null, done: false } });
+
+  estimate() {
+    const c = this.state.calc;
+    if (c.type === 'repair') return ['$850', '$6,500'];
+    const base = { small: [9500, 14500], medium: [14500, 22500], large: [22500, 34000], xl: [34000, 52000] }[c.size || 'medium'];
+    const m = { standard: 1, premium: 1.35, slate: 2.1 }[c.material || 'standard'];
+    const fmt = (n) => '$' + (Math.round(n * m / 100) * 100).toLocaleString('en-US');
+    return [fmt(base[0]), fmt(base[1])];
+  }
+
+  formPick = (e) => {
+    const v = e.currentTarget.dataset.value;
+    this.setState(s => ({ form: { ...s.form, need: v, step: 2 } }));
+  };
+  formInput = (e) => {
+    const f = e.currentTarget.dataset.field;
+    const v = e.currentTarget.value;
+    this.setState(s => ({ form: { ...s.form, [f]: v } }));
+  };
+  formNext = () => {
+    this.setState(s => {
+      const f = s.form;
+      if (f.step === 2) {
+        if (f.zip.trim().length < 3) return null;
+        return { form: { ...f, step: 3 } };
+      }
+      if (f.step === 3) {
+        if (!f.name.trim() || !f.contact.trim()) return null;
+        return { form: { ...f, done: true } };
+      }
+      return null;
+    });
+  };
+  formBack = () => this.setState(s => ({ form: { ...s.form, step: Math.max(1, s.form.step - 1) } }));
+  newsSub = () => this.setState({ news: true });
+
+  ctRefs = {
+    name: React.createRef(), phone: React.createRef(), email: React.createRef(),
+    address: React.createRef(), service: React.createRef(), claim: React.createRef(), notes: React.createRef()
+  };
+  ctSubmit = () => {
+    const v = (k) => (this.ctRefs[k].current ? this.ctRefs[k].current.value.trim() : '');
+    const lines = [
+      'Name: ' + v('name'),
+      'Phone: ' + v('phone'),
+      'Email: ' + v('email'),
+      'Property address: ' + v('address'),
+      'Service needed: ' + v('service'),
+      'Insurance claim: ' + v('claim'),
+      '',
+      'Details:',
+      v('notes')
+    ];
+    const subject = 'Website enquiry — ' + (v('service') || 'Roofing project') + (v('address') ? ' — ' + v('address') : '');
+    window.location.href = 'mailto:jj@sentryrg.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+    this.setState({ ctSent: true });
+  };
+
+  renderVals() {
+    const s = this.state;
+    const svcNavLinks = this.SVC_NAV.map((t, i) => ({ t, href: 'Service.dc.html?s=' + i }));
+    const solid = s.scrolled || s.menuOpen;
+    const [estLow, estHigh] = this.estimate();
+    return {
+      svcNavLinks,
+      navSolidCls: solid ? 'hx-solid' : '',
+      navClassic: (this.props.navStyle ?? 'Tubelight Pill') === 'Classic Bar',
+      navTube: (this.props.navStyle ?? 'Tubelight Pill') === 'Tubelight Pill',
+      navGlow: this.props.navStyle === 'Glow Menu',
+      navTubeItems: [['Home', 'top'], ['Services', 'services'], ['Process', 'process'], ['About', 'about'], ['Contact', 'contact']].map(([label, target]) => {
+        const act = s.active === target;
+        return {
+          label, target,
+          cls2: act ? 'is-active' : '',
+          cls: act ? 'hx-glow-item active' : 'hx-glow-item'
+        };
+      }),
+      navHomeCls: s.active === 'top' ? 'hx-active' : '',
+      navServicesCls: s.active === 'services' ? 'hx-active' : '',
+      navWorkCls: s.active === 'work' ? 'hx-active' : '',
+      navProcessCls: s.active === 'process' ? 'hx-active' : '',
+      navAboutCls: s.active === 'about' ? 'hx-active' : '',
+      navContactCls: s.active === 'contact' ? 'hx-active' : '',
+      isMobile: s.isMobile,
+      notMobile: !s.isMobile,
+      menuOpen: s.menuOpen,
+      menuLabel: s.menuOpen ? 'Close' : 'Menu',
+      menuToggle: this.menuToggle,
+      svcMenu: s.svcMenu && !s.isMobile,
+      svcMenuEnter: this.svcMenuEnter,
+      svcMenuLeave: this.svcMenuLeave,
+      areaMenu: s.areaMenu && !s.isMobile,
+      areaLinks: this.AREAS.map(a => ({ t: a[0], href: 'Service Area.dc.html?area=' + a[1] })),
+      areaMenuEnter: this.areaMenuEnter,
+      areaMenuLeave: this.areaMenuLeave,
+      abtMenu: s.abtMenu && !s.isMobile,
+      abtMenuEnter: this.abtMenuEnter,
+      abtMenuLeave: this.abtMenuLeave,
+      navGo: this.navGo,
+      heroWord: ['Most Trusted', 'Top Rated', 'Most Competent'][this.state.rotIdx ?? 0],
+      heroWordOpacity: (this.state.rotOn ?? true) ? 1 : 0,
+      ctaClass: this.props.ctaStyle === 'Yellow Shimmer' ? 'yellow-cta' : 'shiny-cta',
+      heroSplit: this.props.heroStyle === 'Split with Proof Cards',
+      heroVideo: this.props.heroStyle !== 'Split with Proof Cards',
+      footerClassic: (this.props.footerStyle ?? 'Classic Columns') !== 'Modern',
+      footerModern: this.props.footerStyle === 'Modern',
+      tstGrid: (this.props.testimonialStyle ?? 'Editorial Grid') !== 'Scrolling Columns',
+      tstScroll: this.props.testimonialStyle === 'Scrolling Columns',
+      tstColA: [...this.TST[0], ...this.TST[0]],
+      tstColB: [...this.TST[1], ...this.TST[1]],
+      tstColC: [...this.TST[2], ...this.TST[2]],
+      footCx: s.footCx, footCy: s.footCy,
+      footerMove: this.footerMove,
+      footerLeave: this.footerLeave,
+      cardsGlass: (this.props.proofCards ?? 'Glass Cards') !== 'Award Badges',
+      cardsBadges: this.props.proofCards === 'Award Badges',
+      b1t: s.b1t, b2t: s.b2t,
+      badgeMove: this.badgeMove,
+      badgeLeave: this.badgeLeave,
+
+      sliderDown: this.sliderDown,
+      ownerPct: s.sliders.owner, ownerClip: 100 - s.sliders.owner,
+      p1Pct: s.sliders.p1, p1Clip: 100 - s.sliders.p1,
+      p2Pct: s.sliders.p2, p2Clip: 100 - s.sliders.p2,
+      p3Pct: s.sliders.p3, p3Clip: 100 - s.sliders.p3,
+      welcomePct: s.sliders.welcome, welcomeClip: 100 - s.sliders.welcome,
+
+      gallery: this.GAL.map((src, i) => {
+        const total = this.GAL.length;
+        let pos = ((i - s.galIndex) % total + total) % total;
+        if (pos > Math.floor(total / 2)) pos = pos - total;
+        const isC = pos === 0;
+        const isA = Math.abs(pos) === 1;
+        return {
+          src,
+          tr: 'translateX(' + pos * 45 + '%) scale(' + (isC ? 1 : isA ? 0.85 : 0.7) + ') rotateY(' + pos * -10 + 'deg)',
+          z: isC ? 10 : isA ? 5 : 1,
+          op: isC ? 1 : isA ? 0.4 : 0,
+          fl: isC ? 'blur(0px)' : 'blur(4px)',
+          vis: Math.abs(pos) > 1 ? 'hidden' : 'visible'
+        };
+      }),
+      galPrev: this.galPrev,
+      galNext: this.galNext,
+      galCoverflow: (this.props.galleryStyle ?? 'Coverflow') === 'Coverflow',
+      galCircular: this.props.galleryStyle === 'Circular 3D',
+      galSlider: this.props.galleryStyle === 'Auto Slider',
+      galSlide: [...this.GAL, ...this.GAL],
+      work1: s.workTab === 0, work2: s.workTab === 1, work3: s.workTab === 2,
+      workSet: this.workSet,
+      blogNav: this.blogNav,
+      workTabs: [['Example 1', 0], ['Example 2', 1], ['Example 3', 2]].map(([label, idx]) => ({ label, idx, cls: s.workTab === idx ? 'hx-work-tab active' : 'hx-work-tab' })),
+
+      stickyCta: s.scrolled && !s.isMobile,
+      procIs1: s.procStep === 0,
+      procIs2: s.procStep === 1,
+      procIs3: s.procStep === 2,
+      procIs4: s.procStep === 3,
+      procIs5: s.procStep === 4,
+      procSet: this.procSet,
+      procCarousel: (this.props.processLayout ?? 'Feature Carousel') !== 'Vertical Tabs',
+      procTabs: this.props.processLayout === 'Vertical Tabs',
+      procNextBtn: this.procNextBtn,
+      procPrevBtn: this.procPrevBtn,
+      procPause: this.procPause,
+      procResume: this.procResume,
+      procCls1: s.procStep === 0 ? 'is-active' : '',
+      procCls2: s.procStep === 1 ? 'is-active' : '',
+      procCls3: s.procStep === 2 ? 'is-active' : '',
+      procCls4: s.procStep === 3 ? 'is-active' : '',
+      procCls5: s.procStep === 4 ? 'is-active' : '',
+      procSteps: [0, 1, 2, 3, 4].map((i) => {
+        const cur = s.procStep === i;
+        const done = s.procStep > i;
+        return {
+          label: 'Step ' + (i + 1),
+          sym: done ? '✓' : String(i + 1),
+          cls: cur ? 'is-current' : (done ? 'is-done' : '')
+        };
+      }),
+      ownerScale: s.dragging === 'owner' ? 1.1 : 1,
+      p1Scale: s.dragging === 'p1' ? 1.1 : 1,
+      p2Scale: s.dragging === 'p2' ? 1.1 : 1,
+      p3Scale: s.dragging === 'p3' ? 1.1 : 1,
+      welcomeScale: s.dragging === 'welcome' ? 1.1 : 1,
+
+      services: this.SVC.map((v, i) => ({
+        ...v,
+        href: 'Service.dc.html?s=' + i,
+        ovCls: s.hoverSvc === i ? 'is-show' : '',
+        accCls: s.svcActive === i ? 'is-open' : ''
+      })),
+      svcEnter: this.svcEnter,
+      svcLeave: this.svcLeave,
+      svcAccEnter: this.svcAccEnter,
+      svcStandard: (this.props.servicesLayout ?? 'Standard Cards') !== 'Image Accordion' && this.props.servicesLayout !== 'Expandable Cards',
+      svcAccordion: this.props.servicesLayout === 'Image Accordion',
+      svcExpand: this.props.servicesLayout === 'Expandable Cards',
+      svcModalOpen: s.svcOpen >= 0,
+      svcModal: this.SVC[s.svcOpen] || { img: '', t: '', line: '', d: '' },
+      svcOpenCard: this.svcOpenCard,
+      svcClose: this.svcClose,
+      svcModalCta: this.svcModalCta,
+
+      calcStepNum: s.calc.step,
+      calcProgress: s.calc.done ? 100 : (s.calc.step - 1) * 25,
+      calcIs1: !s.calc.done && s.calc.step === 1,
+      calcIs2: !s.calc.done && s.calc.step === 2,
+      calcIs3: !s.calc.done && s.calc.step === 3,
+      calcIs4: !s.calc.done && s.calc.step === 4,
+      calcShowBack: !s.calc.done && s.calc.step > 1,
+      calcDone: s.calc.done,
+      calcNotDone: !s.calc.done,
+      calcPick: this.calcPick,
+      calcBack: this.calcBack,
+      calcRestart: this.calcRestart,
+      estLow, estHigh,
+
+      formStepNum: s.form.step,
+      formProgress: (s.form.step - 1) * 33.4,
+      formIs1: !s.form.done && s.form.step === 1,
+      formIs2: !s.form.done && s.form.step === 2,
+      formIs3: !s.form.done && s.form.step === 3,
+      formDone: s.form.done,
+      formNotDone: !s.form.done,
+      formPick: this.formPick,
+      formInput: this.formInput,
+      formNext: this.formNext,
+      formBack: this.formBack,
+      fZip: s.form.zip, fTimeline: s.form.timeline, fName: s.form.name, fContact: s.form.contact,
+
+      faqs: this.FAQ.map((f, i) => ({
+        q: f.q, a: f.a,
+        cls: s.faqOpen === i ? 'is-open' : ''
+      })),
+      faqToggle: this.faqToggle,
+
+      news: s.news,
+      newsNotDone: !s.news,
+      newsSub: this.newsSub,
+
+      ctSent: !!s.ctSent,
+      ctNotSent: !s.ctSent,
+      ctSubmit: this.ctSubmit,
+      ctName: this.ctRefs.name, ctPhone: this.ctRefs.phone, ctEmail: this.ctRefs.email,
+      ctAddress: this.ctRefs.address, ctService: this.ctRefs.service,
+      ctClaim: this.ctRefs.claim, ctNotes: this.ctRefs.notes
+    };
+  }
+}
+</script>
+</body>
+</html>

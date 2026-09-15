@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Roofing Service Areas | Sentry Roofing</title>
+  <meta name="description" content="Roofing and gutters across San Antonio, New Braunfels, Austin, San Marcos, Boerne, Fredericksburg, Schertz and the Texas Hill Country. Veteran owned, fully insured, free inspections.">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/1cd1e7d71e048159076fd90b39846902?family=Open+Sauce+One" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/42acf9aa4a6dc2f2886a3f682e337ead?family=Open+Sauce+One+Bold" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:#ffffff; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    a:hover { color:#f5b301; }
+    input, select, button, textarea { font-family:'Plus Jakarta Sans', sans-serif; }
+    .pg-cta { position:relative; display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:360px; color:#10203a; background:#f5b301; overflow:hidden; cursor:pointer; isolation:isolate; box-shadow:0 8px 22px -6px rgba(245,179,1,.6); transition:transform .2s ease, box-shadow .2s ease; }
+    .pg-cta span { position:relative; z-index:1; }
+    .pg-cta::after { content:''; position:absolute; inset:0; z-index:0; background:linear-gradient(115deg, transparent 20%, rgba(255,255,255,.5) 50%, transparent 80%); transform:translateX(-120%); animation:pgShine 3.2s ease-in-out infinite; pointer-events:none; }
+    .pg-cta:hover { color:#10203a; transform:translateY(-2px); box-shadow:0 13px 30px -6px rgba(245,179,1,.72); background:#e2a400; }
+    @keyframes pgShine { 0% { transform:translateX(-120%); } 55%,100% { transform:translateX(120%); } }
+    @keyframes saFade { from { opacity:0; } to { opacity:1; } }
+    @keyframes saGrowV { from { height:0%; } to { height:100%; } }
+    .sa-proc-title { color:#b0b3b8; transition:color .5s ease; }
+    .sa-proc-title.is-active { color:#1a2230; }
+    .sa-faq-plus { transition:transform .3s ease; }
+    .sa-faq-plus.is-open { transform:rotate(45deg); }
+    .sa-faq-body { max-height:0; opacity:0; overflow:hidden; transition:max-height .4s ease, opacity .35s ease; }
+    .sa-faq-body.is-open { max-height:400px; opacity:1; }
+    .sa-svc { position:relative; display:block; overflow:hidden; background:#fff; border:1px solid #e6e1d3; border-radius:14px; color:#1a2230; }
+    .sa-svc-ov { opacity:0; transform:translateY(10px); pointer-events:none; transition:opacity .35s ease, transform .35s ease; }
+    .sa-svc:hover .sa-svc-ov, .sa-svc:focus-visible .sa-svc-ov { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .sa-tile img { transition:transform .6s ease; }
+    .sa-tile:hover img { transform:scale(1.05); }
+    .sa-chip { transition:border-color .25s ease, color .25s ease, background .25s ease, box-shadow .25s ease; }
+    .sa-chip:hover { border-color:#f5b301; box-shadow:0 12px 30px rgba(26,34,48,.08); color:#1a2230; }
+    @media (prefers-reduced-motion: reduce) { .pg-cta::after { animation:none; } [data-anim] { animation:none !important; } }
+  </style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',sans-serif;color:#1a2230;background:#ffffff">
+
+  <dc-import name="Site Nav" current="areas" hint-size="100%,96px"></dc-import>
+
+  <header data-screen-label="Area hero" style="position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;background:#0d1b2e;padding:clamp(140px,18vw,210px) 28px clamp(56px,7vw,86px)">
+    <img ref="{{heroRef}}" src="./assets/area-hero.jpg" alt="A roof we completed in this service area" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,21,36,.68) 0%,rgba(10,21,36,.5) 42%,rgba(10,21,36,.86) 100%)"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 78% 12%,rgba(245,179,1,.2),transparent 58%)"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto;width:100%">
+      <p style="margin:0 0 16px;font:600 12px/1.4 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#f5b301">Roofing &amp; Gutters in {{aIn}}</p>
+      <h1 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(40px,5.2vw,70px);line-height:1.04;letter-spacing:-.015em;color:#ffffff;max-width:960px">{{aTitle}}'s Trusted <em style="font-style:normal;font-weight:800;color:#f5b301">Roofing Company</em></h1>
+      <p style="margin:24px 0 0;font:400 17.5px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.86);max-width:660px;text-wrap:pretty">{{aSub}}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin:36px 0 0">
+        <a href="tel:+18337368793" class="pg-cta" style="font:700 15px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px"><span>Get a Free Estimate</span></a>
+        <a href="tel:+18337368793" style-hover="background:rgba(255,255,255,.14)" style="display:inline-flex;align-items:center;gap:9px;font:600 15px/1 'Plus Jakarta Sans',sans-serif;color:#fff;border:1px solid rgba(255,255,255,.45);padding:16px 30px;border-radius:99px;cursor:pointer;transition:background .25s ease">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>(833) 736-8793
+        </a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 30px;margin-top:48px;padding:22px 0 0;border-top:1px solid rgba(255,255,255,.22);font:600 11.5px/1.4 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.8)">
+        <span><span style="color:#3fae5f">✓</span> Veteran Owned &amp; Operated</span>
+        <span><span style="color:#3fae5f">✓</span> Fully Insured</span>
+        <span><span style="color:#3fae5f">✓</span> Free Inspections</span>
+        <span><span style="color:#3fae5f">✓</span> In {{aIn}} Most Weeks</span>
+      </div>
+    </div>
+  </header>
+
+  <section data-screen-label="Credibility bar" style="background:#f5b301;padding:26px 28px">
+    <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:26px 40px;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap;gap:24px 46px">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-family:'Open Sauce One',sans-serif;font-weight:800;font-size:30px;line-height:1;color:#10203a">25</span>
+          <span style="font:600 11.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(16,32,58,.78)">Years in the Trade</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-family:'Open Sauce One',sans-serif;font-weight:800;font-size:30px;line-height:1;color:#10203a">20</span>
+          <span style="font:600 11.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(16,32,58,.78)">Years as an Adjuster</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-family:'Open Sauce One',sans-serif;font-weight:800;font-size:30px;line-height:1;color:#10203a">100+</span>
+          <span style="font:600 11.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(16,32,58,.78)">Photos Per Job</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-family:'Open Sauce One',sans-serif;font-weight:800;font-size:30px;line-height:1;color:#10203a">Lifetime</span>
+          <span style="font:600 11.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(16,32,58,.78)">Workmanship Warranty</span>
+        </div>
+      </div>
+      <img src="./assets/iko-roofpro-badge.png" alt="IKO ROOFPRO Craftsman Premier certified" style="display:block;height:62px;width:auto;border-radius:6px;flex:0 0 auto">
+    </div>
+  </section>
+
+  <section data-screen-label="Local intro" style="background:#ffffff;padding:clamp(60px,9vw,104px) 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;gap:44px 60px;align-items:stretch">
+        <div style="flex:1 1 460px;min-width:300px;display:flex;flex-direction:column">
+          <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500;align-self:flex-start;padding:8px 15px;border-radius:99px;background:#faf7f0;border:1px solid #e6e1d3">Local to {{aIn}}</p>
+          <h2 style="margin:0 0 22px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;letter-spacing:-.01em;color:#1a2230">Why {{aName}} homes need a <em style="font-style:normal;font-weight:800">local roofer</em></h2>
+          <p style="margin:0 0 18px;font:400 16px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{aIntro1}}</p>
+          <p style="margin:0 0 18px;font:400 16px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{aIntro2}}</p>
+          <p style="margin:0 0 26px;font:400 16px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{aIntro3}}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+            <a href="tel:+18337368793" class="pg-cta" style="font:700 14.5px/1.2 'Plus Jakarta Sans',sans-serif;padding:16px 30px"><span>Get a Free Estimate</span></a>
+            <a href="About.dc.html" style-hover="border-color:#f5b301;color:#9a7500" style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#1a2230;border-bottom:1px solid #e6e1d3;padding-bottom:6px;transition:color .25s ease,border-color .25s ease">Meet the Owner →</a>
+          </div>
+        </div>
+        <div style="flex:1 1 380px;min-width:280px;display:flex">
+          <img src="./assets/area-local-crew.png" alt="A Sentry Roofing crew mid tear-off, new shingle stacked on the lawn" style="width:100%;height:100%;min-height:360px;object-fit:cover;border-radius:16px;border:1px solid #e6e1d3;display:block">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Quick answers" style="position:relative;padding:clamp(60px,9vw,104px) 28px;background:#0d1b2e">
+    <img src="./assets/modern-roof-parallax.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,27,46,.86),rgba(13,27,46,.78) 45%,rgba(13,27,46,.9))"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto">
+      <div style="max-width:660px;margin-bottom:44px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f5b301">The Short Answers</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#ffffff">What {{aName}} homeowners <em style="font-style:normal;font-weight:800;color:#f5b301">ask first</em></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <sc-for list="{{aQuick}}" as="q" hint-placeholder-count="6">
+          <div style="background:#ffffff;border:1px solid #e6e1d3;border-radius:14px;padding:26px 24px">
+            <h3 style="margin:0 0 10px;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:19px;line-height:1.25;color:#1a2230">{{q.q}}</h3>
+            <p style="margin:0;font:400 15px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{q.a}}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Services" style="background:#ffffff;padding:clamp(60px,9vw,104px) 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="max-width:660px;margin-bottom:48px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">What We Do Here</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">Our services in <em style="font-style:normal;font-weight:800">{{aIn}}</em></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+        <sc-for list="{{svcCards}}" as="c" hint-placeholder-count="10">
+          <a href="{{c.href}}" class="sa-svc">
+            <img src="{{c.img}}" alt="{{c.alt}}" loading="lazy" style="display:block;width:100%;height:190px;object-fit:cover">
+            <div style="padding:22px 24px 26px">
+              <h3 style="margin:0 0 8px;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:20px;line-height:1.25;color:#1a2230">{{c.t}}</h3>
+              <p style="margin:0;font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272">{{c.line}}</p>
+            </div>
+            <div class="sa-svc-ov" style="position:absolute;inset:0;background:rgba(13,27,46,.94);padding:28px;display:flex;flex-direction:column;justify-content:flex-end;gap:12px">
+              <h3 style="margin:0;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:20px;line-height:1.25;color:#fff">{{c.t}}</h3>
+              <p style="margin:0;font:400 14px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.82)">{{c.d}}</p>
+              <span style="font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#f5b301">Learn More →</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Gallery" style="background:#ffffff;padding:clamp(60px,9vw,104px) 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:44px">
+        <div style="max-width:660px">
+          <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">Recent Work</p>
+          <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">Roofs we have finished <em style="font-style:normal;font-weight:800">near {{aIn}}</em></h2>
+        </div>
+        <a href="Our Work.dc.html" style-hover="border-color:#f5b301;color:#9a7500" style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#1a2230;border-bottom:1px solid #e6e1d3;padding-bottom:6px;transition:color .25s ease,border-color .25s ease">See All Work →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+        <sc-for list="{{gallery}}" as="g" hint-placeholder-count="6">
+          <div class="sa-tile" style="position:relative;overflow:hidden;border-radius:16px;border:1px solid #e6e1d3;background:#0d1b2e;aspect-ratio:4/3">
+            <img src="{{g.img}}" alt="{{g.alt}}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:20px 18px 16px;background:linear-gradient(to top,rgba(13,27,46,.92),rgba(13,27,46,0))">
+              <h3 style="margin:0;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:17px;line-height:1.2;color:#fff">{{g.t}}</h3>
+              <p style="margin:6px 0 0;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#f5b301">{{g.loc}}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Testimonials" style="position:relative;padding:clamp(60px,9vw,104px) 28px;background:#0d1b2e">
+    <img src="./assets/testimonial-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,27,46,.78),rgba(13,27,46,.66) 45%,rgba(13,27,46,.84))"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto">
+      <div style="max-width:660px;margin-bottom:44px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f5b301">Client Stories</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#ffffff">What your <em style="font-style:normal;font-weight:800;color:#f5b301">{{aName}} neighbors</em> say</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px">
+        <sc-for list="{{quotes}}" as="q" hint-placeholder-count="3">
+          <div style="position:relative;overflow:hidden;border-radius:16px;border:1px solid #e6e1d3;background:#ffffff;padding:32px">
+            <div style="position:absolute;right:24px;top:12px;font-family:Georgia,serif;font-size:64px;line-height:1;color:rgba(26,34,48,.1)">"</div>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="font-size:15px;letter-spacing:3px;color:#f5b301">★★★★★</div>
+              <p style="margin:0;font:400 15px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{q.body}}</p>
+              <div style="display:flex;align-items:center;gap:14px">
+                <div style="width:40px;height:40px;border-radius:50%;background:#f4f0e6;display:flex;align-items:center;justify-content:center;font:700 15px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">{{q.initial}}</div>
+                <div>
+                  <h3 style="margin:0;font:700 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#1a2230">{{q.name}}</h3>
+                  <p style="margin:0;font:400 13px/1.5 'Plus Jakarta Sans',sans-serif;color:#8b93a3">{{q.job}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Process" style="background:#ffffff;padding:clamp(60px,9vw,104px) 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="max-width:660px;margin-bottom:48px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">The Process</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">Working with us in <em style="font-style:normal;font-weight:800">{{aIn}}</em></h2>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+        <div style="flex:1 1 380px;min-width:300px;display:flex;flex-direction:column">
+          <sc-for list="{{procSteps}}" as="p" hint-placeholder-count="5">
+            <button onClick="{{procSet}}" data-idx="{{p.idx}}" style="position:relative;display:flex;align-items:flex-start;gap:16px;padding:26px 0 26px 22px;text-align:left;background:none;border:none;border-top:1px solid #e6e1d3;cursor:pointer;width:100%">
+              <span style="position:absolute;left:0;top:0;bottom:0;width:2px;background:#e6e1d3">
+                <sc-if value="{{p.on}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="position:absolute;top:0;left:0;width:100%;display:block;background:#9a7500;animation:saGrowV 5s linear both"></span></sc-if>
+              </span>
+              <span style="font:500 10px/1 'Plus Jakarta Sans',sans-serif;color:#8b93a3;margin-top:10px">{{p.num}}</span>
+              <span style="display:flex;flex-direction:column;gap:8px;flex:1">
+                <span style="font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:clamp(21px,2.4vw,28px);line-height:1.15" class="sa-proc-title {{p.cls}}">{{p.t}}</span>
+                <sc-if value="{{p.on}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="font:400 14.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;animation:saFade .35s ease both">{{p.d}}</span></sc-if>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="flex:1 1 460px;min-width:300px">
+          <div onMouseEnter="{{procPause}}" onMouseLeave="{{procResume}}" style="position:relative;aspect-ratio:16/11;border-radius:24px;overflow:hidden;border:1px solid #e6e1d3;background:#faf7f0">
+            <img data-anim="1" onClick="{{procNext}}" src="{{procImg}}" alt="{{procImgAlt}}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer;animation:saFade .5s ease both">
+            <div style="position:absolute;bottom:22px;right:22px;display:flex;gap:10px;z-index:20">
+              <button onClick="{{procPrev}}" aria-label="Previous step" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.88);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;color:#1a2230;font:600 20px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer">‹</button>
+              <button onClick="{{procNext}}" aria-label="Next step" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.88);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;color:#1a2230;font:600 20px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:48px">
+        <a href="tel:+18337368793" class="pg-cta" style="font:700 15px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px"><span>Get Started</span></a>
+        <span style="font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272">Starts with a free inspection, not a sales call.</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Why us" style="background:#f4f0e6;padding:clamp(60px,9vw,104px) 28px">
+    <div style="max-width:900px;margin:0 auto">
+      <div style="text-align:center;max-width:640px;margin:0 auto 44px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">Why Us</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">Hiring in {{aIn}}, <em style="font-style:normal;font-weight:800">itemized</em></h2>
+      </div>
+      <div style="border:1px solid #e6e1d3;border-radius:14px;overflow:hidden;background:#fff">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:#0d1b2e;padding:20px 26px;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:19px;color:#fff">Sentry Roofing</div>
+          <div style="background:#faf7f0;padding:20px 26px;font:600 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#5a6272;display:flex;align-items:center">The Typical Roofer</div>
+        </div>
+        <sc-for list="{{compare}}" as="row" hint-placeholder-count="8">
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+            <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:#9a7500;font-weight:800">✓</span><span>{{row.us}}</span></div>
+            <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>{{row.them}}</span></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="FAQ" style="background:#ffffff;padding:clamp(60px,9vw,104px) 28px">
+    <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px 64px;align-items:flex-start">
+      <div style="flex:1 1 360px;min-width:280px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">FAQ</p>
+        <h2 style="margin:0 0 18px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">Questions from <em style="font-style:normal;font-weight:800">{{aIn}}</em></h2>
+        <p style="margin:0 0 26px;font:400 15.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;text-wrap:pretty">Still wondering about something? Call and ask. You get JJ, not a call center.</p>
+        <a href="tel:+18337368793" class="pg-cta" style="font:700 14.5px/1.2 'Plus Jakarta Sans',sans-serif;padding:16px 30px"><span>Call (833) 736-8793</span></a>
+        <img src="./assets/welcome-jobsite.png" alt="A Sentry Roofing crew mid tear-off on a two-storey home" style="margin-top:32px;width:100%;height:auto;display:block;border-radius:14px;border:1px solid #e6e1d3">
+      </div>
+      <div style="flex:1 1 480px;min-width:300px">
+        <div style="border-bottom:1px solid #e6e1d3">
+          <sc-for list="{{faqs}}" as="faq" hint-placeholder-count="6">
+            <div style="border-top:1px solid #e6e1d3">
+              <div onClick="{{faqToggle}}" data-idx="{{faq.idx}}" style="display:flex;align-items:center;justify-content:space-between;gap:22px;padding:21px 2px;cursor:pointer">
+                <span style="font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:17.5px;line-height:1.4;color:#1a2230">{{faq.q}}</span>
+                <span style="font-family:'Open Sauce One',sans-serif;font-size:26px;line-height:1;color:#9a7500;flex:0 0 auto" class="sa-faq-plus {{faq.cls}}">+</span>
+              </div>
+              <div class="sa-faq-body {{faq.cls}}" style="overflow:hidden">
+                <p style="margin:0;padding:0 40px 22px 2px;font:400 15px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:680px;text-wrap:pretty">{{faq.a}}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Nearby areas" style="background:#f4f0e6;padding:clamp(60px,9vw,104px) 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="max-width:660px;margin-bottom:36px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">Nearby</p>
+        <h2 style="margin:0 0 16px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">We also work across <em style="font-style:normal;font-weight:800">South Central Texas</em></h2>
+        <p style="margin:0;font:400 15.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Roughly a sixty-mile radius of San Antonio, up the I-35 corridor to Austin and west through the Hill Country.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px">
+        <sc-for list="{{nearby}}" as="n" hint-placeholder-count="7">
+          <a href="{{n.href}}" class="sa-chip" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 22px;border:1px solid #e6e1d3;border-radius:14px;background:#ffffff;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:18px;color:#1a2230">{{n.name}} <span style="color:#9a7500;font-size:16px">→</span></a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Closing CTA" style="position:relative;overflow:hidden;background:#0d1b2e;padding:clamp(72px,10vw,120px) 28px">
+    <img src="./assets/welcome-after.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,21,36,.82),rgba(10,21,36,.68) 45%,rgba(10,21,36,.88))"></div>
+    <div style="position:relative;max-width:760px;margin:0 auto;text-align:center">
+      <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f5b301">Free Inspection</p>
+      <h2 style="margin:0 0 18px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);line-height:1.14;color:#ffffff">Let's look at your {{aName}} roof</h2>
+      <p style="margin:0 auto 32px;font:400 16.5px/1.7 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.8);max-width:520px;text-wrap:pretty">We walk the roof, photograph everything and hand you written findings. No cost, no obligation, and no sales call afterwards.</p>
+      <a href="tel:+18337368793" class="pg-cta" style="font:700 15.5px/1.2 'Plus Jakarta Sans',sans-serif;padding:18px 36px"><span>Call (833) 736-8793</span></a>
+    </div>
+  </section>
+
+  <dc-import name="Site Footer" hint-size="100%,1100px"></dc-import>
+
+  <sc-if value="{{isMobile}}" hint-placeholder-val="{{ false }}">
+    <div style="height:56px"></div>
+    <a href="tel:+18337368793" style="position:fixed;bottom:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:center;gap:10px;background:#0d1b2e;border-top:1px solid rgba(255,255,255,.16);padding:16px;font:700 13.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;color:#ffffff">
+      <span style="color:#f5b301;font-size:17px">✆</span> Call Now · Free Inspection
+    </a>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;area&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;San Antonio&quot;,&quot;New Braunfels&quot;,&quot;Austin&quot;,&quot;San Marcos&quot;,&quot;Boerne&quot;,&quot;Fredericksburg&quot;,&quot;Schertz&quot;,&quot;Texas Hill Country&quot;],&quot;default&quot;:&quot;San Antonio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Area&quot;}}">
+class Component extends DCLogic {
+  AREAS = [
+    {
+      slug: 'san-antonio', name: 'San Antonio', hero: './assets/area-hero.jpg',
+      sub: 'From 1920s bungalows inside Loop 410 to subdivisions off 1604, we re-roof both — with a written fixed price and an owner who spent twenty years reading insurance policies.',
+      intro1: 'San Antonio housing runs the full range. Inside Loop 410 you find homes from the 1920s through the 1960s with original decking, thin ventilation and flashing details that were never meant to last this long. Out past 1604 the stock is barely fifteen years old and failing for a different reason: builder-grade shingle on a roof that has already taken three hail seasons.',
+      intro2: 'Hail is why most phones ring here. Bexar County sits in the middle of the state\u2019s hail belt, and one spring storm can bruise a neighborhood worth of shingles in ten minutes. What matters afterwards is documentation, and that is the part most roofers do badly.',
+      intro3: 'We are based here, our crews are on San Antonio roofs most weeks, and JJ is on the roof himself. If something needs a second look two years from now, you are calling a neighbor, not a call center in another state.',
+      permit: 'We do. The City of San Antonio requires a permit for a roof replacement, and we pull it and see the inspection through as part of the job.',
+      faqs: [
+        { q: 'How often does San Antonio actually get hail?', a: 'Often enough that most homes here will see at least one claim-worthy storm in the life of a roof. Bexar County sits in the middle of the Texas hail belt, and spring storms coming off the Hill Country regularly drop stones big enough to bruise shingles.' },
+        { q: 'My roof looks fine from the driveway. Is an inspection worth it?', a: 'Usually, yes. Hail bruising rarely shows from the ground — it shows up close as soft spots and lost granules around the mat. The inspection is free, and the photographs are yours to keep whether or not you file anything.' },
+        { q: 'Do you work on older homes inside Loop 410?', a: 'Yes, and we price them honestly. Homes from the 1920s to the 1960s often need decking repair, corrected ventilation or new flashing detail, and we would rather find that during the inspection than discover it mid-job and hand you a change order.' },
+        { q: 'Shingle or metal for a San Antonio home?', a: 'Nine out of ten homes here go back on with IKO architectural shingle, and on an insurance claim that is usually what your policy owes. Standing-seam metal costs more up front and lasts far longer — we will tell you when that upgrade is worth paying for and when it is not.' },
+        { q: 'How long does a replacement take?', a: 'Most San Antonio homes are torn off and re-roofed in one to two days. Larger or steeper roofs take longer, and your schedule is in writing before the first pallet is delivered.' },
+        { q: 'Do you charge for the inspection or the estimate?', a: 'Neither. The inspection is free, the written findings are yours, and the proposal is fixed to the dollar before anything is ordered.' }
+      ]
+    },
+    {
+      slug: 'new-braunfels', name: 'New Braunfels', hero: './assets/proj1-after.png',
+      sub: 'Comal and Guadalupe county roofs, from Gruene to the Canyon Lake subdivisions — inspected free, priced in writing, and installed by the owner and his crew.',
+      intro1: 'Most of New Braunfels went up in the last two decades, and that changes what fails first. On builder-grade roofs from the 2000s and 2010s the shingle is the weak point long before the structure is, so a re-roof is usually straightforward — and the ventilation is worth correcting while the deck is open.',
+      intro2: 'The older core around downtown and Gruene is a different job. Those homes need flashing and edge detail done properly rather than quickly, and the profile and color matched to what came off.',
+      intro3: 'New Braunfels sits squarely between our two busiest markets, so we are through here constantly rather than making a special trip. That matters when a storm rolls through and every roofer in Texas suddenly has a truck on your street.',
+      permit: 'We do. The City of New Braunfels requires a permit for a roof replacement, and we handle the application and the inspection.',
+      faqs: [
+        { q: 'Do you cover both the Comal and Guadalupe county sides of town?', a: 'Yes, both — plus Gruene, the subdivisions out toward Canyon Lake and the newer developments along the I-35 corridor.' },
+        { q: 'My house is only twelve years old. Why would it need a roof?', a: 'Because the shingle is usually the first thing to go. Builder-grade three-tab and entry-level architectural shingle in this area often has fifteen good years in it, and hail takes years off that. A free inspection tells you where you actually stand.' },
+        { q: 'We get hail off the Hill Country every spring. Will you handle the claim?', a: 'Yes. JJ spent twenty years as an insurance adjuster before he started roofing, so we document the damage properly, meet your adjuster on the roof and build the scope to match what your policy owes you.' },
+        { q: 'Do you work on homes near Canyon Lake and along the river?', a: 'Yes. Open lots and lake-facing rooflines see more wind than a sheltered street in town, and we spec the fastening pattern and the edge detail with that exposure in mind.' },
+        { q: 'How long will the job take?', a: 'One to two days on most New Braunfels homes. You get the schedule in writing, photos to your phone each day, and a magnet-rolled yard before we leave.' },
+        { q: 'Will you still be around in five years?', a: 'We are local and we are not going anywhere. Your workmanship warranty is in writing and we come back for a courtesy inspection every year.' }
+      ]
+    },
+    {
+      slug: 'austin', name: 'Austin', hero: './assets/proj3-after.png',
+      sub: 'Central Austin bungalows, hill-country metal and everything between — a free inspection, a fixed written proposal and an owner who knows what your carrier owes.',
+      intro1: 'Austin roofs split roughly three ways: the older central neighborhoods where the homes are small, steep and detail-heavy; the sprawling 1990s and 2000s subdivisions north and east; and the hill-country builds west of town where standing-seam metal is the norm rather than the upgrade.',
+      intro2: 'All three take hail. Travis County storms are less frequent than the worst of the I-35 corridor but no gentler when they land, and the difference between a paid claim and a denied one is almost always the quality of the documentation.',
+      intro3: 'Austin is a regular run for us up I-35 rather than an occasional trip, so scheduling here works the same way it does at home: a free inspection inside a couple of business days, and a written schedule before anything is ordered.',
+      permit: 'We do. The City of Austin requires a permit for a roof replacement, and we pull it and carry it through inspection.',
+      faqs: [
+        { q: 'Are you actually based in Austin?', a: 'No, and we will not pretend otherwise. We are a San Antonio firm that works the I-35 corridor every week. You get the same owner on the roof and the same response times — we just drive a little further to get there.' },
+        { q: 'Do you work on older homes in the central neighborhoods?', a: 'Yes. Smaller, steeper roofs with dormers, valleys and tight access take longer per square than a modern subdivision roof, and we price that honestly up front rather than discovering it on day two.' },
+        { q: 'Everyone west of town has metal. Should I?', a: 'Standing seam lasts far longer and handles wind and ember exposure better, which is why it dominates out there. It also costs more up front, and on a like-for-like insurance claim your policy generally owes you shingle. We will show you both numbers.' },
+        { q: 'My HOA has to approve the color. Can you help?', a: 'Yes. We will give you the manufacturer literature and color samples you need for the submission, and we schedule around the approval rather than ordering material and hoping.' },
+        { q: 'How do you handle a hail claim?', a: 'We inspect and photograph first, tell you honestly whether it is worth filing, then meet your adjuster on the roof with the documentation in hand. Twenty years of adjusting means we know what the scope should include.' },
+        { q: 'How quickly can you get out here?', a: 'Most Austin addresses get a free inspection within two business days, and same or next day when water is actively coming in.' }
+      ]
+    },
+    {
+      slug: 'san-marcos', name: 'San Marcos', hero: './assets/proj2-after.png',
+      sub: 'Hays County homes and rental property, inspected free and re-roofed on a written schedule — with photographs of every stage for you or your insurer.',
+      intro1: 'San Marcos is two markets on one map. There are the family homes and older streets near the river, and there is a large rental and investment stock around the university where the roof is a line on a balance sheet and downtime matters.',
+      intro2: 'We work both the same way: a free inspection with written findings, an itemized fixed price, and photographs of every stage so an owner who lives three hours away can see exactly what happened on the roof.',
+      intro3: 'Sitting halfway between San Antonio and Austin, San Marcos is on our regular route rather than an outlier, so getting a crew here does not depend on a storm bringing us through.',
+      permit: 'We do. The City of San Marcos requires a permit for a roof replacement, and we pull it and handle the inspection.',
+      faqs: [
+        { q: 'I own rental property here but live elsewhere. How does that work?', a: 'Entirely remotely if you want it to. You get the inspection findings and the fixed proposal by email, photographs each day of the job, and a final set when it is finished. Plenty of our owners never meet us in person.' },
+        { q: 'Can you schedule around tenants or a turnover window?', a: 'Yes. Most roofs here are done in one to two days, and we will book the window around a lease turnover or a quiet stretch rather than working around people who did not ask for the noise.' },
+        { q: 'Do you handle hail claims in Hays County?', a: 'Yes. We document the damage, tell you honestly whether it is worth filing, and meet the adjuster on the roof. JJ adjusted claims for twenty years before he started roofing.' },
+        { q: 'What about older homes near the river?', a: 'Older stock often needs decking repair, corrected ventilation or new flashing, and we find that during the free inspection so it is priced in from the start rather than added later.' },
+        { q: 'Which material makes sense for a rental?', a: 'IKO architectural shingle, almost always. It is the practical default for this market, it is what a like-for-like claim pays for, and it keeps the spend proportionate to the asset.' },
+        { q: 'How soon can someone come out?', a: 'Most San Marcos addresses are inspected within two business days, and same or next day for an active leak.' }
+      ]
+    },
+    {
+      slug: 'boerne', name: 'Boerne', hero: './assets/modern-roof-parallax.jpg',
+      sub: 'Kendall County roofs, in town and out on the acreage — standing-seam metal and architectural shingle, inspected free and priced in writing.',
+      intro1: 'Boerne roofs sit higher and more exposed than city roofs. Hilltop lots and open acreage take wind that a sheltered street in San Antonio never sees, and that shows up first at the ridge, the edges and the fastening pattern.',
+      intro2: 'It is also metal country. A good share of the homes out here are under standing seam, both for how long it lasts and for how it handles wind and ember exposure. We fit metal and shingle alike, and we will tell you plainly which one your situation calls for.',
+      intro3: 'Long driveways, gated properties and outbuildings are normal here, so we plan access and material drop before the day rather than discovering a problem with a loaded truck at the gate.',
+      permit: 'It depends where you are. Inside the city limits we pull a City of Boerne permit. On property outside the city limits in Kendall County a roofing permit generally is not required, and we will confirm which applies to your address before we start.',
+      faqs: [
+        { q: 'Should I put metal on out here?', a: 'Often, yes. Standing seam handles wind and ember exposure well and lasts decades longer than shingle, which is why so much of Kendall County is under it. It costs more up front, and on a like-for-like claim your policy usually owes shingle — we will show you both numbers rather than steer you.' },
+        { q: 'My place is on a hilltop and the wind is brutal. Does that change the install?', a: 'It changes the fastening pattern, the edge metal and the ridge detail, which is where wind failures almost always start. Exposure is part of the spec, not an afterthought.' },
+        { q: 'Do you work outside the city limits?', a: 'Yes, all over Kendall County. Long driveways, gated entries and acreage properties are routine for us — we just plan the material drop and the dumpster placement in advance.' },
+        { q: 'Can you re-roof a barn, shop or guest house at the same time?', a: 'Yes, and it is usually cheaper to do it in the same mobilization. Outbuildings get the same written scope and the same guarantee as the house.' },
+        { q: 'Does Boerne get the same hail as San Antonio?', a: 'It gets plenty. The Hill Country is where a lot of those spring storms form before they run east, and we document damage here exactly the same way — photographs first, honest advice on whether a claim is worth filing second.' },
+        { q: 'How long does a job out here take?', a: 'One to two days for most homes, longer for metal or complex rooflines. The schedule is in writing before we order material.' }
+      ]
+    },
+    {
+      slug: 'fredericksburg', name: 'Fredericksburg', hero: './assets/proj3-after.png',
+      sub: 'Gillespie County homes, historic properties and short-term rentals — standing-seam metal and architectural shingle, installed on a written schedule.',
+      intro1: 'Fredericksburg has a building stock that most of Texas does not: limestone and German-heritage homes, many of them under standing-seam metal, alongside newer builds and a large share of properties that earn their keep as short-term rentals.',
+      intro2: 'Each needs something different. A historic property needs a profile and a color that suit the street and sometimes a review before work starts. A rental needs the job done inside a booking gap, cleanly, with the yard swept so the next guest never knows.',
+      intro3: 'We are out here regularly rather than occasionally, and we plan the calendar around your bookings and the town calendar rather than just showing up with a crew.',
+      permit: 'We do. Inside the city we pull a City of Fredericksburg permit. If your home sits in the historic district, visible exterior changes can need review before work begins — we check that before any material is ordered.',
+      faqs: [
+        { q: 'My home is in the historic district. Is that a problem?', a: 'Not a problem, just a step. Visible exterior changes can need review before work starts, so we confirm what your property requires and get the paperwork moving before we order material rather than after.' },
+        { q: 'Should a limestone home go back under metal?', a: 'Usually it should stay in keeping with the street, and out here that often means standing seam. It suits the architecture, lasts decades, and on the right roof it is the better long-term spend. We fit shingle just as readily when that is the right call.' },
+        { q: 'I run the place as a short-term rental. Can you work around bookings?', a: 'Yes, and we plan for it. Most roofs are one to two days on site, we work to a written window, and we sweep the property with a magnet before we leave so the next guest finds nothing.' },
+        { q: 'Is Fredericksburg too far for you?', a: 'No. Gillespie County is a regular run for us, and our response times out here are the same as anywhere else we work: a free inspection within a couple of business days, sooner for active water.' },
+        { q: 'Do you handle hail damage claims here?', a: 'Yes. We photograph the damage, tell you straight whether a claim is worth filing, and meet your adjuster on the roof with the documentation in hand.' },
+        { q: 'Can you match an unusual existing profile or color?', a: 'Usually. We bring samples and manufacturer literature to the inspection so the match is agreed in writing before anything is ordered.' }
+      ]
+    },
+    {
+      slug: 'schertz', name: 'Schertz', hero: './assets/proj1-after.png',
+      sub: 'Schertz, Cibolo and the Randolph corridor — quick turnarounds for military families, free inspections and a fixed price in writing.',
+      intro1: 'Schertz is mostly subdivision stock from the 1990s through the 2010s, and a great many of those homes belong to military families connected to Randolph. That shapes the work: timelines tend to be tighter, and a roof often has to be sorted before a PCS, a sale or an inspection deadline.',
+      intro2: 'The roofs themselves are straightforward — builder-grade shingle that has taken a decade or two of Texas hail. What is not straightforward is getting a roofer to commit to a date and hold it, which is the part we take seriously.',
+      intro3: 'Schertz is fifteen minutes from where we are based, so this is home turf. If something needs looking at after the job, we are not making a trip of it.',
+      permit: 'We do. The City of Schertz requires a permit for a roof replacement, and we pull it and handle the inspection.',
+      faqs: [
+        { q: 'I am PCSing and need this done before I move. Can you hold a date?', a: 'Yes, and we put it in writing. Tell us the deadline at the inspection and we will tell you honestly whether we can hit it rather than booking you and sorting it out later.' },
+        { q: 'Do you serve Cibolo, Selma and Universal City too?', a: 'Yes, the whole corridor. We are based minutes away, so this is home ground rather than an outlying service area.' },
+        { q: 'The buyer inspection flagged the roof. What now?', a: 'We inspect it free, give you written findings and an itemized fixed price, and tell you whether it needs a replacement or a repair. Plenty of inspection flags are repairs, and we will say so.' },
+        { q: 'My neighborhood all got new roofs after the last storm. Should I file?', a: 'Get it inspected before you decide. We photograph the roof and tell you straight whether there is claim-worthy damage — filing on a roof that will not support a claim does you no favors.' },
+        { q: 'Does my HOA need to approve the shingle color?', a: 'Many subdivisions here do. We supply the manufacturer literature and color samples for your submission and schedule the work around the approval.' },
+        { q: 'How long will it take?', a: 'One to two days on most Schertz homes, with the schedule agreed in writing and photos to your phone each day.' }
+      ]
+    },
+    {
+      slug: 'hill-country', name: 'Texas Hill Country', title: 'The Texas Hill Country', inPhrase: 'the Texas Hill Country', hero: './assets/modern-roof-parallax.jpg',
+      sub: 'Ranch properties, hilltop homes and outbuildings across the Hill Country — standing-seam metal and architectural shingle, with the access planned before the truck arrives.',
+      intro1: 'Hill Country roofs face conditions that city roofs do not: exposed ridgelines, hard wind, full sun and properties where the nearest neighbor is a mile off. Standing-seam metal dominates for good reason, and where shingle goes on, the fastening and edge detail have to account for the exposure.',
+      intro2: 'Access is half the job out here. Long caliche drives, gates, cattle guards and outbuildings well away from the house all have to be planned before a loaded truck shows up, and a crew that does this weekly plans differently from one that does not.',
+      intro3: 'We cover the Hill Country from Kendall and Gillespie counties east toward Comal and Blanco. If you are unsure whether your address is in range, call and ask — the answer is usually yes.',
+      permit: 'It depends on your address. Inside a city limit we pull that city permit. On unincorporated Hill Country property a roofing permit generally is not required, and we will confirm which applies before we start.',
+      faqs: [
+        { q: 'Why is nearly everything out here under metal?', a: 'Because it earns its keep. Standing seam handles wind and ember exposure, sheds heat, and lasts decades longer than shingle — which matters more when the property is remote and getting trades out is a production.' },
+        { q: 'I collect rainwater. Does the roofing material matter?', a: 'It does, and metal is the usual choice for collection systems. Tell us at the inspection if you are on rainwater and we will spec the roof and the gutter runs around it.' },
+        { q: 'Can you do the barn, the shop and the house together?', a: 'Yes, and doing them in one mobilization is almost always cheaper than three visits. Everything gets the same written scope and the same guarantee.' },
+        { q: 'Is my property too far out?', a: 'Probably not. We work roughly a sixty-mile radius of San Antonio and out through the Hill Country beyond that. Call with the address and we will tell you straight away.' },
+        { q: 'How do you handle access on a long caliche drive?', a: 'We look at it during the inspection and plan the material drop, the dumpster placement and the crew parking then. Nobody enjoys a loaded truck stuck halfway up a drive.' },
+        { q: 'Do you handle storm and hail claims out here?', a: 'Yes. We photograph everything, advise honestly on whether a claim is worth filing, and meet the adjuster on site. Twenty years of adjusting sits behind that advice.' }
+      ]
+    }
+  ];
+
+  SVC = [
+    { img: './assets/svc-replacement-photo.png', t: 'Roof Replacement & Re-Roofing', line: 'Complete tear-off and rebuild, documented daily.', d: 'IKO architectural shingle or standing-seam metal — a fixed written proposal, a dedicated foreman, and a written workmanship guarantee.' },
+    { img: './assets/svc-repair-photo.png', t: 'Roof Repair', line: 'Leaks, flashing, and missing shingles — fixed for good.', d: 'We repair the cause, not the symptom, and photograph every step so you can see exactly what was done.' },
+    { img: './assets/svc-inspection-photo.png', t: 'Roof Inspections', line: 'Free, with written findings you keep.', d: 'A trained eye on your roof before you buy, sell, or file a claim — and no pressure to act on what we find.' },
+    { img: './assets/svc-storm-photo.png', t: 'Storm Damage & Insurance Claims', line: 'We document; you recover.', d: 'Full photographic documentation, a meeting with your adjuster on site, and a scope that matches what your policy owes you.' },
+    { img: './assets/svc-gutters-photo.png', t: 'Gutter Installation', line: 'Seamless gutters hung by the same crew.', d: 'Formed on site and hung while the crew is already on your roofline — one firm, one proposal, one guarantee for the roof and the gutters.' },
+    { img: './assets/svc-newbuild-photo.png', t: 'New Construction Roofing', line: 'From bare deck to ridge on new builds.', d: 'Coordinated with the builder, inspected at every stage, and finished to the same standard as our restorations.' },
+    { img: './assets/svc-maintenance-photo.png', t: 'Roof Maintenance & Care Plans', line: 'Annual tune-ups and debris removal.', d: 'A seasonal program that catches small problems early — documented visits with photos, and priority scheduling when weather hits.' },
+    { img: './assets/proj2-mid.png', t: 'Temporary Emergency Services', line: 'Roof tarps and waterproofing, fast.', d: 'When a storm opens up your roof, we tarp and waterproof it the same day to protect the inside of your home — documented for your carrier.' },
+    { img: './assets/svc-skylight-photo.png', t: 'Skylight Installation & Repair', line: 'Installed or replaced during your re-roof.', d: 'Curb and deck-mounted skylights, flashed and sealed by the crew that owns the warranty on the roof around them.' },
+    { img: './assets/svc-commercial-photo.png', t: 'Commercial & Flat Roofing', line: 'TPO, EPDM, and metal for working buildings.', d: 'Low-slope systems scheduled around your operations, with maintenance plans that keep small issues from becoming closures.' }
+  ];
+
+  PROC = [
+    { num: '/01', t: 'Free Inspection', d: 'We walk the roof, photograph everything, and hand you written findings. No cost and no obligation.', img: './assets/process-1.png', alt: 'Free roof inspection with written findings' },
+    { num: '/02', t: 'Written Fixed Proposal', d: 'An itemized, fixed-price proposal in writing. On an insurance claim we build the scope to match what your policy owes you.', img: './assets/process-2.png', alt: 'Reviewing a written roofing proposal with a homeowner' },
+    { num: '/03', t: 'Permit & Schedule', d: 'We pull the permit where one is required and confirm your install window in writing before the first pallet arrives.', img: './assets/process-3.png', alt: 'Scheduling a roof replacement' },
+    { num: '/04', t: 'Perform the Work', d: 'The crew arrives and the roof goes on — a dedicated foreman, photos to your phone every day, and a magnet-rolled yard before we leave.', img: './assets/process-4.png', alt: 'Crew installing a new roof' },
+    { num: '/05', t: 'We Stay Local', d: 'Final walkthrough, warranty in writing, and a courtesy inspection every year afterwards.', img: './assets/process-5.png', alt: 'Final walkthrough on a completed roof' }
+  ];
+
+  COMPARE = [
+    { us: '25 years in the trade — 20 of them as an insurance adjuster', them: 'Salesmen who have never written a claim' },
+    { us: 'An itemized fixed-price proposal, in writing', them: 'A number on the back of a business card' },
+    { us: 'The owner on the roof, every day of the job', them: 'A rep you meet once and never see again' },
+    { us: '100+ photos per job — before, during and after', them: 'A verbal promise that it was done right' },
+    { us: 'IKO materials, written guarantee, magnet-rolled cleanup', them: 'Vague promises and nails left in your driveway' },
+    { us: 'A lifetime warranty on the work', them: 'A warranty that runs out before the roof does' },
+    { us: 'A courtesy follow-up inspection every year', them: 'Gone the day the check clears' }
+  ];
+
+  GAL = [
+    { img: './assets/proj1-after.png', t: 'Full Replacement', alt: 'Finished architectural shingle roof' },
+    { img: './assets/proj3-after.png', t: 'Standing-Seam Metal', alt: 'Finished charcoal standing seam roof' },
+    { img: './assets/proj2-after.png', t: 'Storm Restoration', alt: 'Finished metal roof after storm restoration' },
+    { img: './assets/owner-after.png', t: 'Shingle Re-Roof', alt: 'Completed shingle re-roof' },
+    { img: './assets/svc-gutters-photo.png', t: 'Gutter Installation', alt: 'Seamless gutters installed on a home' },
+    { img: './assets/welcome-after.png', t: 'Full Replacement', alt: 'A finished roof at dusk' }
+  ];
+
+  state = { proc: 0, procPaused: false, faqOpen: 0, isMobile: false, slug: null };
+  heroRef = React.createRef();
+
+  syncHero() {
+    const el = this.heroRef.current;
+    if (!el) return;
+    const a = this.area();
+    if (!el.getAttribute('src') || el.getAttribute('src') !== a.hero) el.setAttribute('src', a.hero);
+    el.setAttribute('alt', 'A roof we completed in ' + a.name);
+  }
+  componentDidUpdate() { this.syncHero(); }
+
+  componentDidMount() {
+    this.syncHero();
+    this._r = () => {
+      const m = window.innerWidth < 1120;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m });
+    };
+    window.addEventListener('resize', this._r);
+    this._r();
+    try {
+      const q = new URLSearchParams(window.location.search).get('area');
+      if (q) this.setState({ slug: q });
+    } catch (e) {}
+    this._t = setInterval(() => {
+      if (!this.state.procPaused) this.setState(s => ({ proc: (s.proc + 1) % 5 }));
+    }, 5000);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._r);
+    clearInterval(this._t);
+  }
+
+  area() {
+    const s = this.state.slug;
+    if (s) {
+      const m = this.AREAS.find(a => a.slug === s);
+      if (m) return m;
+    }
+    const byName = (this.props.area || '').trim();
+    if (byName) {
+      const m = this.AREAS.find(a => a.name.toLowerCase().replace('the ', '') === byName.toLowerCase().replace('the ', ''));
+      if (m) return m;
+    }
+    return this.AREAS[0];
+  }
+
+  procSet = (e) => {
+    const i = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+    if (!isNaN(i)) this.setState({ proc: i, procPaused: true });
+  };
+  procNext = () => this.setState(s => ({ proc: (s.proc + 1) % 5 }));
+  procPrev = () => this.setState(s => ({ proc: (s.proc + 4) % 5 }));
+  procPause = () => this.setState({ procPaused: true });
+  procResume = () => this.setState({ procPaused: false });
+  faqToggle = (e) => {
+    const i = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+    this.setState(s => ({ faqOpen: s.faqOpen === i ? -1 : i }));
+  };
+
+  renderVals() {
+    const s = this.state;
+    const a = this.area();
+    const p = s.proc;
+    const bare = a.name;
+    const title = a.title || a.name;
+    const inPhrase = a.inPhrase || a.name;
+    const locLabel = /texas/i.test(bare) ? bare.toUpperCase() : bare + ', TX';
+    return {
+      isMobile: s.isMobile,
+      aName: bare,
+      aTitle: title,
+      aIn: inPhrase,
+      aSub: a.sub,
+      heroRef: this.heroRef,
+      aIntro1: a.intro1,
+      aIntro2: a.intro2,
+      aIntro3: a.intro3,
+      aQuick: [
+        { q: 'Do you serve ' + inPhrase + '?', a: 'Yes, and regularly rather than occasionally. ' + inPhrase.charAt(0).toUpperCase() + inPhrase.slice(1) + ' sits well inside our working radius and our crews are here most weeks.' },
+        { q: 'How fast can you get out?', a: 'Most ' + bare + ' addresses get a free inspection within two business days, and same or next day when water is actively coming in.' },
+        { q: 'Are you insured?', a: 'Fully insured and veteran owned, and certified IKO ROOFPRO Craftsman Premier. Certificates go out before work begins, without being asked.' },
+        { q: 'Do you handle insurance claims?', a: 'Yes. JJ spent twenty years as an insurance adjuster before he started roofing, so we meet your adjuster on the roof and build the scope to match what your policy owes.' },
+        { q: 'Who pulls the permit?', a: a.permit },
+        { q: 'What does it cost?', a: 'It depends on square footage, pitch and material. Your free inspection comes with an itemized, fixed-price proposal in writing before anything is ordered.' }
+      ],
+      svcCards: this.SVC.map((c, i) => ({
+        t: c.t, line: c.line, d: c.d, img: c.img,
+        alt: c.t + ' in ' + bare,
+        href: 'Service.dc.html?s=' + i
+      })),
+      gallery: this.GAL.map(g => ({ img: g.img, t: g.t, alt: g.alt, loc: locLabel })),
+      quotes: [
+        { body: 'The price JJ wrote down on day one is the price we paid at the end. No change orders, no surprises, and the crew was off the roof a day early.', name: 'Marcus D.', job: 'Roof Replacement · ' + bare, initial: 'M' },
+        { body: 'He knew what our policy owed better than the adjuster did. Met him on the roof with photos of everything and the claim went through without a fight.', name: 'Rachel T.', job: 'Storm & Insurance Claim · ' + bare, initial: 'R' },
+        { body: 'Photos hit my phone every single day, and they ran a magnet over the whole yard before they left. My kids play out there barefoot — that mattered.', name: 'Dana K.', job: 'Roof Repair · ' + bare, initial: 'D' }
+      ],
+      procSteps: this.PROC.map((st, i) => ({
+        idx: i, num: st.num, t: st.t, d: st.d,
+        on: p === i, cls: p === i ? 'is-active' : ''
+      })),
+      procImg: this.PROC[p].img,
+      procImgAlt: this.PROC[p].alt,
+      procSet: this.procSet, procNext: this.procNext, procPrev: this.procPrev,
+      procPause: this.procPause, procResume: this.procResume,
+      compare: this.COMPARE,
+      faqs: a.faqs.map((f, i) => ({ idx: i, q: f.q, a: f.a, cls: s.faqOpen === i ? 'is-open' : '' })),
+      faqToggle: this.faqToggle,
+      nearby: this.AREAS.filter(x => x.slug !== a.slug).map(x => ({
+        name: x.name,
+        href: 'Service Area.dc.html?area=' + x.slug
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

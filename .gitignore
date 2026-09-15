@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# netlify
+.netlify/
+
+# production asset sources (originals live in Google Drive, not git)
+# ~180MB of 2-3MB PNGs; optimized derivatives are committed under public/
+reference/assets-src/
+
+# misc
+.DS_Store
+*.pem
+.env*
+!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vercel
+*.tsbuildinfo

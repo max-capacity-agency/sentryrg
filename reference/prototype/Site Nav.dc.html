@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/1cd1e7d71e048159076fd90b39846902?family=Open+Sauce+One" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/42acf9aa4a6dc2f2886a3f682e337ead?family=Open+Sauce+One+Bold" rel="stylesheet">
+  <style>
+    .sn-link { position:relative; color:rgba(255,255,255,.85); white-space:nowrap; }
+    .sn-link:hover { color:#f5b301; }
+    .sn-link::after { content:''; position:absolute; left:0; right:0; bottom:-7px; height:2px; border-radius:2px; background:#f5b301; transform:scaleX(0); transform-origin:left center; transition:transform .28s cubic-bezier(.4,0,.2,1); }
+    .sn-link:hover::after { transform:scaleX(1); }
+    .sn-link.sn-on { color:#f5b301; }
+    .sn-cta { position:relative; display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:360px; color:#10203a; background:#f5b301; overflow:hidden; cursor:pointer; isolation:isolate; box-shadow:0 8px 22px -6px rgba(245,179,1,.6); transition:transform .2s ease, box-shadow .2s ease; }
+    .sn-cta span { position:relative; z-index:1; }
+    .sn-cta::after { content:''; position:absolute; inset:0; z-index:0; background:linear-gradient(115deg, transparent 20%, rgba(255,255,255,.78) 50%, transparent 80%); transform:translateX(-120%); animation:snShine 3.2s ease-in-out infinite; pointer-events:none; }
+    .sn-cta:hover { transform:translateY(-2px); box-shadow:0 13px 30px -6px rgba(245,179,1,.72); }
+    @keyframes snShine { 0% { transform:translateX(-120%); } 55%,100% { transform:translateX(120%); } }
+    @media (prefers-reduced-motion: reduce) { .sn-cta::after { animation:none; } }
+  </style>
+</helmet>
+
+<nav style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 28px;background:#0d1b2e;border-bottom:1px solid rgba(255,255,255,.12);font-family:'Plus Jakarta Sans',sans-serif">
+  <a href="Homepage.dc.html" style="flex:0 0 auto;display:block">
+    <img src="./assets/logo-light.png" alt="Sentry Roofing" style="height:68px;display:block;border-radius:6px">
+  </a>
+  <sc-if value="{{notMobile}}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;align-items:center;gap:22px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85)">
+    <a href="Homepage.dc.html" class="sn-link {{onHome}}" style-hover="color:#f5b301" style="cursor:pointer">Home</a>
+    <div onMouseEnter="{{svcOpen}}" onMouseLeave="{{svcClose}}" style="position:relative;padding:10px 0;cursor:pointer">
+      <a href="Services.dc.html" class="sn-link {{onServices}}" style-hover="color:#f5b301">Services ▾</a>
+      <sc-if value="{{svcMenu}}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:100%;left:-18px;background:#0d1b2e;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 0;min-width:290px;box-shadow:0 18px 40px rgba(0,0,0,.4)">
+          <sc-for list="{{svcLinks}}" as="s" hint-placeholder-count="10">
+            <a href="{{s.href}}" style-hover="background:rgba(255,255,255,.07)" style="display:block;padding:11px 20px;letter-spacing:.1em;color:rgba(255,255,255,.9);cursor:pointer">{{s.t}}</a>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+    <div onMouseEnter="{{areaOpen}}" onMouseLeave="{{areaClose}}" style="position:relative;padding:10px 0;cursor:pointer">
+      <a href="Service Area.dc.html?area=san-antonio" class="sn-link" style-hover="color:#f5b301">Service Areas ▾</a>
+      <sc-if value="{{areaMenu}}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:100%;left:-18px;background:#0d1b2e;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 0;min-width:230px;box-shadow:0 18px 40px rgba(0,0,0,.4)">
+          <sc-for list="{{areaLinks}}" as="al" hint-placeholder-count="8">
+            <a href="{{al.href}}" style-hover="background:rgba(255,255,255,.07)" style="display:block;padding:11px 20px;letter-spacing:.1em;color:rgba(255,255,255,.9);cursor:pointer">{{al.t}}</a>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+    <a href="Homepage.dc.html#why" class="sn-link" style-hover="color:#f5b301" style="cursor:pointer">Why Choose Us</a>
+    <div onMouseEnter="{{abtOpen}}" onMouseLeave="{{abtClose}}" style="position:relative;padding:10px 0;cursor:pointer">
+      <a href="About.dc.html" class="sn-link {{onAbout}}" style-hover="color:#f5b301">About ▾</a>
+      <sc-if value="{{abtMenu}}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:100%;left:-18px;background:#0d1b2e;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 0;min-width:200px;box-shadow:0 18px 40px rgba(0,0,0,.4)">
+          <a href="About.dc.html" style-hover="background:rgba(255,255,255,.07)" style="display:block;padding:11px 20px;letter-spacing:.1em;color:rgba(255,255,255,.9);cursor:pointer">About Us</a>
+          <a href="Process.dc.html" style-hover="background:rgba(255,255,255,.07)" style="display:block;padding:11px 20px;letter-spacing:.1em;color:rgba(255,255,255,.9);cursor:pointer">Our Process</a>
+        </div>
+      </sc-if>
+    </div>
+    <a href="Contact.dc.html" class="sn-link {{onContact}}" style-hover="color:#f5b301" style="cursor:pointer">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:20px;flex:0 0 auto">
+    <a href="tel:+18337368793" style="display:inline-flex;align-items:center;gap:8px;font:700 14px/1 'Plus Jakarta Sans',sans-serif;color:#ffffff;letter-spacing:.02em;text-decoration:none"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><span>(833) 736-8793</span></a>
+    <a href="tel:+18337368793" class="sn-cta" style="font:700 13px/1.2 'Plus Jakarta Sans',sans-serif;padding:12px 22px;text-decoration:none"><span>Get a Free Estimate</span></a>
+  </div>
+  </sc-if>
+  <sc-if value="{{isMobile}}" hint-placeholder-val="{{ false }}">
+    <span onClick="{{menuToggle}}" style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;color:#fff;border:1px solid rgba(255,255,255,.4);padding:11px 16px;border-radius:99px;cursor:pointer">{{menuLabel}}</span>
+  </sc-if>
+</nav>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;top:96px;left:0;right:0;z-index:59;background:#0d1b2e;border-bottom:1px solid rgba(255,255,255,.14);padding:18px 28px 26px;display:flex;flex-direction:column;gap:4px;font-family:'Plus Jakarta Sans',sans-serif">
+    <a href="Homepage.dc.html" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08)">Home</a>
+    <a href="Services.dc.html" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08)">Services</a>
+    <a href="Our Work.dc.html" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08)">Our Work</a>
+    <a href="Service Area.dc.html?area=san-antonio" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08)">Service Areas</a>
+    <a href="Service Area.dc.html?area=new-braunfels" style="padding:13px 0 13px 18px;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08)">Example Area</a>
+    <a href="Homepage.dc.html#why" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08)">Why Choose Us</a>
+    <a href="About.dc.html" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08)">About</a>
+    <a href="Process.dc.html" style="padding:13px 0 13px 18px;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08)">Our Process</a>
+    <a href="Journal.dc.html" style="padding:13px 0;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08)">Journal</a>
+    <a href="Contact.dc.html" style="padding:13px 0 18px;font:600 14px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85)">Contact</a>
+    <a href="tel:+18337368793" class="sn-cta" style="font:700 14px/1.2 'Plus Jakarta Sans',sans-serif;padding:15px 24px;text-align:center;text-decoration:none"><span>Get a Free Estimate</span></a>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:110},&quot;current&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;services&quot;,&quot;work&quot;,&quot;process&quot;,&quot;about&quot;,&quot;journal&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  AREAS = [['San Antonio','san-antonio'],['New Braunfels','new-braunfels'],['Austin','austin'],['San Marcos','san-marcos'],['Boerne','boerne'],['Fredericksburg','fredericksburg'],['Schertz','schertz'],['Texas Hill Country','hill-country']];
+  SVC = [
+    'Roof Replacement & Re-Roofing', 'Roof Repair', 'Roof Inspections',
+    'Storm Damage & Insurance Claims', 'Gutter Installation',
+    'New Construction Roofing', 'Roof Maintenance & Care Plans', 'Temporary Emergency Services',
+    'Skylight Installation & Repair', 'Commercial & Flat Roofing'
+  ];
+
+  state = { isMobile: false, menuOpen: false, svcMenu: false, abtMenu: false, areaMenu: false };
+
+  componentDidMount() {
+    this._r = () => {
+      const m = window.innerWidth < 1120;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m });
+    };
+    window.addEventListener('resize', this._r);
+    this._r();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._r); }
+
+  menuToggle = () => this.setState(s => ({ menuOpen: !s.menuOpen }));
+  svcOpen = () => this.setState({ svcMenu: true });
+  svcClose = () => this.setState({ svcMenu: false });
+  areaOpen = () => this.setState({ areaMenu: true });
+  areaClose = () => this.setState({ areaMenu: false });
+  abtOpen = () => this.setState({ abtMenu: true });
+  abtClose = () => this.setState({ abtMenu: false });
+
+  renderVals() {
+    const cur = this.props.current || '';
+    const on = (k) => (cur === k ? 'sn-on' : '');
+    return {
+      isMobile: this.state.isMobile,
+      notMobile: !this.state.isMobile,
+      menuOpen: this.state.menuOpen,
+      menuLabel: this.state.menuOpen ? 'CLOSE' : 'MENU',
+      svcMenu: this.state.svcMenu,
+      abtMenu: this.state.abtMenu,
+      areaMenu: this.state.areaMenu,
+      areaOpen: this.areaOpen, areaClose: this.areaClose,
+      abtOpen: this.abtOpen, abtClose: this.abtClose,
+      svcLinks: this.SVC.map((t, i) => ({ t, href: 'Service.dc.html?s=' + i })),
+      areaLinks: this.AREAS.map(a => ({ t: a[0], href: 'Service Area.dc.html?area=' + a[1] })),
+      onHome: on('home'), onServices: on('services'), onWork: on('work'),
+      onProcess: on('process'),
+      onAbout: (cur === 'about' || cur === 'process') ? 'sn-on' : '',
+      onJournal: on('journal'),
+      onContact: on('contact'),
+      menuToggle: this.menuToggle, svcOpen: this.svcOpen, svcClose: this.svcClose
+    };
+  }
+}
+</script>
+</body>
+</html>

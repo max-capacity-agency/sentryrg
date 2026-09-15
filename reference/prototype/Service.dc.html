@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/1cd1e7d71e048159076fd90b39846902?family=Open+Sauce+One" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/42acf9aa4a6dc2f2886a3f682e337ead?family=Open+Sauce+One+Bold" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:#ffffff; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    a:hover { color:#f5b301; }
+    input, select, button, textarea { font-family:'Plus Jakarta Sans', sans-serif; }
+    .pg-cta { position:relative; display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:360px; color:#10203a; background:#f5b301; overflow:hidden; cursor:pointer; isolation:isolate; box-shadow:0 8px 22px -6px rgba(245,179,1,.6); transition:transform .2s ease, box-shadow .2s ease; }
+    .pg-cta span { position:relative; z-index:1; }
+    .pg-cta::after { content:''; position:absolute; inset:0; z-index:0; background:linear-gradient(115deg, transparent 20%, rgba(255,255,255,.78) 50%, transparent 80%); transform:translateX(-120%); animation:pgShine 3.2s ease-in-out infinite; pointer-events:none; }
+    .pg-cta:hover { transform:translateY(-2px); box-shadow:0 13px 30px -6px rgba(245,179,1,.72); }
+    @keyframes pgShine { 0% { transform:translateX(-120%); } 55%,100% { transform:translateX(120%); } }
+    @media (prefers-reduced-motion: reduce) { .pg-cta::after { animation:none; } }
+    @keyframes svFade { from { opacity:0; } to { opacity:1; } }
+    @keyframes svGrowV { from { height:0%; } to { height:100%; } }
+    .sv-proc-title { color:#b0b3b8; transition:color .5s ease; }
+    .sv-proc-title.is-active { color:#1a2230; }
+    .sv-tile img { transition:transform .6s ease; }
+    .sv-tile:hover img { transform:scale(1.05); }
+    .rl-card { position:relative; display:block; overflow:hidden; background:#fff; border:1px solid #e6e1d3; border-radius:14px; color:#1a2230; transition:transform .45s cubic-bezier(.22,.61,.36,1), box-shadow .45s cubic-bezier(.22,.61,.36,1), border-color .3s ease; }
+    .rl-card:hover { transform:translateY(-6px); box-shadow:0 26px 50px -18px rgba(13,27,46,.42); border-color:#f5b301; }
+    .rl-card-media { display:block; position:relative; overflow:hidden; height:190px; }
+    .rl-card-media img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .7s cubic-bezier(.22,.61,.36,1), filter .5s ease; }
+    .rl-card:hover .rl-card-media img { transform:scale(1.08); filter:saturate(1.08) contrast(1.03); }
+    .rl-card-media::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(13,27,46,.55), rgba(13,27,46,0) 55%); opacity:0; transition:opacity .45s ease; }
+    .rl-card:hover .rl-card-media::after { opacity:1; }
+    .rl-card-rule { position:absolute; left:0; right:0; bottom:0; height:3px; background:#f5b301; transform:scaleX(0); transform-origin:left center; transition:transform .5s cubic-bezier(.22,.61,.36,1); }
+    .rl-card:hover .rl-card-rule { transform:scaleX(1); }
+    .rl-card-more { display:inline-flex; align-items:center; gap:7px; font:700 11px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.2em; text-transform:uppercase; color:#9a7500; transition:color .3s ease, gap .3s ease; }
+    .rl-card:hover .rl-card-more { color:#f5b301; gap:13px; }
+    .rl-card-arrow { transition:transform .45s cubic-bezier(.22,.61,.36,1); }
+    .rl-card:hover .rl-card-arrow { transform:translateX(4px); }
+    .pg-eyebrow { display:inline-block; width:fit-content; max-width:100%; margin:0 0 16px; padding:8px 15px; border-radius:99px; background:#f4f0e6; border:1px solid #e6e1d3; font:600 11.5px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.28em; text-transform:uppercase; color:#9a7500; }
+    .pg-eyebrow.on-sand { background:#ffffff; }
+    .pg-cf { transition:transform .5s ease-in-out, opacity .5s ease-in-out, filter .5s ease-in-out; }
+    .pg-gal { display:block; position:relative; overflow:hidden; }
+    .pg-gal img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .7s cubic-bezier(.22,.61,.36,1); }
+    .pg-gal:hover img { transform:scale(1.06); }
+    .pg-prob { transition:transform .35s cubic-bezier(.22,.61,.36,1), border-color .3s ease, box-shadow .35s ease, background .3s ease; }
+    .pg-prob:hover { transform:translateY(-4px); border-color:#f5b301; background:#ffffff; box-shadow:0 14px 36px rgba(13,27,46,.1); }
+    .pg-break { background-image:url('./assets/cta-parallax-roof.jpg'); background-size:cover; background-position:center; background-attachment:fixed; padding:clamp(64px,10vw,116px) 28px; }
+    .pg-break-scrim { background:linear-gradient(180deg,rgba(13,27,46,.84),rgba(13,27,46,.74) 50%,rgba(13,27,46,.9)); }
+    @media (max-width:900px) { .pg-break { background-attachment:scroll; } }
+    @keyframes pgRise { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pgStarIn { from { opacity:0; transform:scale(.5); } to { opacity:1; transform:scale(1); } }
+    .sv-faq-plus { transition:transform .3s ease; }
+    .sv-faq-plus.is-open { transform:rotate(45deg); }
+    .sv-faq-body { max-height:0; opacity:0; overflow:hidden; transition:max-height .4s ease, opacity .35s ease; }
+    .sv-faq-body.is-open { max-height:400px; opacity:1; }
+    .svc-hero { position:relative; overflow:hidden; background:#0d1b2e; }
+    .svc-hero-photo { position:absolute; top:0; bottom:0; right:0; left:44%; }
+    .svc-hero-photo img { width:100%; height:100%; object-fit:cover; display:block; }
+    .svc-hero-veil { position:absolute; inset:0; background:linear-gradient(90deg,#0d1b2e 0%,#0d1b2e 46%,rgba(13,27,46,.96) 52%,rgba(13,27,46,.55) 60%,rgba(13,27,46,.12) 70%,rgba(13,27,46,0) 80%); }
+    .svc-hero-inner { position:relative; max-width:1180px; margin:0 auto; padding:168px 0 104px; }
+    .svc-hero-col { max-width:600px; }
+    @media (max-width: 980px) {
+      .svc-hero-photo { left:0; }
+      .svc-hero-veil { background:linear-gradient(180deg,rgba(13,27,46,.9) 0%,rgba(13,27,46,.82) 45%,rgba(13,27,46,.94) 100%); }
+      .svc-hero-inner { padding:140px 0 84px; }
+      .svc-hero-col { max-width:none; }
+    }
+  </style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',sans-serif;color:#1a2230;background:#ffffff">
+
+  <dc-import name="Site Nav" current="services" hint-size="100%,96px"></dc-import>
+
+  <header data-screen-label="Service hero" class="svc-hero" style="padding:0 28px">
+    <div class="svc-hero-photo">
+      <img ref="{{heroRef}}" src="./assets/hero-svc-replacement.png" alt="A roof replacement we completed, before and after">
+    </div>
+    <div class="svc-hero-veil"></div>
+    <div class="svc-hero-inner">
+      <div class="svc-hero-col">
+        <h1 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(36px,4.4vw,58px);line-height:1.08;letter-spacing:-.015em;color:#ffffff">{{svcTitle}}</h1>
+        <p style="margin:22px 0 0;font:400 17.5px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.86);max-width:540px;text-wrap:pretty">{{svcLine}}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin:36px 0 0">
+          <a href="tel:+18337368793" class="pg-cta" style="font:700 15px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px"><span>Get a Free Estimate</span></a>
+          <a href="tel:+18337368793" style-hover="background:rgba(255,255,255,.14)" style="font:600 15px/1 'Plus Jakarta Sans',sans-serif;color:#fff;border:1px solid rgba(255,255,255,.45);padding:16px 30px;border-radius:99px;cursor:pointer;transition:background .25s ease">(833) 736-8793</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:44px;padding-top:26px;border-top:1px solid rgba(255,255,255,.22)">
+          <span style="display:flex;gap:11px;align-items:baseline;font:600 14.5px/1.5 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.9)"><span style="color:#3fae5f;flex:0 0 auto">✓</span>Free inspection with written findings you keep</span>
+          <span style="display:flex;gap:11px;align-items:baseline;font:600 14.5px/1.5 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.9)"><span style="color:#3fae5f;flex:0 0 auto">✓</span>An itemized fixed price before anything is ordered</span>
+          <span style="display:flex;gap:11px;align-items:baseline;font:600 14.5px/1.5 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.9)"><span style="color:#3fae5f;flex:0 0 auto">✓</span>Veteran owned, fully insured, 25 years in the trade</span>
+          <span style="display:flex;gap:11px;align-items:baseline;font:600 14.5px/1.5 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.9)"><span style="color:#3fae5f;flex:0 0 auto">✓</span>Lifetime workmanship warranty, in writing</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section data-screen-label="Credibility bar" style="background:#f5b301;padding:22px 28px">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px 30px">
+      <sc-for list="{{stats}}" as="st" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-family:'Open Sauce One',sans-serif;font-weight:800;font-size:30px;line-height:1;color:#10203a">{{st.n}}</span>
+          <span style="font:600 11.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(16,32,58,.78)">{{st.l}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Problem" style="background:#ffffff;padding:clamp(52px,8vw,92px) 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="max-width:640px;margin-bottom:40px">
+        <p class="pg-eyebrow">Sound Familiar?</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.1;color:#1a2230">{{problemHead}}</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px">
+        <sc-for list="{{problems}}" as="p" hint-placeholder-count="4">
+          <div class="pg-prob" style="background:#f4f0e6;border:1px solid #e6e1d3;border-radius:14px;padding:26px 24px">
+            <p style="margin:0 0 10px;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:20px;line-height:1.2;color:#1a2230">{{p.t}}</p>
+            <p style="margin:0;font:400 15px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{p.d}}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:32px 0 0;font:500 17px/1.7 'Plus Jakarta Sans',sans-serif;color:#1a2230;max-width:720px;text-wrap:pretty">{{problemClose}}</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Gallery" style="background:#f4f0e6;padding:clamp(52px,8vw,92px) 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:32px">
+        <div style="max-width:640px">
+          <p class="pg-eyebrow on-sand">Recent Work</p>
+          <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.1;color:#1a2230">Projects we have finished nearby</h2>
+        </div>
+        <a href="Our Work.dc.html" class="rl-card-more" style="border-bottom:2px solid #f5b301;padding-bottom:4px">See All Our Past Work <span class="rl-card-arrow">→</span></a>
+      </div>
+      <div style="position:relative;height:clamp(300px,40vw,440px);display:flex;align-items:center;justify-content:center">
+        <div style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;perspective:1000px;overflow-x:clip">
+          <sc-for list="{{galCards}}" as="g" hint-placeholder-count="5">
+            <div class="pg-cf" style="position:absolute;width:clamp(230px,30vw,360px);height:100%;transform:{{g.tf}};opacity:{{g.op}};z-index:{{g.z}};filter:{{g.fx}};visibility:{{g.vis}}">
+              <a href="Our Work.dc.html" class="pg-gal" style="width:100%;height:100%;border-radius:24px;border:1px solid #e6e1d3;box-shadow:0 26px 60px -20px rgba(13,27,46,.45)"><img src="./assets/proj1-after.png" data-src="{{g.src}}" alt="{{g.alt}}"></a>
+            </div>
+          </sc-for>
+        </div>
+        <button onClick="{{galPrev}}" aria-label="Previous project" style="position:absolute;left:clamp(0px,2vw,32px);top:50%;transform:translateY(-50%);z-index:20;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;color:#1a2230;cursor:pointer"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <button onClick="{{galNext}}" aria-label="Next project" style="position:absolute;right:clamp(0px,2vw,32px);top:50%;transform:translateY(-50%);z-index:20;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;color:#1a2230;cursor:pointer"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Testimonials" style="background:#f4f0e6;padding:0 28px clamp(56px,9vw,104px)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px">
+        <sc-for list="{{reviews}}" as="r" hint-placeholder-count="3">
+          <div style-hover="box-shadow:0 14px 36px rgba(13,27,46,.1)" style="position:relative;overflow:hidden;border-radius:16px;border:1px solid #e6e1d3;background:#ffffff;padding:32px;transition:box-shadow .3s ease">
+            <div style="position:absolute;right:24px;top:12px;font-family:Georgia,serif;font-size:64px;line-height:1;color:rgba(26,34,48,.12)">"</div>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="font-size:15px;letter-spacing:3px;color:#f5b301">★★★★★</div>
+              <p style="margin:0;font:400 15px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{r.q}}</p>
+              <div>
+                <h3 style="margin:0;font:700 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#1a2230">{{r.n}}</h3>
+                <p style="margin:0;font:400 13px/1.5 'Plus Jakarta Sans',sans-serif;color:#8b93a3">{{r.job}}</p>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Service detail" style="background:#ffffff;padding:96px 28px">
+    <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:56px 72px;align-items:flex-start">
+      <div style="flex:1 1 520px;min-width:300px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">The Work</p>
+        <h2 style="margin:0 0 24px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">What you get, <em style="font-style:normal;font-weight:800">in writing</em></h2>
+        <p style="margin:0 0 18px;font:400 16.5px/1.75 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">{{svcDesc}}</p>
+        <p style="margin:0 0 18px;font:400 16.5px/1.75 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">Every engagement begins the same way: a complimentary inspection, written findings within 48 hours, and a fixed proposal — never a number on a business card.</p>
+        <p style="margin:0;font:400 16.5px/1.75 'Plus Jakarta Sans',sans-serif;color:#5a6272;text-wrap:pretty">The craftsmen on your roof are our employees — never subcontractors — and every job is documented daily, from tear-off to the final magnetic sweep.</p>
+        <sc-if value="{{hasTimeline}}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:32px;display:flex;gap:14px;align-items:flex-start;background:#f4f0e6;border:1px solid #e6e1d3;border-radius:14px;padding:20px 22px">
+            <span style="flex:0 0 auto;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#9a7500;padding-top:3px">Timeline</span>
+            <p style="margin:0;font:500 15.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#1a2230">{{svcTimeline}}</p>
+          </div>
+        </sc-if>
+      </div>
+      <div style="flex:1 1 360px;min-width:280px">
+        <sc-if value="{{hasIncluded}}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border:1px solid #e6e1d3;border-radius:16px;padding:32px 30px;box-shadow:0 12px 40px rgba(23,24,26,.06)">
+            <p style="margin:0 0 20px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">What's Included</p>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{included}}" as="it" hint-placeholder-count="7">
+                <div style="display:flex;gap:12px;align-items:baseline;font:500 15px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230"><span style="color:#9a7500;font-weight:800;flex:0 0 auto">✓</span><span>{{it}}</span></div>
+              </sc-for>
+            </div>
+            <a href="tel:+18337368793" class="pg-cta" style="margin-top:28px;font:700 14px/1.2 'Plus Jakarta Sans',sans-serif;padding:15px 28px"><span>Get a Free Estimate</span></a>
+          </div>
+        </sc-if>
+        <div style="margin-top:24px;background:#0d1b2e;border-radius:16px;padding:30px">
+          <div style="font-size:14px;letter-spacing:3px;color:#f5b301;margin-bottom:12px">★★★★★</div>
+          <p style="margin:0 0 16px;font:400 15px/1.65 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.85);text-wrap:pretty">Three roofers quoted us a number on a business card. Sentry Roofing wrote us a proposal.</p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font:700 14px/1 'Plus Jakarta Sans',sans-serif;color:#1a2230;flex:0 0 auto">T</div>
+            <div>
+              <div style="font:700 13.5px/1.3 'Plus Jakarta Sans',sans-serif;color:#fff">Tom B.</div>
+              <div style="font:600 10.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)">Roof Replacement · San Antonio, TX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Process" style="background:#f4f0e6;padding:96px 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="max-width:640px;margin-bottom:48px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">The Process</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">From inspection to <em style="font-style:normal;font-weight:800">done</em></h2>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+        <div style="flex:1 1 380px;min-width:300px;display:flex;flex-direction:column">
+          <sc-for list="{{procSteps}}" as="p" hint-placeholder-count="5">
+            <button onClick="{{procSet}}" data-idx="{{p.idx}}" style="position:relative;display:flex;align-items:flex-start;gap:16px;padding:26px 0 26px 22px;text-align:left;background:none;border:none;border-top:1px solid #e6e1d3;cursor:pointer;width:100%">
+              <span style="position:absolute;left:0;top:0;bottom:0;width:2px;background:#e6e1d3">
+                <sc-if value="{{p.on}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="position:absolute;top:0;left:0;width:100%;display:block;background:#9a7500;animation:svGrowV 5s linear both"></span></sc-if>
+              </span>
+              <span style="font:500 10px/1 'Plus Jakarta Sans',sans-serif;color:#8b93a3;margin-top:10px">{{p.num}}</span>
+              <span style="display:flex;flex-direction:column;gap:8px;flex:1">
+                <span style="font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:clamp(21px,2.4vw,28px);line-height:1.15" class="sv-proc-title {{p.cls}}">{{p.t}}</span>
+                <sc-if value="{{p.on}}" hint-placeholder-val="{{ false }}"><span data-anim="1" style="font:400 14.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;animation:svFade .35s ease both">{{p.d}}</span></sc-if>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="flex:1 1 460px;min-width:300px">
+          <div onMouseEnter="{{procPause}}" onMouseLeave="{{procResume}}" style="position:relative;aspect-ratio:16/11;border-radius:24px;overflow:hidden;border:1px solid #e6e1d3;background:#fff">
+            <img ref="{{procImgRef}}" data-anim="1" onClick="{{procNext}}" src="./assets/process-1.png" alt="Free roof inspection with written findings" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer;animation:svFade .5s ease both">
+            <div style="position:absolute;bottom:22px;right:22px;display:flex;gap:10px;z-index:20">
+              <button onClick="{{procPrev}}" aria-label="Previous step" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.88);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;color:#1a2230;font:600 20px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer">‹</button>
+              <button onClick="{{procNext}}" aria-label="Next step" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.88);border:1px solid #e6e1d3;display:flex;align-items:center;justify-content:center;color:#1a2230;font:600 20px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:48px">
+        <a href="tel:+18337368793" class="pg-cta" style="font:700 15px/1.2 'Plus Jakarta Sans',sans-serif;padding:17px 32px"><span>Get Started</span></a>
+        <span style="font:400 14.5px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272">Starts with a free inspection, not a sales call.</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Why us" style="background:#ffffff;padding:96px 28px">
+    <div style="max-width:900px;margin:0 auto">
+      <div style="text-align:center;max-width:640px;margin:0 auto 44px">
+        <p style="margin:0 0 18px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#9a7500">Why Us</p>
+        <h2 style="margin:0;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.14;color:#1a2230">Hiring us, <em style="font-style:normal;font-weight:800">itemized</em></h2>
+      </div>
+      <div style="border:1px solid #e6e1d3;border-radius:14px;overflow:hidden;background:#fff">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:#0d1b2e;padding:20px 26px;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:19px;color:#fff">Sentry Roofing</div>
+          <div style="background:#faf7f0;padding:20px 26px;font:600 15px/1.4 'Plus Jakarta Sans',sans-serif;color:#5a6272;display:flex;align-items:center">The Typical Roofer</div>
+        </div>
+        <sc-for list="{{compare}}" as="row" hint-placeholder-count="7">
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e1d3">
+            <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:600 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#1a2230;border-right:1px solid #e6e1d3"><span style="color:#9a7500;font-weight:800">✓</span><span>{{row.us}}</span></div>
+            <div style="padding:18px 26px;display:flex;gap:12px;align-items:baseline;font:400 14.5px/1.55 'Plus Jakarta Sans',sans-serif;color:#98a0ad"><span style="color:#cfc7b5">✗</span><span>{{row.them}}</span></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Offer" class="pg-break" style="position:relative;overflow:hidden;background-color:#0d1b2e">
+    <div class="pg-break-scrim" style="position:absolute;inset:0"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#f5b301"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:32px 60px;align-items:center;justify-content:space-between">
+      <div style="flex:1 1 460px;min-width:280px">
+        <p style="margin:0 0 14px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f5b301">{{offerKicker}}</p>
+        <h2 style="margin:0 0 16px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,42px);line-height:1.08;color:#ffffff">{{offerHead}}</h2>
+        <p style="margin:0 0 22px;font:400 16.5px/1.7 'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.8);max-width:520px;text-wrap:pretty">{{offerSub}}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 26px">
+          <sc-for list="{{offerBullets}}" as="b" hint-placeholder-count="3">
+            <span style="font:600 12px/1.4 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82)"><span style="color:#f5b301">✓</span> {{b}}</span>
+          </sc-for>
+        </div>
+      </div>
+      <a href="tel:+18337368793" class="pg-cta" style="flex:0 0 auto;font:700 16px/1.2 'Plus Jakarta Sans',sans-serif;padding:19px 38px"><span>Get a Free Estimate</span></a>
+    </div>
+  </section>
+
+  <section data-screen-label="FAQ" style="background:#ffffff;padding:clamp(56px,9vw,104px) 28px">
+    <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px 64px;align-items:flex-start">
+      <div style="flex:1 1 360px;min-width:280px">
+        <p class="pg-eyebrow">FAQ</p>
+        <h2 style="margin:0 0 18px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1.14;color:#1a2230">{{faqHead}} <em style="font-style:normal;font-weight:800">answered</em></h2>
+        <p style="margin:0;font:400 15.5px/1.65 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:380px;text-wrap:pretty">Still wondering about something? Call and ask. You get JJ, not a call center.</p>
+        <img src="./assets/welcome-jobsite.png" alt="A Sentry Roofing crew mid tear-off" style="margin-top:32px;width:100%;height:auto;display:block;border-radius:14px;border:1px solid #e6e1d3">
+      </div>
+      <div style="flex:1 1 480px;min-width:300px">
+        <div style="border-bottom:1px solid #e6e1d3">
+          <sc-for list="{{faqs}}" as="fq" hint-placeholder-count="6">
+            <div style="border-top:1px solid #e6e1d3">
+              <div onClick="{{faqToggle}}" data-idx="{{fq.i}}" style="display:flex;align-items:center;justify-content:space-between;gap:22px;padding:21px 2px;cursor:pointer">
+                <span style="font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:18px;line-height:1.4;color:#1a2230">{{fq.q}}</span>
+                <span class="sv-faq-plus {{fq.cls}}" style="font-family:'Open Sauce One',sans-serif;font-size:26px;line-height:1;color:#9a7500;flex:0 0 auto">+</span>
+              </div>
+              <div class="sv-faq-body {{fq.cls}}" style="overflow:hidden">
+                <p style="margin:0;padding:0 40px 22px 2px;font:400 15px/1.7 'Plus Jakarta Sans',sans-serif;color:#5a6272;max-width:680px;text-wrap:pretty">{{fq.a}}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Other services" style="background:#f4f0e6;padding:clamp(52px,8vw,92px) 28px">
+    <div style="max-width:1180px;margin:0 auto">
+      <p class="pg-eyebrow on-sand">Also From Us</p>
+      <h2 style="margin:0 0 36px;font-family:'Open Sauce One',-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.1;color:#1a2230">Everything above the gutters</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px">
+        <sc-for list="{{others}}" as="o" hint-placeholder-count="3">
+          <a href="{{o.href}}" class="rl-card">
+            <span class="rl-card-media"><img src="./assets/svc-replacement-photo.png" data-src="{{o.img}}" alt="{{o.t}}"></span>
+            <div style="padding:20px 22px 24px">
+              <h3 style="margin:0 0 8px;font-family:'Open Sauce One',sans-serif;font-weight:700;font-size:22px;line-height:1.2;color:#1a2230">{{o.t}}</h3>
+              <p style="margin:0 0 14px;font:400 14px/1.6 'Plus Jakarta Sans',sans-serif;color:#5a6272">{{o.line}}</p>
+              <span class="rl-card-more">Learn More <span class="rl-card-arrow">→</span></span>
+            </div>
+            <span class="rl-card-rule"></span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="Site Footer" hint-size="100%,900px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  SVC = [
+    { img: './assets/svc-replacement-photo.png', t: 'Roof Replacement & Re-Roofing', line: 'Complete tear-off and rebuild, documented daily.', d: 'IKO architectural shingle or standing-seam metal — a fixed written proposal, a dedicated foreman, and a 25-year workmanship guarantee.',
+      timeline: 'Most homes are finished in 2 to 3 days on site.',
+      inc: ['Full tear-off and disposal', 'Ice and water shield', 'Synthetic underlayment', 'New flashing', 'Ridge ventilation', 'Magnetic nail sweep cleanup', 'Workmanship guarantee in writing'] },
+    { img: './assets/svc-repair-photo.png', t: 'Roof Repair', line: 'Leaks, flashing, and missing shingles — fixed for good.', d: 'We repair the cause, not the symptom, and photograph every step so you can see exactly what was done.',
+      timeline: 'Most repairs are done in a single visit.',
+      inc: ['Matched shingles and materials', 'New flashing where it is needed', 'Sealed and water tested', 'Debris hauled away', 'Workmanship guarantee in writing'] },
+    { img: './assets/svc-inspection-photo.png', t: 'Roof Inspections', line: 'Complimentary, with written findings in 48 hours.', d: 'A trained eye on your roof before you buy, sell, or file a claim — and no pressure to act on what we find.',
+      timeline: '', inc: [] },
+    { img: './assets/svc-storm-photo.png', t: 'Storm Damage & Insurance Claims', line: 'We document; you recover.', d: 'Full photographic documentation, a meeting with your adjuster on site, and a scope that matches what your policy owes you.',
+      timeline: '', inc: [] },
+    { img: './assets/svc-gutters-photo.png', t: 'Gutter Installation', line: 'Seamless gutters hung by the same crew.', d: 'Formed on site and hung while the crew is already on your roofline — one firm, one proposal, one guarantee for the roof and the gutters.',
+      timeline: 'Most gutter jobs are finished in one day.',
+      inc: ['Custom sizing to your roofline', 'Hidden hangers, no exposed spikes', 'Downspouts routed away from the foundation', 'Old gutters removed and hauled away', 'Workmanship guarantee in writing'] },
+    { img: './assets/svc-newbuild-photo.png', t: 'New Construction Roofing', line: 'From bare deck to ridge on new builds.', d: 'Coordinated with the builder, inspected at every stage, and finished to the same standard as our restorations.',
+      timeline: '', inc: [] },
+    { img: './assets/svc-maintenance-photo.png', t: 'Roof Maintenance & Care Plans', line: 'Annual tune-ups, moss and debris removal.', d: 'A seasonal program that catches small problems early — documented visits with photos, and priority scheduling when weather hits.',
+      timeline: 'Your first visit is scheduled within two weeks of signup.',
+      inc: ['Yearly roof and flashing check', 'Debris and gutter clearing', 'Sealant touch-ups where needed', 'Written condition report with photos', 'Priority scheduling if something comes up'] },
+    { img: './assets/proj2-mid.png', t: 'Temporary Emergency Services', line: 'Roof tarps and waterproofing, fast.', d: 'When a storm opens up your roof, we tarp and waterproof it the same day to protect the inside of your home — documented for your carrier, which in most policies reimburses emergency mitigation.',
+      timeline: 'Emergency tarping is usually on site the same or the next day.',
+      inc: ['Roof tarped and secured against wind', 'Interior protected from further water', 'Full photo documentation for your carrier', 'Permanent repair scoped at the same visit'] },
+    { img: './assets/svc-skylight-photo.png', t: 'Skylight Installation & Repair', line: 'Installed or replaced during your re-roof.', d: 'Curb and deck-mounted skylights, flashed and sealed by the crew that owns the warranty on the roof around them.',
+      timeline: 'Most skylight work is done in one to two days.',
+      inc: ['Full manufacturer flashing kit', 'Ice and water shield around the curb', 'Interior opening finished ready for paint', 'Leak tested before we leave', 'Workmanship guarantee in writing'] },
+    { img: './assets/svc-commercial-photo.png', t: 'Commercial & Flat Roofing', line: 'TPO, EPDM, and metal for working buildings.', d: 'Low-slope systems scheduled around your operations, with maintenance plans that keep small issues from becoming closures.',
+      timeline: 'Timeline is set at the site visit around your operations.',
+      inc: ['Full tear-off or recover as specified', 'Membrane and fastening to manufacturer spec', 'New edge metal and flashing', 'Roof drainage checked and corrected', 'Manufacturer and workmanship warranty in writing'] }
+  ];
+
+  STEPS = [
+    { n: 'Step 1', t: 'Free Inspection', d: 'We walk the roof, photograph everything, and hand you written findings. No cost and no obligation.' },
+    { n: 'Step 2', t: 'Written Fixed Proposal', d: 'An itemized, fixed-price proposal in writing. On an insurance claim we build the scope to match what your policy owes you.' },
+    { n: 'Step 3', t: 'Schedule the Work', d: 'Pick a window that suits your household. Your foreman confirms the schedule in writing before the first pallet arrives.' },
+    { n: 'Step 4', t: 'Perform the Work', d: 'The crew arrives and the roof goes on — a dedicated foreman, photos to your phone every day, and a magnet-rolled yard before we leave.' },
+    { n: 'Step 5 · Optional', t: 'Maintenance & Care', d: 'Optional, and worth it: annual tune-ups, moss and debris removal, and priority scheduling after storms.' }
+  ];
+
+  STATS = [
+    { n: '25', l: 'Years in the Trade' },
+    { n: '20', l: 'Years as an Adjuster' },
+    { n: '100+', l: 'Photos Per Job' },
+    { n: 'Lifetime', l: 'Workmanship Warranty' }
+  ];
+
+  REVIEWS = [
+    { q: 'The price JJ wrote down on day one is the price we paid at the end. No change orders, no surprises, and the crew was off the roof a day early.', n: 'Marcus D.', job: 'Roof Replacement · San Antonio' },
+    { q: 'He knew what our policy owed better than the adjuster did. Met him on the roof with photos of everything and the claim went through without a fight.', n: 'Rachel T.', job: 'Storm & Insurance Claim · New Braunfels' },
+    { q: 'Photos hit my phone every single day, and they ran a magnet over the whole yard before they left. My kids play out there barefoot — that mattered.', n: 'Dana K.', job: 'Roof Repair · Boerne' }
+  ];
+
+  GALLERY = ['./assets/proj1-after.png', './assets/proj3-after.png', './assets/proj2-after.png', './assets/owner-after.png', './assets/welcome-after.png'];
+
+  PROBLEMS = {
+    head: 'The things homeowners tell us they were worried about',
+    close: 'Every one of those comes off the table before you sign anything. That is the whole point of the free inspection.',
+    rows: [
+      { t: 'A number on a business card', d: 'You get an itemized, fixed-price proposal in writing. What it says is what you pay, and change orders do not appear halfway through.' },
+      { t: 'Nobody explains the claim', d: 'JJ spent twenty years as an insurance adjuster before he started roofing. He meets your adjuster on the roof and builds the scope to match what your policy actually owes you.' },
+      { t: 'A crew you have never met', d: 'The owner is on your roof every day of the job, and photos land on your phone as the work happens — 100+ per job, before, during and after.' },
+      { t: 'Nails left in the driveway', d: 'The yard is magnet-rolled before we leave, and we come back for a courtesy inspection every year afterwards.' }
+    ]
+  };
+
+  OFFER = {
+    kicker: 'Free Inspection',
+    head: 'Find out what your roof actually needs',
+    sub: 'We walk it, photograph everything and hand you written findings. No cost, no obligation, and no sales call afterwards.',
+    bullets: ['No deposit to book', 'Free written estimate', 'Veteran owned']
+  };
+
+  FAQS = [
+    { q: 'What does the inspection cost?', a: 'Nothing. We walk the roof, photograph it, and hand you written findings you keep whether or not you hire us.' },
+    { q: 'How fast can you get out?', a: 'Most addresses get an inspection within two business days, and same or next day when water is actively coming in.' },
+    { q: 'Will you handle my insurance claim?', a: 'Yes. Twenty years of adjusting sits behind the documentation, and we meet your adjuster on the roof rather than leaving you to argue it alone.' },
+    { q: 'Do you pull the permit?', a: 'Where the jurisdiction requires one, yes, and we see the inspection through as part of the job.' },
+    { q: 'What does the warranty cover?', a: 'Every seam, flashing and fastener we touch, for the lifetime of the work, in writing — plus a courtesy inspection every year.' },
+    { q: 'Are you licensed?', a: 'Texas does not license roofing contractors. We are fully insured, veteran owned, and certified IKO ROOFPRO Craftsman Premier — certificates go out before work begins.' }
+  ];
+
+  PROC = [
+    { num: '/01', t: 'Free Inspection', d: 'We walk the roof, photograph everything, and hand you written findings. No cost and no obligation.', img: './assets/process-1.png', alt: 'Free roof inspection with written findings' },
+    { num: '/02', t: 'Written Fixed Proposal', d: 'An itemized, fixed-price proposal in writing. On an insurance claim we build the scope to match what your policy owes you.', img: './assets/process-2.png', alt: 'Reviewing a written roofing proposal with a homeowner' },
+    { num: '/03', t: 'Permit & Schedule', d: 'We pull the permit where one is required and confirm your install window in writing before the first pallet arrives.', img: './assets/process-3.png', alt: 'Scheduling a roof replacement' },
+    { num: '/04', t: 'Perform the Work', d: 'The crew arrives and the roof goes on — a dedicated foreman, photos to your phone every day, and a magnet-rolled yard before we leave.', img: './assets/process-4.png', alt: 'Crew installing a new roof' },
+    { num: '/05', t: 'We Stay Local', d: 'Final walkthrough, warranty in writing, and a courtesy inspection every year afterwards.', img: './assets/process-5.png', alt: 'Final walkthrough on a completed roof' }
+  ];
+
+  COMPARE = [
+    { us: '25 years in the trade — 20 of them as an insurance adjuster', them: 'Salesmen who have never written a claim' },
+    { us: 'An itemized fixed-price proposal, in writing', them: 'A number on the back of a business card' },
+    { us: 'The owner on the roof, every day of the job', them: 'A rep you meet once and never see again' },
+    { us: '100+ photos per job — before, during and after', them: 'A verbal promise that it was done right' },
+    { us: 'IKO materials, written guarantee, magnet-rolled cleanup', them: 'Vague promises and nails left in your driveway' },
+    { us: 'A lifetime warranty on the work', them: 'A warranty that runs out before the roof does' },
+    { us: 'A courtesy follow-up inspection every year', them: 'Gone the day the cheque clears' }
+  ];
+
+  GAL = [
+    { img: './assets/proj1-after.png', t: 'Full Replacement', alt: 'Finished architectural shingle roof', loc: 'San Antonio, TX' },
+    { img: './assets/proj3-after.png', t: 'Standing-Seam Metal', alt: 'Finished charcoal standing seam roof', loc: 'Boerne, TX' },
+    { img: './assets/proj2-after.png', t: 'Storm Restoration', alt: 'Finished metal roof after storm restoration', loc: 'New Braunfels, TX' },
+    { img: './assets/owner-after.png', t: 'Shingle Re-Roof', alt: 'Completed shingle re-roof', loc: 'Schertz, TX' },
+    { img: './assets/svc-gutters-photo.png', t: 'Gutter Installation', alt: 'Seamless gutters installed on a home', loc: 'Austin, TX' },
+    { img: './assets/welcome-after.png', t: 'Full Replacement', alt: 'A finished roof at dusk', loc: 'San Marcos, TX' }
+  ];
+
+  state = { idx: 0, proc: 0, procPaused: false, galIdx: 0, faqOpen: 0, tiltRx: 0, tiltRy: 0, glareX: 50, glareY: 50 };
+  procImgRef = React.createRef();
+  ratingRef = React.createRef();
+  countRef = React.createRef();
+
+  countUp(node, to, decimals, key) {
+    if (!node) return;
+    const fmt = (v) => decimals ? v.toFixed(1) : String(Math.round(v));
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { node.textContent = fmt(to); return; }
+    const dur = 1500, t0 = performance.now();
+    const tick = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      node.textContent = fmt(to * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) this['_raf' + key] = requestAnimationFrame(tick);
+    };
+    this['_raf' + key] = requestAnimationFrame(tick);
+  }
+
+  galNext = () => this.setState(s => ({ galIdx: (s.galIdx + 1) % this.GALLERY.length }));
+  galPrev = () => this.setState(s => ({ galIdx: (s.galIdx - 1 + this.GALLERY.length) % this.GALLERY.length }));
+
+  tiltMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    this.setState({ tiltRy: (px - .5) * 12, tiltRx: (.5 - py) * 12, glareX: px * 100, glareY: py * 100 });
+  };
+  tiltLeave = () => this.setState({ tiltRx: 0, tiltRy: 0, glareX: 50, glareY: 50 });
+
+  faqToggle = (e) => {
+    const i = Number(e.currentTarget.getAttribute('data-idx'));
+    this.setState(s => ({ faqOpen: s.faqOpen === i ? -1 : i }));
+  };
+
+  syncImgs = () => {
+    document.querySelectorAll('img[data-src]').forEach(el => {
+      const want = el.getAttribute('data-src');
+      if (!want || want.indexOf('{{') !== -1) return;
+      if (el.getAttribute('src') !== want) el.setAttribute('src', want);
+    });
+    const pi = this.procImgRef.current;
+    if (pi) {
+      const p = this.PROC[this.state.proc];
+      if (pi.getAttribute('src') !== p.img) pi.setAttribute('src', p.img);
+      pi.setAttribute('alt', p.alt);
+    }
+  };
+
+  procSet = (e) => {
+    const i = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+    if (!isNaN(i)) this.setState({ proc: i, procPaused: true });
+  };
+  procNext = () => this.setState(s => ({ proc: (s.proc + 1) % 5 }));
+  procPrev = () => this.setState(s => ({ proc: (s.proc + 4) % 5 }));
+  procPause = () => this.setState({ procPaused: true });
+  procResume = () => this.setState({ procPaused: false });
+  heroRef = React.createRef();
+  HERO = { 0: './assets/hero-svc-replacement.png' };
+
+  syncHero() {
+    const el = this.heroRef.current;
+    if (!el) return;
+    const s = this.SVC[this.state.idx] || this.SVC[0];
+    const want = this.HERO[this.state.idx] || s.img;
+    if (el.getAttribute('src') !== want) el.setAttribute('src', want);
+    el.setAttribute('alt', s.t);
+  }
+  componentDidUpdate() { this.syncHero(); this.syncImgs(); }
+  componentWillUnmount() { clearInterval(this._pt); clearInterval(this._gt); if (this._rafR) cancelAnimationFrame(this._rafR); if (this._rafC) cancelAnimationFrame(this._rafC); }
+
+  componentDidMount() {
+    const q = Number(new URLSearchParams(window.location.search).get('s'));
+    const i = Number.isFinite(q) && q >= 0 && q < this.SVC.length ? q : 0;
+    if (i !== this.state.idx) this.setState({ idx: i });
+    document.title = this.SVC[i].t + ' · Sentry Roofing';
+    this.syncHero();
+    this.syncImgs();
+    this.countUp(this.ratingRef.current, 5, true, 'R');
+    this.countUp(this.countRef.current, 0, false, 'C');
+    this._gt = setInterval(this.galNext, 5000);
+    this._pt = setInterval(() => {
+      if (!this.state.procPaused) this.setState(s => ({ proc: (s.proc + 1) % 5 }));
+    }, 5000);
+  }
+
+  renderVals() {
+    const s = this.SVC[this.state.idx] || this.SVC[0];
+    const others = this.SVC
+      .map((x, i) => ({ ...x, href: 'Service.dc.html?s=' + i, i }))
+      .filter(x => x.i !== this.state.idx)
+      .slice(0, 3);
+    return {
+      svcTitle: s.t, svcLine: s.line, svcDesc: s.d, svcImg: s.img, heroRef: this.heroRef,
+      svcTimeline: s.timeline, hasTimeline: !!s.timeline,
+      included: s.inc, hasIncluded: s.inc.length > 0,
+      steps: this.STEPS, others,
+      stats: this.STATS,
+      reviews: this.REVIEWS,
+      ratingRef: this.ratingRef, countRef: this.countRef,
+      tiltMove: this.tiltMove, tiltLeave: this.tiltLeave,
+      tiltTf: 'perspective(1000px) rotateX(' + this.state.tiltRx.toFixed(2) + 'deg) rotateY(' + this.state.tiltRy.toFixed(2) + 'deg)',
+      tiltGlare: 'radial-gradient(circle at ' + this.state.glareX.toFixed(1) + '% ' + this.state.glareY.toFixed(1) + '%, #0d1b2e, transparent 50%)',
+      problemHead: this.PROBLEMS.head, problemClose: this.PROBLEMS.close, problems: this.PROBLEMS.rows,
+      galCards: this.GALLERY.map((src, i) => {
+        const total = this.GALLERY.length;
+        let pos = (i - this.state.galIdx + total) % total;
+        if (pos > Math.floor(total / 2)) pos -= total;
+        const centre = pos === 0, adj = Math.abs(pos) === 1;
+        return {
+          src, alt: s.t + ' project ' + (i + 1),
+          tf: 'translateX(' + (pos * 45) + '%) scale(' + (centre ? 1 : adj ? 0.85 : 0.7) + ') rotateY(' + (pos * -10) + 'deg)',
+          op: centre ? 1 : adj ? 0.4 : 0,
+          z: centre ? 10 : adj ? 5 : 1,
+          fx: centre ? 'blur(0px)' : 'blur(4px)',
+          vis: Math.abs(pos) > 1 ? 'hidden' : 'visible'
+        };
+      }),
+      galNext: this.galNext, galPrev: this.galPrev,
+      offerKicker: this.OFFER.kicker, offerHead: this.OFFER.head, offerSub: this.OFFER.sub, offerBullets: this.OFFER.bullets,
+      faqHead: s.t + ' questions,',
+      faqs: this.FAQS.map((q, i) => ({ i, q: q.q, a: q.a, cls: this.state.faqOpen === i ? 'is-open' : '' })),
+      faqToggle: this.faqToggle,
+      gallery: this.GAL,
+      compare: this.COMPARE,
+      procSteps: this.PROC.map((st, i) => ({ idx: i, num: st.num, t: st.t, d: st.d, on: this.state.proc === i, cls: this.state.proc === i ? 'is-active' : '' })),
+      procImgRef: this.procImgRef,
+      procSet: this.procSet, procNext: this.procNext, procPrev: this.procPrev,
+      procPause: this.procPause, procResume: this.procResume
+    };
+  }
+}
+</script>
+</body>
+</html>
