@@ -6,5 +6,7 @@
 export const PHONE_DISPLAY = '(833) 736-8793'
 export const PHONE_HREF = 'tel:+18337368793'
 
+export const EMAIL = 'jj@sentryrg.com'
+
 export const BRAND = 'Sentry Roofing'
 export const SITE_URL = 'https://sentryrg.com'

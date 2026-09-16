@@ -1,0 +1,416 @@
+/*
+ * Contact block + footer. Values lifted from Site Footer.dc.html.
+ *
+ * Note the mobile sticky call bar uses an 840px breakpoint, not the nav's
+ * 1120px. That is the prototype's own split and is preserved deliberately:
+ * the bar is about thumb reach, the nav about horizontal room for links.
+ */
+
+/* ---- Contact block ---- */
+
+.contact {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  padding: 96px var(--gutter);
+}
+
+.contactGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(245, 179, 1, 0.16), transparent 60%);
+  pointer-events: none;
+}
+
+.contactInner {
+  position: relative;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.kicker {
+  margin: 0 0 18px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--kicker-size);
+  line-height: 1;
+  letter-spacing: var(--kicker-ls);
+  text-transform: uppercase;
+  color: var(--hx);
+  text-align: center;
+}
+
+.contactHeading {
+  margin: 0 0 16px;
+  font-size: clamp(30px, 3.8vw, 46px);
+  line-height: 1.15;
+  color: var(--white);
+  text-align: center;
+}
+
+.contactLead {
+  margin: 0 auto 34px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 540px;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+.inlinePhone {
+  color: var(--hx);
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldWide {
+  grid-column: 1 / -1;
+}
+
+.fieldLabel {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.input,
+.select,
+.textarea {
+  padding: 15px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14.5px;
+  line-height: 1;
+  color: var(--white);
+  outline: none;
+}
+
+.select {
+  background: rgba(13, 27, 46, 0.85);
+}
+
+.textarea {
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--hx);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.submitRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.submitNote {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.sent {
+  text-align: center;
+  padding: 18px 0 6px;
+}
+
+.sentTitle {
+  margin: 0 0 10px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--hx);
+}
+
+.sentBody {
+  margin: 0 auto;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 460px;
+}
+
+/* ---- Gold pill CTA ---- */
+
+.cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 360px;
+  color: #10203a;
+  background: var(--hx);
+  overflow: hidden;
+  cursor: pointer;
+  isolation: isolate;
+  box-shadow: 0 8px 22px -6px rgba(245, 179, 1, 0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14.5px;
+  line-height: 1.2;
+  padding: 17px 32px;
+}
+
+.cta > span {
+  position: relative;
+  z-index: 1;
+}
+
+.cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.78) 50%, transparent 80%);
+  transform: translateX(-120%);
+  animation: footerShine 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 13px 30px -6px rgba(245, 179, 1, 0.72);
+}
+
+@keyframes footerShine {
+  0% {
+    transform: translateX(-120%);
+  }
+  55%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta::after {
+    animation: none;
+  }
+}
+
+/* ---- Social ---- */
+
+.social {
+  position: relative;
+  max-width: 840px;
+  margin: 0 auto;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.socialLink {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.socialSerif {
+  font-family: Georgia, serif;
+  font-size: 17px;
+}
+
+.socialLink:hover {
+  background: var(--hx);
+  color: #10203a;
+  border-color: var(--hx);
+}
+
+/* ---- Footer ---- */
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy-deep);
+  padding: 80px var(--gutter) 40px;
+}
+
+.footerInner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px 64px;
+}
+
+.colBrand {
+  flex: 1 1 280px;
+  min-width: 240px;
+}
+
+.footerLogo {
+  height: 40px;
+  width: auto;
+  display: block;
+  margin-bottom: 18px;
+  border-radius: 5px;
+}
+
+.blurb {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.62);
+  max-width: 300px;
+}
+
+.colServices {
+  flex: 1 1 160px;
+}
+
+.colCompany {
+  flex: 1 1 140px;
+}
+
+.colContact {
+  flex: 1 1 220px;
+}
+
+.colHeading {
+  margin: 0 0 16px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.colLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.colLink {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.colLink:hover {
+  color: var(--hx);
+}
+
+.footerPhone {
+  color: var(--hx);
+  font-weight: 700;
+}
+
+.colMeta {
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 500;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 32px;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.bottomLink {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: underline;
+}
+
+/* ---- Mobile sticky call bar ---- */
+
+.callBarSpacer,
+.callBar {
+  display: none;
+}
+
+@media (max-width: 839px) {
+  .callBarSpacer {
+    display: block;
+    height: 56px;
+  }
+
+  .callBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--navy);
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 16px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 13.5px;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+
+  .callBarIcon {
+    color: var(--hx);
+    font-size: 17px;
+  }
+}

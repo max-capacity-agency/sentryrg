@@ -1,17 +1,33 @@
-import { PHONE_DISPLAY, PHONE_HREF } from '@/lib/site'
+import SiteNav from '@/components/SiteNav'
+import SiteFooter from '@/components/SiteFooter'
 
+/*
+ * Homepage shell. The nav sits transparent over the video hero and turns
+ * solid navy past 40px of scroll, so it gets transparentUntilScroll.
+ * The 15 hero sections land here next.
+ */
 export default function Home() {
   return (
-    <main style={{ padding: 'var(--section-y) var(--gutter)', maxWidth: 'var(--maxw)', margin: '0 auto' }}>
-      <h1>
-        Scaffold live. <em>Homepage</em> next.
-      </h1>
-      <p style={{ marginTop: 24, fontSize: 'var(--lead-size)' }}>
-        Tokens, fonts and the Netlify build path are wired. Sections port next.
-      </p>
-      <p style={{ marginTop: 24 }}>
-        <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>
-      </p>
-    </main>
+    <>
+      <SiteNav current="home" transparentUntilScroll />
+      <main
+        style={{
+          paddingTop: 'calc(var(--nav-h) + var(--section-y))',
+          paddingBottom: 'var(--section-y)',
+          paddingLeft: 'var(--gutter)',
+          paddingRight: 'var(--gutter)',
+          maxWidth: 'var(--maxw)',
+          margin: '0 auto',
+        }}
+      >
+        <h1>
+          Nav and footer <em>live</em>.
+        </h1>
+        <p style={{ marginTop: 24, fontSize: 'var(--lead-size)' }}>
+          Homepage sections port next, top to bottom against the prototype.
+        </p>
+      </main>
+      <SiteFooter />
+    </>
   )
 }

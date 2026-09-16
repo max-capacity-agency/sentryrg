@@ -1,0 +1,331 @@
+/*
+ * Fixed nav. Values lifted from Site Nav.dc.html and the Homepage's
+ * .hx-nav rules, which are the same bar in two states: solid navy on
+ * inner pages, transparent over the homepage hero until scrollY > 40.
+ *
+ * The prototype switched to the mobile sheet with a JS resize listener.
+ * Per the brief this is a media query instead, so the breakpoint lives
+ * here and nothing needs to re-render on resize.
+ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px var(--gutter);
+  background: var(--navy);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+/* Homepage only: transparent over the hero until scrolled. */
+.transparent {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+.solid {
+  background: var(--navy);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.logoLink {
+  flex: 0 0 auto;
+  display: block;
+}
+
+.logo {
+  height: 68px;
+  width: auto;
+  display: block;
+  border-radius: var(--r-logo);
+}
+
+/* ---- Desktop links ---- */
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--nav-link-size);
+  line-height: 1;
+  letter-spacing: var(--nav-link-ls);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.link {
+  position: relative;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--hx);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.link:hover {
+  color: var(--hx);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+.active {
+  color: var(--hx);
+}
+
+/* ---- Dropdowns ---- */
+
+.dropdownWrap {
+  position: relative;
+  padding: 10px 0;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  left: -18px;
+  margin: 0;
+  padding: 10px 0;
+  list-style: none;
+  background: var(--navy);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--r-dropdown);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+}
+
+.menuServices {
+  min-width: 290px;
+}
+
+.menuAreas {
+  min-width: 230px;
+}
+
+.menuAbout {
+  min-width: 200px;
+}
+
+.menuItem {
+  display: block;
+  padding: 11px 20px;
+  letter-spacing: 0.1em;
+  /* .links sets line-height:1 for the single-line top bar; the longer
+     service names wrap in here and need room. */
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.9);
+  transition: background 0.2s ease;
+}
+
+.menuItem:hover,
+.menuItem:focus-visible {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* ---- Right-hand actions ---- */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 0 0 auto;
+}
+
+.phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+
+.phone:hover {
+  color: var(--hx);
+}
+
+.phoneIcon {
+  flex: 0 0 auto;
+}
+
+/*
+ * Gold pill CTA with the sweeping shine. Shared shape with the footer CTA;
+ * kept per-component because the two differ in padding and font size.
+ */
+.cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 360px;
+  color: #10203a;
+  background: var(--hx);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 8px 22px -6px rgba(245, 179, 1, 0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--btn-size);
+  line-height: 1.2;
+  padding: 12px 22px;
+}
+
+.cta > span {
+  position: relative;
+  z-index: 1;
+}
+
+.cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.78) 50%, transparent 80%);
+  transform: translateX(-120%);
+  animation: shine 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 13px 30px -6px rgba(245, 179, 1, 0.72);
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-120%);
+  }
+  55%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta::after {
+    animation: none;
+  }
+}
+
+/* ---- Mobile ---- */
+
+.menuToggle {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  color: var(--white);
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 11px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+}
+
+.sheet {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  z-index: 59;
+  background: var(--navy);
+  border-bottom: 1px solid var(--border-dark);
+  padding: 18px var(--gutter) 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/*
+ * The footer's sticky call bar is fixed at 56px and sits above this sheet,
+ * so without clearance the last item scrolls under it and cannot be tapped.
+ * Matches SiteFooter's own 840px breakpoint.
+ */
+@media (max-width: 839px) {
+  .sheet {
+    max-height: calc(100vh - var(--nav-h) - 56px);
+    padding-bottom: calc(26px + 56px);
+  }
+}
+
+.sheetLink {
+  padding: 13px 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Indented children, as the prototype styles its sub-items. */
+.sheetSub {
+  padding-left: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sheetCta {
+  margin-top: 14px;
+  font-size: 14px;
+  padding: 15px 24px;
+}
+
+/*
+ * The 1120px switch. Below it the desktop links and actions are gone and
+ * the hamburger is shown; above it the reverse.
+ */
+.links,
+.actions {
+  display: none;
+}
+
+.menuToggle {
+  display: inline-block;
+}
+
+@media (min-width: 1120px) {
+  .links {
+    display: flex;
+  }
+
+  .actions {
+    display: flex;
+  }
+
+  .menuToggle,
+  .sheet {
+    display: none;
+  }
+}
