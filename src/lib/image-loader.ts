@@ -15,6 +15,13 @@ type LoaderArgs = { src: string; width: number; quality?: number }
 export default function netlifyImageLoader({ src, width, quality }: LoaderArgs): string {
   if (process.env.NODE_ENV !== 'production') return src
 
+  /*
+   * Preview builds (NEXT_PUBLIC_PREVIEW=1) are published outside Netlify,
+   * where /.netlify/images does not exist, so serve the raw file instead.
+   * Used for the Artifact preview we share for review.
+   */
+  if (process.env.NEXT_PUBLIC_PREVIEW === '1') return src
+
   const params = new URLSearchParams({
     url: src,
     w: String(width),
