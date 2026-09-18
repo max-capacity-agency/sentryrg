@@ -1,21 +1,21 @@
-# The Next.js runtime sets its own publish directory and deploys the server
-# handler as a function. Do NOT set `publish` here: pinning it to ".next"
-# makes Netlify serve the raw build output as static files, which 404s at
-# the root because the pages land under server/app/ rather than /.
+# Static export: `next build` writes a plain out/ directory and Netlify
+# serves it directly. No Next.js runtime, no server function.
+#
+# Why not the runtime: Netlify only auto-installs it for Git-linked builds.
+# This project deploys by zip upload, where the framework is detected as
+# "next" but plugin_state stays "none", so the repo root gets published
+# instead of the build output. Declaring or installing the plugin to force
+# it made the build fail outright. The site needs no server rendering, so
+# exporting sidesteps all of it.
+#
+# next/image still optimizes: src/lib/image-loader.ts routes images through
+# Netlify Image CDN at /.netlify/images.
 [build]
   command = "npm run build"
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "22"
-
-# Declared AND installed as a devDependency. Netlify only auto-installs the
-# Next runtime for Git-linked builds; this project deploys by zip upload
-# (deploy_source "api"), where auto-detection reports framework "next" but
-# plugin_state stays "none" and the repo root gets published as a static
-# site. Declaring it alone also failed: Netlify's on-the-fly install of the
-# package returned exit 2. Pinning it in package.json fixes both.
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 [[headers]]
   for = "/assets/*"
