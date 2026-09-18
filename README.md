@@ -8,8 +8,44 @@ prototype in `reference/prototype`.
 Netlify project **sentryrg** (team Max Capacity).
 Site ID `c103fe2c-3595-45e6-a1a6-453b0acc49f9` · https://sentryrg.netlify.app
 
-Netlify's Next.js runtime is auto-detected; `next/image` routes through
-Netlify Image CDN. `npm run build` is the build command.
+The site is a **static export** (`output: 'export'`). `next build` writes a
+plain `out/` directory which Netlify serves directly. There is no Next.js
+runtime and no server function.
+
+That is deliberate. Every page is prerendered marketing content with no
+request-time data, so nothing needs a server, and Netlify only auto-installs
+its Next.js runtime for Git-linked builds. This project currently deploys by
+zip upload, where the framework is detected but the runtime is never applied
+and the repo root gets published instead of the build output. Exporting
+removes that failure mode entirely.
+
+`next/image` still optimizes: `src/lib/image-loader.ts` routes images through
+Netlify Image CDN at `/.netlify/images`, which resizes and re-encodes on
+demand at the edge.
+
+**Worth doing:** link the GitHub repo in Netlify (Project configuration →
+Build & deploy → Link repository). Builds then run on push and every PR gets
+a deploy preview, which is a better review loop than pushing zips.
+
+## Forms
+
+The footer contact form posts to Netlify Forms (form name `contact`).
+
+Because App Router pages are not emitted as plain HTML for Netlify to parse,
+the form is declared statically in `public/__forms.html` and the React form
+in `SiteFooter.tsx` POSTs urlencoded data there. **Field names must stay in
+sync between those two files** — a field added to one and not the other is
+silently dropped from every submission.
+
+Spam is handled by a `bot-field` honeypot.
+
+**Manual step still outstanding:** submissions are captured but email
+notifications are not configured. Netlify's API tooling does not expose
+notification settings, so set this in the UI:
+Project configuration → Notifications → Form submission notifications →
+Add notification → Email notification → `jj@sentryrg.com`.
+Until then leads sit in the Netlify dashboard under Forms and nobody is
+emailed.
 
 ## Commands
 
