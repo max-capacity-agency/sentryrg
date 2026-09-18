@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { PHONE_DISPLAY, PHONE_HREF, BRAND } from '@/lib/site'
 import { SERVICES, AREAS, servicePath, areaPath, type NavKey } from '@/lib/nav'
+import cta from '@/styles/cta.module.css'
 import styles from './SiteNav.module.css'
 
 type Props = {
@@ -200,7 +201,7 @@ export default function SiteNav({ current, transparentUntilScroll = false }: Pro
             <PhoneIcon />
             <span>{PHONE_DISPLAY}</span>
           </a>
-          <a href={PHONE_HREF} className={styles.cta}>
+          <a href={PHONE_HREF} className={`${cta.pill} ${styles.cta}`}>
             <span>Get a Free Estimate</span>
           </a>
         </div>
@@ -268,7 +269,7 @@ export default function SiteNav({ current, transparentUntilScroll = false }: Pro
           <Link href="/contact" className={styles.sheetLink} onClick={() => setSheetOpen(false)}>
             Contact
           </Link>
-          <a href={PHONE_HREF} className={`${styles.cta} ${styles.sheetCta}`}>
+          <a href={PHONE_HREF} className={`${cta.pill} ${styles.cta} ${styles.sheetCta}`}>
             <span>Get a Free Estimate</span>
           </a>
         </div>

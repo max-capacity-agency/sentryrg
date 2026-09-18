@@ -1,0 +1,178 @@
+/*
+ * Homepage video hero. Values lifted from Homepage.dc.html,
+ * data-screen-label="Video hero".
+ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--navy-deep);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Layered navy scrim: light at the top so the roof reads, solid at the
+   bottom so the next section joins without a seam. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 21, 36, 0.62) 0%,
+    rgba(10, 21, 36, 0.38) 45%,
+    rgba(13, 27, 46, 0.55) 72%,
+    rgba(13, 27, 46, 0.92) 90%,
+    #0d1b2e 100%
+  );
+}
+
+.inner {
+  position: relative;
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding: 150px var(--gutter) 72px;
+  box-sizing: border-box;
+}
+
+/* ---- Google review badge ---- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 26px;
+  background: var(--white);
+  border-radius: 99px;
+  padding: 8px 18px 8px 14px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+}
+
+.google {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.badgeRule {
+  width: 1px;
+  height: 16px;
+  background: #e3ded2;
+}
+
+.badgeScore {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13.5px;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.badgeStars {
+  font-size: 12.5px;
+  letter-spacing: 2px;
+  color: var(--hx);
+}
+
+.badgeCount {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 12.5px;
+  line-height: 1;
+  color: var(--body);
+}
+
+/* ---- Copy ---- */
+
+.kicker {
+  margin: 0 0 22px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--kicker-size);
+  line-height: 1.6;
+  letter-spacing: var(--kicker-ls);
+  text-transform: uppercase;
+  color: var(--hx);
+}
+
+.title {
+  margin: 0;
+  color: var(--white);
+  max-width: 840px;
+}
+
+/* The rotating word. Inline-block so the fade does not reflow the line. */
+.rotator {
+  font-style: normal;
+  font-weight: 800;
+  color: var(--hx);
+  display: inline-block;
+  transition: opacity 0.32s ease;
+}
+
+.rotatorOut {
+  opacity: 0;
+}
+
+.lead {
+  margin: 24px 0 0;
+  font-size: var(--lead-size);
+  line-height: var(--lead-lh);
+  color: var(--on-dark-body);
+  max-width: 600px;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+.ctaPrimary {
+  font-size: 15px;
+  line-height: 1.2;
+  padding: 17px 32px;
+}
+
+.ctaSecondary {
+  font-size: 15px;
+  line-height: 1;
+  padding: 16px 30px;
+}
+
+/* ---- Trust row ---- */
+
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 30px;
+  margin-top: 58px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11.5px;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.tick {
+  color: #3fae5f;
+}

@@ -172,65 +172,11 @@
   flex: 0 0 auto;
 }
 
-/*
- * Gold pill CTA with the sweeping shine. Shared shape with the footer CTA;
- * kept per-component because the two differ in padding and font size.
- */
+/* Sizing only; the pill's shape comes from styles/cta.module.css. */
 .cta {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 360px;
-  color: #10203a;
-  background: var(--hx);
-  overflow: hidden;
-  isolation: isolate;
-  box-shadow: 0 8px 22px -6px rgba(245, 179, 1, 0.6);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  font-family: var(--font-body);
-  font-weight: 700;
   font-size: var(--btn-size);
   line-height: 1.2;
   padding: 12px 22px;
-}
-
-.cta > span {
-  position: relative;
-  z-index: 1;
-}
-
-.cta::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.78) 50%, transparent 80%);
-  transform: translateX(-120%);
-  animation: shine 3.2s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 13px 30px -6px rgba(245, 179, 1, 0.72);
-}
-
-@keyframes shine {
-  0% {
-    transform: translateX(-120%);
-  }
-  55%,
-  100% {
-    transform: translateX(120%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cta::after {
-    animation: none;
-  }
 }
 
 /* ---- Mobile ---- */
