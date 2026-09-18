@@ -1,15 +1,14 @@
-# The Next.js runtime sets its own publish directory and deploys the server
-# handler as a function. Do NOT set `publish` here: pinning it to ".next"
-# makes Netlify serve the raw build output as static files, which 404s at
-# the root because the pages land under server/app/ rather than /.
+# Netlify auto-detects Next.js and applies its runtime, which sets the
+# publish directory and deploys the server handler as a function.
+#
+# Do NOT set `publish` here: pinning it to ".next" stops the runtime from
+# running, and Netlify serves the raw build output as static files, which
+# 404s at the root because pages land under server/app/ rather than /.
 [build]
   command = "npm run build"
 
 [build.environment]
   NODE_VERSION = "22"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 [[headers]]
   for = "/assets/*"
