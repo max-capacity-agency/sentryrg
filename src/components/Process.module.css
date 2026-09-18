@@ -1,0 +1,120 @@
+/* Stepped process carousel. From Homepage.dc.html,
+   data-screen-label="Process". */
+
+.section {
+  padding: 104px var(--gutter);
+  background: var(--white);
+}
+
+.inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.head {
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px 60px;
+  min-height: 380px;
+}
+
+.copy {
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1 1 380px;
+}
+
+.stepLabel {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--kicker-size);
+  line-height: 1;
+  letter-spacing: var(--kicker-ls);
+  text-transform: uppercase;
+  color: var(--hxd);
+}
+
+.stepTitle {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.stepBody {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--body);
+  text-wrap: pretty;
+}
+
+.photo {
+  flex: 1 1 380px;
+  max-width: 480px;
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  border-radius: var(--r-card);
+  display: block;
+}
+
+/* Step buttons */
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 44px;
+}
+
+.step {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--body);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  padding: 12px 20px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.step:hover {
+  border-color: var(--hx);
+  color: var(--ink);
+}
+
+.stepActive {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 64px var(--gutter);
+  }
+
+  .photo {
+    height: 240px;
+  }
+
+  .stage {
+    min-height: 0;
+  }
+}

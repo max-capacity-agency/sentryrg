@@ -1,0 +1,111 @@
+/* Materials comparison, two cards on cream. From Homepage.dc.html,
+   data-screen-label="What we install". */
+
+.section {
+  background: var(--cream);
+  padding: 104px var(--gutter);
+}
+
+.inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.head {
+  max-width: 660px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 26px;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.body {
+  padding: 26px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}
+
+.kicker {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--kicker-size);
+  line-height: 1;
+  letter-spacing: var(--kicker-ls);
+  text-transform: uppercase;
+  color: var(--hxd);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--body);
+  text-wrap: pretty;
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.badge {
+  display: block;
+  height: 44px;
+  width: auto;
+}
+
+.link {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hxd);
+  transition: color 0.25s ease;
+}
+
+.link:hover {
+  color: var(--hx);
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 64px var(--gutter);
+  }
+}

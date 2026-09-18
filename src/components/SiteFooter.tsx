@@ -10,6 +10,11 @@ import styles from './SiteFooter.module.css'
 type Props = {
   /** Contact page already has its own form; pass true to drop this one. */
   hideForm?: boolean
+  /**
+   * Homepage variant: full-bleed photo behind the contact block instead of
+   * the radial gold glow the inner pages use.
+   */
+  photo?: boolean
 }
 
 const SERVICE_OPTIONS = [
@@ -191,13 +196,27 @@ function ContactForm() {
   )
 }
 
-export default function SiteFooter({ hideForm = false }: Props) {
+export default function SiteFooter({ hideForm = false, photo = false }: Props) {
   const year = new Date().getFullYear()
 
   return (
     <>
-      <section className={styles.contact}>
-        <div className={styles.contactGlow} />
+      <section className={`${styles.contact} ${photo ? styles.contactPhoto : ''}`}>
+        {photo ? (
+          <>
+            <Image
+              src="/assets/welcome-after.webp"
+              alt=""
+              fill
+              aria-hidden="true"
+              className={styles.contactBg}
+              sizes="100vw"
+            />
+            <div className={styles.contactScrim} />
+          </>
+        ) : (
+          <div className={styles.contactGlow} />
+        )}
         {!hideForm && (
           <div className={styles.contactInner}>
             <p className={styles.kicker}>Start Your Project</p>

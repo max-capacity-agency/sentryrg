@@ -6,8 +6,16 @@ import StatsBar from '@/components/StatsBar'
 import MaterialsBand from '@/components/MaterialsBand'
 import Welcome from '@/components/Welcome'
 import OurWork from '@/components/OurWork'
+import Services from '@/components/Services'
+import Testimonials from '@/components/Testimonials'
+import Process from '@/components/Process'
+import WhatWeInstall from '@/components/WhatWeInstall'
+import Faq from '@/components/Faq'
 
-/* Sections in the prototype's DOM order. */
+/*
+ * Sections in the prototype's DOM order. The Gallery coverflow sits
+ * between Services and Testimonials and is still to come.
+ */
 export default function Home() {
   return (
     <>
@@ -18,7 +26,12 @@ export default function Home() {
       <MaterialsBand />
       <Welcome />
       <OurWork />
-      <SiteFooter />
+      <Services />
+      <Testimonials />
+      <Process />
+      <WhatWeInstall />
+      <Faq />
+      <SiteFooter photo />
     </>
   )
 }

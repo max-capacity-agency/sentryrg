@@ -1,0 +1,125 @@
+/* FAQ accordion beside a photo. From Homepage.dc.html,
+   data-screen-label="FAQ". One open at a time. */
+
+.section {
+  background: var(--cream);
+  padding: 104px var(--gutter);
+}
+
+.inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 44px 60px;
+  align-items: flex-start;
+}
+
+.aside {
+  flex: 1 1 360px;
+  min-width: 280px;
+}
+
+.blurb {
+  margin: 0 0 28px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--body);
+  text-wrap: pretty;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-card);
+}
+
+.list {
+  flex: 1 1 480px;
+  min-width: 300px;
+  border-bottom: 1px solid #ddd6c4;
+}
+
+.item {
+  border-top: 1px solid #ddd6c4;
+}
+
+.trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--ink);
+  transition: color 0.25s ease;
+}
+
+.trigger:hover {
+  color: var(--hxd);
+}
+
+/* Rotating plus/minus marker. */
+.marker {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.marker::before,
+.marker::after {
+  content: '';
+  position: absolute;
+  background: var(--hxd);
+  border-radius: 2px;
+}
+
+.marker::before {
+  left: 0;
+  right: 0;
+  top: 10px;
+  height: 2px;
+}
+
+.marker::after {
+  top: 0;
+  bottom: 0;
+  left: 10px;
+  width: 2px;
+  transition: opacity 0.3s ease;
+}
+
+.open .marker::after {
+  opacity: 0;
+}
+
+.panel {
+  overflow: hidden;
+}
+
+.answer {
+  margin: 0;
+  padding: 0 0 24px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--body);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 64px var(--gutter);
+  }
+}

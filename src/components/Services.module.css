@@ -1,0 +1,147 @@
+/* Ten service cards on cream, each revealing detail copy on hover.
+   From Homepage.dc.html, data-screen-label="Services". */
+
+.section {
+  background: var(--cream);
+  padding: 104px var(--gutter);
+}
+
+.inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.head {
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 26px;
+}
+
+.card {
+  position: relative;
+  display: block;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.body {
+  padding: 22px 24px 26px;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.line {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+/*
+ * Detail overlay. Hidden and non-interactive at rest, revealed on hover
+ * and on keyboard focus — the prototype only handles hover, which leaves
+ * the detail copy unreachable without a mouse.
+ */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 27, 46, 0.94);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.card:hover .overlay,
+.card:focus-visible .overlay {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.overlayTitle {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--white);
+}
+
+.overlayText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.overlayMore {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11.5px;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--hx);
+}
+
+/*
+ * Hover has no touch equivalent, so on coarse pointers the overlay never
+ * appears and the detail copy is unreachable. Show it inline instead.
+ */
+@media (hover: none) {
+  .overlay {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    background: transparent;
+    padding: 0 24px 26px;
+    gap: 10px;
+  }
+
+  .overlayTitle {
+    display: none;
+  }
+
+  .overlayText {
+    color: var(--body);
+  }
+
+  .overlayMore {
+    color: var(--hxd);
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 64px var(--gutter);
+  }
+}

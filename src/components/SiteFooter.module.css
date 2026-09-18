@@ -15,6 +15,34 @@
   padding: 96px var(--gutter);
 }
 
+/*
+ * Homepage variant: the contact block sits over a full-bleed photo with a
+ * heavier scrim instead of the inner pages' radial gold glow, and carries
+ * more vertical padding. From Homepage.dc.html, "Stay in touch".
+ */
+.contactPhoto {
+  padding: 120px var(--gutter);
+}
+
+.contactBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contactScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 21, 36, 0.72),
+    rgba(10, 21, 36, 0.58) 45%,
+    rgba(10, 21, 36, 0.8)
+  );
+}
+
 .contactGlow {
   position: absolute;
   inset: 0;
