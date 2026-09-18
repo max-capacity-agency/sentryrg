@@ -82,10 +82,14 @@ const rehomed = out
    * paths resolve against the claude.ai origin root instead and every
    * stylesheet and image 404s, which renders the page as unstyled text.
    */
-  .replaceAll('"/_next/', '"nextassets/')
-  .replaceAll("'/_next/", "'nextassets/")
-  .replaceAll('"/assets/', '"assets/')
-  .replaceAll("'/assets/", "'assets/")
+  /*
+   * Replace every occurrence, not just those after a quote. next/image
+   * emits srcSet="assets/x.webp 1x, /assets/x.webp 2x" — the 2x candidate
+   * is preceded by a comma, so a quote-anchored rewrite leaves it absolute
+   * and every image 404s on a high-DPI screen while looking fine at 1x.
+   */
+  .replaceAll('/_next/', 'nextassets/')
+  .replaceAll('/assets/', 'assets/')
   // The WebM is omitted from the preview upload; the MP4 alone plays here.
   .replace(/<source[^>]+webm[^>]*>/g, '')
 

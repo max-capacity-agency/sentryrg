@@ -91,10 +91,14 @@ Interactive review belongs on a real deploy.
 
 Three things the script handles that are easy to trip over:
 
-- **References must be relative, with no leading slash.** That is the form the
-  artifact service serves published files at, next to the page. Absolute paths
-  resolve against the claude.ai origin root instead, so every stylesheet, font
-  and image 404s and the page renders as unstyled text.
+- **References must be relative, with no leading slash**, and the rewrite must
+  be global. That is the form the artifact service serves published files at,
+  next to the page; absolute paths resolve against the claude.ai origin root
+  instead and 404. Rewriting only paths that follow a quote is not enough:
+  `next/image` emits `srcSet="assets/x.webp 1x, /assets/x.webp 2x"`, so the 2x
+  candidate stays absolute and every image breaks on a high-DPI screen while
+  looking correct at 1x. **Verify previews at deviceScaleFactor 2**, not just
+  the default 1.
 - The artifact service reserves published paths starting with `_`, so the
   `_next` tree is mirrored to `nextassets/` and references rewritten.
 - `next/font` declares `--font-open-sauce` on a class that normally sits on
