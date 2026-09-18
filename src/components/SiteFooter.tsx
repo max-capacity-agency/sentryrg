@@ -32,54 +32,52 @@ const CLAIM_OPTIONS = ['Not sure yet', 'Yes, filing a claim', 'No, paying out of
  * allows contact blocks styled as such, which this is. Every CTA around it
  * remains a tel: link.
  *
- * Submission opens the visitor's mail client via mailto:, which is what the
- * prototype does. That is fragile — it depends on a configured mail client
- * and a lead is lost silently if the visitor never hits send. Now that the
- * estimator is out of scope this is the only lead capture on the site, so
- * it should move to a real form post before launch. Netlify Forms would
- * cover it without a backend.
+ * Submissions go to Netlify Forms. The prototype used a mailto: handoff,
+ * which loses a lead silently whenever the visitor has no configured mail
+ * client or never hits send. With the estimator out of scope this is the
+ * site's only lead capture, so it posts to a real endpoint instead.
+ *
+ * The form is declared statically in public/__forms.html for Netlify's
+ * build-time detection; field names must stay in sync with that file.
+ * Notifications are configured Netlify-side, not here.
  */
+const FORM_NAME = 'contact'
+
 function ContactForm() {
-  const [sent, setSent] = useState(false)
-  const name = useRef<HTMLInputElement>(null)
-  const phone = useRef<HTMLInputElement>(null)
-  const email = useRef<HTMLInputElement>(null)
-  const address = useRef<HTMLInputElement>(null)
-  const service = useRef<HTMLSelectElement>(null)
-  const claim = useRef<HTMLSelectElement>(null)
-  const notes = useRef<HTMLTextAreaElement>(null)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const formRef = useRef<HTMLFormElement>(null)
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const v = (r: React.RefObject<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null>) =>
-      r.current ? r.current.value.trim() : ''
+    if (status === 'sending') return
+    setStatus('sending')
 
-    const body = [
-      `Name: ${v(name)}`,
-      `Phone: ${v(phone)}`,
-      `Email: ${v(email)}`,
-      `Property address: ${v(address)}`,
-      `Service needed: ${v(service)}`,
-      `Insurance claim: ${v(claim)}`,
-      '',
-      'Details:',
-      v(notes),
-    ].join('\n')
+    try {
+      const data = new FormData(e.currentTarget)
+      data.set('form-name', FORM_NAME)
 
-    const subject =
-      `Website enquiry — ${v(service) || 'Roofing project'}` +
-      (v(address) ? ` — ${v(address)}` : '')
-
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setSent(true)
+      // Netlify expects urlencoded submissions at a path it serves.
+      const res = await fetch('/__forms.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+      })
+      if (!res.ok) throw new Error(`Netlify returned ${res.status}`)
+      setStatus('sent')
+      formRef.current?.reset()
+    } catch {
+      // Never strand a lead on a failed post: fall back to the phone number,
+      // which is the site's primary CTA anyway.
+      setStatus('error')
+    }
   }
 
-  if (sent) {
+  if (status === 'sent') {
     return (
       <div className={styles.sent}>
-        <p className={styles.sentTitle}>✓ Your email is ready to send</p>
+        <p className={styles.sentTitle}>✓ Thanks, that is with us</p>
         <p className={styles.sentBody}>
-          Hit send in the window that just opened and it lands with JJ. If nothing opened, call{' '}
+          JJ will be in touch shortly. If it is urgent, call{' '}
           <a href={PHONE_HREF} className={styles.inlinePhone}>
             {PHONE_DISPLAY}
           </a>
@@ -90,24 +88,59 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={submit} noValidate>
+    <form
+      ref={formRef}
+      name={FORM_NAME}
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      onSubmit={submit}
+      noValidate
+    >
+      {/* Netlify needs these two in the payload; neither is user-facing. */}
+      <input type="hidden" name="form-name" value={FORM_NAME} />
+      <p hidden>
+        <label>
+          Leave this field empty
+          <input name="bot-field" tabIndex={-1} autoComplete="off" />
+        </label>
+      </p>
       <div className={styles.grid}>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>Name</span>
-          <input ref={name} className={styles.input} placeholder="First and last name" autoComplete="name" />
+          <input
+            name="name"
+            required
+            className={styles.input}
+            placeholder="First and last name"
+            autoComplete="name"
+          />
         </label>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>Phone</span>
-          <input ref={phone} type="tel" className={styles.input} placeholder="(210) 000-0000" autoComplete="tel" />
+          <input
+            name="phone"
+            type="tel"
+            required
+            className={styles.input}
+            placeholder="(210) 000-0000"
+            autoComplete="tel"
+          />
         </label>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>Email</span>
-          <input ref={email} type="email" className={styles.input} placeholder="you@email.com" autoComplete="email" />
+          <input
+            name="email"
+            type="email"
+            className={styles.input}
+            placeholder="you@email.com"
+            autoComplete="email"
+          />
         </label>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>Property address</span>
           <input
-            ref={address}
+            name="address"
             className={styles.input}
             placeholder="Street and city"
             autoComplete="street-address"
@@ -115,7 +148,7 @@ function ContactForm() {
         </label>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>What do you need?</span>
-          <select ref={service} className={styles.select} defaultValue={SERVICE_OPTIONS[0]}>
+          <select name="service" className={styles.select} defaultValue={SERVICE_OPTIONS[0]}>
             {SERVICE_OPTIONS.map((o) => (
               <option key={o}>{o}</option>
             ))}
@@ -123,7 +156,7 @@ function ContactForm() {
         </label>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>Insurance claim?</span>
-          <select ref={claim} className={styles.select} defaultValue={CLAIM_OPTIONS[0]}>
+          <select name="claim" className={styles.select} defaultValue={CLAIM_OPTIONS[0]}>
             {CLAIM_OPTIONS.map((o) => (
               <option key={o}>{o}</option>
             ))}
@@ -132,7 +165,7 @@ function ContactForm() {
         <label className={`${styles.field} ${styles.fieldWide}`}>
           <span className={styles.fieldLabel}>Anything we should know?</span>
           <textarea
-            ref={notes}
+            name="notes"
             rows={3}
             className={styles.textarea}
             placeholder="Age of the roof, active leaks, storm date — whatever is useful"
@@ -140,11 +173,20 @@ function ContactForm() {
         </label>
       </div>
       <div className={styles.submitRow}>
-        <button type="submit" className={styles.cta}>
-          <span>Send to {BRAND}</span>
+        <button type="submit" className={styles.cta} disabled={status === 'sending'}>
+          <span>{status === 'sending' ? 'Sending…' : `Send to ${BRAND}`}</span>
         </button>
         <span className={styles.submitNote}>Goes straight to JJ. No call center, no spam.</span>
       </div>
+      {status === 'error' && (
+        <p className={styles.formError} role="alert">
+          That did not send. Please call{' '}
+          <a href={PHONE_HREF} className={styles.inlinePhone}>
+            {PHONE_DISPLAY}
+          </a>{' '}
+          and we will pick it up straight away.
+        </p>
+      )}
     </form>
   )
 }

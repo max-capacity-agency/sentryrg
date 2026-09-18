@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Netlify form definitions</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <!--
+      Netlify detects forms by parsing static HTML at build time. Next.js App
+      Router pages are rendered by the Next runtime rather than emitted as
+      plain .html files, so the form is declared here instead and the React
+      form in SiteFooter.tsx POSTs to this path.
+
+      Field names must stay in sync with SiteFooter.tsx. Adding a field to the
+      form without adding it here means that field is silently dropped from
+      every submission.
+
+      bot-field is the honeypot: real people never see it, bots fill it in,
+      and Netlify discards those submissions.
+    -->
+    <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="address" />
+      <input type="text" name="service" />
+      <input type="text" name="claim" />
+      <textarea name="notes"></textarea>
+    </form>
+  </body>
+</html>
