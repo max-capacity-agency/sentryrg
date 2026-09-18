@@ -76,7 +76,16 @@ ${body}
  * CSS's own url(../media/...) references are relative and survive the move.
  */
 const rehomed = out
-  .replaceAll('/_next/', '/nextassets/')
+  /*
+   * References must be RELATIVE with no leading slash: that is the form the
+   * artifact service serves published files at, next to the page. Absolute
+   * paths resolve against the claude.ai origin root instead and every
+   * stylesheet and image 404s, which renders the page as unstyled text.
+   */
+  .replaceAll('"/_next/', '"nextassets/')
+  .replaceAll("'/_next/", "'nextassets/")
+  .replaceAll('"/assets/', '"assets/')
+  .replaceAll("'/assets/", "'assets/")
   // The WebM is omitted from the preview upload; the MP4 alone plays here.
   .replace(/<source[^>]+webm[^>]*>/g, '')
 

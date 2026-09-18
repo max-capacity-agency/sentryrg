@@ -89,8 +89,12 @@ their own `<html>`/`<body>` wrapper, and Next's hydration scripts expect to own
 the document root, so they are stripped rather than risk a blank page.
 Interactive review belongs on a real deploy.
 
-Two things the script handles that are easy to trip over:
+Three things the script handles that are easy to trip over:
 
+- **References must be relative, with no leading slash.** That is the form the
+  artifact service serves published files at, next to the page. Absolute paths
+  resolve against the claude.ai origin root instead, so every stylesheet, font
+  and image 404s and the page renders as unstyled text.
 - The artifact service reserves published paths starting with `_`, so the
   `_next` tree is mirrored to `nextassets/` and references rewritten.
 - `next/font` declares `--font-open-sauce` on a class that normally sits on
