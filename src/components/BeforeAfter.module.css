@@ -1,0 +1,96 @@
+/*
+ * Before/after drag comparison. From Homepage.dc.html's featured
+ * transformation and project sliders, and reused in Our Work.
+ *
+ * The "after" image is the base layer; the "before" image sits on top and
+ * is revealed from the left by clip-path, so dragging right shows more of
+ * the before state.
+ */
+
+.wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  background: var(--white);
+  border-radius: 20px;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  pointer-events: none;
+}
+
+.beforeLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.tag {
+  position: absolute;
+  top: 20px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 10.5px;
+  line-height: 1;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(10, 21, 36, 0.66);
+  padding: 8px 14px;
+  border-radius: 99px;
+  pointer-events: none;
+}
+
+.tagBefore {
+  left: clamp(16px, 4vw, 48px);
+}
+
+.tagAfter {
+  right: clamp(16px, 4vw, 48px);
+}
+
+/* The draggable divider. touch-action:none so a drag does not scroll. */
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: ew-resize;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+}
+
+.knob {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--white);
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  transition: transform 0.18s ease;
+}
+
+.dragging .knob {
+  transform: scale(1.08);
+}
+
+.handle:focus-visible .knob {
+  outline: 3px solid var(--hx);
+  outline-offset: 2px;
+}

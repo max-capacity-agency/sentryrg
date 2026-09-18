@@ -34,12 +34,21 @@ h2 {
 }
 
 /*
- * Emphasis inside headings is a colour/weight shift, never italics.
- * (Brief: "Emphasis inside headings is done with <em> set to
- * font-style:normal plus a gold color or weight shift".)
+ * Emphasis inside headings is a weight shift, never italics.
+ *
+ * The prototype uses two forms: weight-only (25 occurrences) and
+ * weight-plus-gold (15). Weight-only is the default here and gold is
+ * opt-in via .gold, so a heading cannot pick up the accent by accident.
  */
-h1 em, h2 em, h3 em {
+/* Every <em> in the prototype carries font-style:normal, including those
+   in paragraphs (the featured transformation headline is a <p>). Scoping
+   this to headings left those italic, so it applies to all em. */
+em {
   font-style: normal;
+  font-weight: 800;
+}
+
+.gold {
   color: var(--hx);
 }
 
@@ -64,4 +73,13 @@ img, video { max-width: 100%; display: block; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/*
+ * Anchor targets sit under the fixed nav otherwise: jumping to #why put
+ * the section kicker behind the bar. Offset every in-page target by the
+ * nav height plus a little breathing room.
+ */
+[id] {
+  scroll-margin-top: calc(var(--nav-h) + 16px);
 }

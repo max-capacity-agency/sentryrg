@@ -1,0 +1,73 @@
+/* Manufacturer credibility strip. From Homepage.dc.html,
+   data-screen-label="Materials band". */
+
+.section {
+  background: var(--white);
+  border-bottom: 1px solid var(--hairline-alt);
+  padding: 28px;
+}
+
+.inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 40px;
+}
+
+.badgeGroup {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex: 0 0 auto;
+}
+
+.prefix {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #98a0ad;
+}
+
+.badgeLink {
+  display: inline-flex;
+  align-items: center;
+}
+
+.badge {
+  display: block;
+  height: 56px;
+  width: auto;
+}
+
+.claims {
+  flex: 1 1 420px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #3c4454;
+}
+
+.more {
+  flex: 0 0 auto;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hxd);
+  transition: color 0.25s ease;
+}
+
+.more:hover {
+  color: var(--hx);
+}

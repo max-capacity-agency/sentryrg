@@ -1,0 +1,107 @@
+/* "The difference, itemized" comparison table. From Homepage.dc.html,
+   data-screen-label="Why us comparison". */
+
+.section {
+  padding: 88px var(--gutter) 104px;
+  background: var(--white);
+}
+
+.inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.table {
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: var(--white);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.row + .row {
+  border-top: 1px solid var(--hairline);
+}
+
+/* ---- Header row ---- */
+
+.headUs {
+  background: var(--navy);
+  padding: 20px 26px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--white);
+}
+
+.headThem {
+  background: var(--cream);
+  padding: 20px 26px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--body);
+  display: flex;
+  align-items: center;
+}
+
+/* ---- Body cells ---- */
+
+.cell {
+  padding: 18px 26px;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.us {
+  font-weight: 600;
+  color: var(--ink);
+  border-right: 1px solid var(--hairline);
+}
+
+.them {
+  font-weight: 400;
+  color: #98a0ad;
+}
+
+.tickUs {
+  color: var(--hxd);
+  font-weight: 800;
+}
+
+.tickThem {
+  color: #cfc7b5;
+}
+
+/*
+ * The prototype has no mobile treatment here and two 14.5px columns are
+ * unreadable at phone width. The comparison only works with both sides
+ * visible, so the columns stay and the type and padding tighten instead.
+ */
+@media (max-width: 640px) {
+  .section {
+    padding: 56px var(--gutter) 64px;
+  }
+
+  .cell {
+    padding: 14px 14px;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .headUs,
+  .headThem {
+    padding: 14px;
+    font-size: 15px;
+  }
+}

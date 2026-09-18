@@ -202,7 +202,7 @@ export default function SiteFooter({ hideForm = false }: Props) {
           <div className={styles.contactInner}>
             <p className={styles.kicker}>Start Your Project</p>
             <h2 className={styles.contactHeading}>
-              Tell us about your <em>roof</em>
+              Tell us about your <em className="gold">roof</em>
             </h2>
             <p className={styles.contactLead}>
               A few details and we will come out for a free inspection. Prefer to talk it through?

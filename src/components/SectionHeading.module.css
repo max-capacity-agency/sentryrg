@@ -1,0 +1,60 @@
+/*
+ * Kicker + H2 block. Repeats at the top of most homepage sections.
+ *
+ * The kicker switches colour by ground: gold (--hx) on navy, gold-deep
+ * (--hxd) on light. The prototype picks these per section; `tone` makes
+ * the choice explicit so a section on cream cannot ship the low-contrast
+ * bright gold by accident.
+ */
+
+.wrap {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 44px;
+}
+
+.left {
+  text-align: left;
+  margin-left: 0;
+}
+
+.kicker {
+  margin: 0 0 18px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--kicker-size);
+  line-height: 1;
+  letter-spacing: var(--kicker-ls);
+  text-transform: uppercase;
+}
+
+.onLight {
+  color: var(--hxd);
+}
+
+.onDark {
+  color: var(--hx);
+}
+
+.heading {
+  margin: 0;
+}
+
+.headingOnDark {
+  color: var(--white);
+}
+
+.lead {
+  margin: 18px auto 0;
+  font-size: var(--lead-size);
+  line-height: var(--lead-lh);
+  text-wrap: pretty;
+}
+
+.leadOnLight {
+  color: var(--body);
+}
+
+.leadOnDark {
+  color: var(--on-dark-body);
+}

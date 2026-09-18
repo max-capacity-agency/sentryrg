@@ -1,0 +1,228 @@
+/* Our Work: featured transformation + three tabbed project sliders.
+   From Homepage.dc.html, data-screen-label="Our work". */
+
+.section {
+  background: var(--white);
+  padding: 104px var(--gutter) 96px;
+}
+
+.inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* ---- Featured transformation overlays ---- */
+
+.featuredHeadline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 56px 24px 72px;
+  background: linear-gradient(to bottom, rgba(10, 21, 36, 0.82), rgba(10, 21, 36, 0));
+  pointer-events: none;
+  text-align: center;
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1.15;
+  color: var(--white);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+/* Frosted quote card, bottom right of the featured frame. */
+.quoteCard {
+  position: absolute;
+  right: clamp(16px, 4vw, 48px);
+  bottom: clamp(16px, 4vw, 44px);
+  max-width: 340px;
+  background: rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.32);
+  padding: 20px 22px 18px;
+  pointer-events: none;
+}
+
+.quoteStars {
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--hx);
+  margin-bottom: 10px;
+}
+
+.quoteText {
+  margin: 0 0 14px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--white);
+  text-wrap: pretty;
+}
+
+.quoteWho {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink);
+  flex: 0 0 auto;
+}
+
+.quoteName {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--white);
+}
+
+.quoteMeta {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 10.5px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* The quote card crowds the frame on a phone; the headline carries it. */
+@media (max-width: 760px) {
+  .quoteCard {
+    display: none;
+  }
+}
+
+/* ---- Tabbed projects ---- */
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 60px;
+  margin-top: 72px;
+  align-items: flex-start;
+}
+
+.tabsCol {
+  flex: 1 1 230px;
+  max-width: 270px;
+  min-width: 220px;
+}
+
+.tabsKicker {
+  margin: 0 0 14px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--kicker-size);
+  line-height: 1;
+  letter-spacing: var(--kicker-ls);
+  text-transform: uppercase;
+  color: var(--hxd);
+}
+
+.tabsHeading {
+  margin: 0 0 14px;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.tabsBlurb {
+  margin: 0 0 22px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--body);
+  text-wrap: pretty;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.tab {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--body);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  padding: 12px 20px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.tab:hover {
+  border-color: var(--hx);
+  color: var(--ink);
+}
+
+.tabActive {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+.panelCol {
+  flex: 1 1 620px;
+  min-width: 300px;
+}
+
+.caption {
+  margin-top: 18px;
+}
+
+.captionMeta {
+  margin: 0 0 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11.5px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hxd);
+}
+
+.captionTitle {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 64px var(--gutter);
+  }
+
+  .projects {
+    margin-top: 48px;
+  }
+}
